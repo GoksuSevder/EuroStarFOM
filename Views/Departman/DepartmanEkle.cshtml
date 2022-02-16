@@ -1,0 +1,47 @@
+﻿@model EuroStarFOM.Models.Siniflar.Departman
+@{
+    ViewBag.Title = "DepartmanEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Departman Ekle</h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            <form class="form-group" method="post">
+
+                <div class="row">
+                    <div class="col-4">
+                        @Html.LabelFor(x => x.DepartmanAd)
+                        @Html.TextBoxFor(x => x.DepartmanAd, new { @class = "form-control is-invalid" })
+                    </div>
+                </div>
+
+                <br />
+                <button class="btn btn-info">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section ScriptsBlock{
+    <script>
+        $(document).ready(function () {
+            $("#DepartmanAd").change(function () {
+                if ($("#DepartmanAd").val().trim() == "") {
+                    $("#DepartmanAd").removeClass("is-valid");
+                    $("#DepartmanAd").addClass("is-invalid");
+                } else {
+                    $("#DepartmanAd").removeClass("is-invalid");
+                    $("#DepartmanAd").addClass("is-valid");
+                }
+
+            });
+
+        });
+    </script>
+}

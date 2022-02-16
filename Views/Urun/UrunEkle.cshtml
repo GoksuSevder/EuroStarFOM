@@ -1,0 +1,219 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model Urun
+@{
+    ViewBag.Title = "UrunEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Ürün Ekle </h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            <form class="form-group" method="post">
+
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Ürün Kodu")
+                        @Html.TextBoxFor(x => x.UrunKodu, new { @class = "form-control is-invalid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Ürün Barkodu")
+                        @Html.TextBoxFor(x => x.Barkod, new { @class = "form-control is-invalid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Ürün Ad ")
+                        @Html.TextBoxFor(x => x.UrunAd, new { @class = "form-control is-invalid" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Marka ")
+                        @Html.TextBoxFor(x => x.Marka, new { @class = "form-control is-invalid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Model ")
+                        @Html.TextBoxFor(x => x.Model, new { @class = "form-control is-invalid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Ürün Görsel ")
+                        @Html.TextBoxFor(x => x.UrunGorsel, new { @class = "form-control is-invalid" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Alış Fiyat")
+                        @Html.TextBoxFor(x => x.AlisFiyat, new { @class = "form-control is-invalid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Alış Kdv")
+                        @Html.TextBoxFor(x => x.AlisKdv, new { @class = "form-control is-invalid" })
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Satış Fiyat")
+                        @Html.TextBoxFor(x => x.SatisFiyat, new { @class = "form-control is-invalid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Satış Kdv")
+                        @Html.TextBoxFor(x => x.SatisKdv, new { @class = "form-control is-invalid" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-4">
+                        @Html.LabelFor(x => x.KategoriId)
+                        @Html.DropDownListFor(x => x.KategoriId, (List<SelectListItem>)ViewBag.kategoriList, new { @class = "select2 form-control w-100 is-invalid" })
+                    </div>
+                </div>
+                <br />
+                <button class="btn btn-primary"> Kaydet </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock{
+    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+    <script src="~/Scripts/DropDown.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#UrunKodu").change(function () {
+                if ($("#UrunKodu").val().trim() == "") {
+
+                    $("#UrunKodu").removeClass("is-valid");
+                    $("#UrunKodu").addClass("is-invalid");
+
+                } else {
+                    $("#UrunKodu").removeClass("is-invalid");
+                    $("#UrunKodu").addClass("is-valid");
+
+                }
+            });
+
+            $("#Barkod").change(function () {
+                if ($("#Barkod").val().trim() == "") {
+
+                    $("#Barkod").removeClass("is-valid");
+                    $("#Barkod").addClass("is-invalid");
+
+                } else {
+                    $("#Barkod").removeClass("is-invalid");
+                    $("#Barkod").addClass("is-valid");
+
+                }
+            });
+            $("#UrunAd").change(function () {
+                if ($("#UrunAd").val().trim() == "") {
+
+                    $("#UrunAd").removeClass("is-valid");
+                    $("#UrunAd").addClass("is-invalid");
+
+                } else {
+                    $("#UrunAd").removeClass("is-invalid");
+                    $("#UrunAd").addClass("is-valid");
+
+                }
+            });
+            $("#Marka").change(function () {
+                if ($("#Marka").val().trim() == "") {
+
+                    $("#Marka").removeClass("is-valid");
+                    $("#Marka").addClass("is-invalid");
+
+                } else {
+                    $("#Marka").removeClass("is-invalid");
+                    $("#Marka").addClass("is-valid");
+
+                }
+            });
+            $("#Model").change(function () {
+                if ($("#Model").val().trim() == "") {
+
+                    $("#Model").removeClass("is-valid");
+                    $("#Model").addClass("is-invalid");
+
+                } else {
+                    $("#Model").removeClass("is-invalid");
+                    $("#Model").addClass("is-valid");
+
+                }
+            });
+            $("#UrunGorsel").change(function () {
+                if ($("#UrunGorsel").val().trim() == "") {
+
+                    $("#UrunGorsel").removeClass("is-valid");
+                    $("#UrunGorsel").addClass("is-invalid");
+
+                } else {
+                    $("#UrunGorsel").removeClass("is-invalid");
+                    $("#UrunGorsel").addClass("is-valid");
+
+                }
+            });
+            $("#AlisFiyat").change(function () {
+                if ($("#AlisFiyat").val().trim() == "") {
+
+                    $("#AlisFiyat").removeClass("is-valid");
+                    $("#AlisFiyat").addClass("is-invalid");
+
+                } else {
+                    $("#AlisFiyat").removeClass("is-invalid");
+                    $("#AlisFiyat").addClass("is-valid");
+
+                }
+            });
+            $("#AlisKdv").change(function () {
+                if ($("#AlisKdv").val().trim() == "") {
+
+                    $("#AlisKdv").removeClass("is-valid");
+                    $("#AlisKdv").addClass("is-invalid");
+
+                } else {
+                    $("#AlisKdv").removeClass("is-invalid");
+                    $("#AlisKdv").addClass("is-valid");
+
+                }
+            });
+            $("#SatisFiyat").change(function () {
+                if ($("#SatisFiyat").val().trim() == "") {
+
+                    $("#SatisFiyat").removeClass("is-valid");
+                    $("#SatisFiyat").addClass("is-invalid");
+
+                } else {
+                    $("#SatisFiyat").removeClass("is-invalid");
+                    $("#SatisFiyat").addClass("is-valid");
+
+                }
+            });
+            $("#SatisKdv").change(function () {
+                if ($("#SatisKdv").val().trim() == "") {
+
+                    $("#SatisKdv").removeClass("is-valid");
+                    $("#SatisKdv").addClass("is-invalid");
+
+                } else {
+                    $("#SatisKdv").removeClass("is-invalid");
+                    $("#SatisKdv").addClass("is-valid");
+
+                }
+            });
+
+
+
+        });
+    </script>
+}
+

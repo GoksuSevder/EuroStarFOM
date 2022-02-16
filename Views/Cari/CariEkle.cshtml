@@ -1,0 +1,104 @@
+﻿@model EuroStarFOM.Models.Siniflar.Cari
+@{
+    ViewBag.Title = "CariEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Cari Ekle</h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            <form class="form-group" method="post">
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Cari Ad")
+                        @Html.TextBoxFor(x => x.CariAd, new { @class = "form-control is-invalid" })
+                        @Html.ValidationMessageFor(x => x.CariAd, "", new { @style = "color:red" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Cari Soyad")
+                        @Html.TextBoxFor(x => x.CariSoyad, new { @class = "form-control is-invalid" })
+                        @Html.ValidationMessageFor(x => x.CariSoyad, "", new { @style = "color:red" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("E-Posta")
+                        @Html.TextBoxFor(x => x.CariMail, new { @class = "form-control is-invalid" })
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Cari Şehir")
+                        @Html.TextBoxFor(x => x.CariSehir, new { @class = "form-control is-invalid" })
+                    </div>
+                </div>
+                <br />
+                <br />
+                <button class="btn btn-info">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section ScriptsBlock{
+    <script>
+        $(document).ready(function () {
+
+            $("#CariAd").change(function () {
+                if ($("#CariAd").val().trim() == "") {
+
+                    $("#CariAd").removeClass("is-valid");
+                    $("#CariAd").addClass("is-invalid");
+
+                } else {
+                    $("#CariAd").removeClass("is-invalid");
+                    $("#CariAd").addClass("is-valid");
+
+                }
+            });
+            $("#CariSoyad").change(function () {
+                if ($("#CariSoyad").val().trim() == "") {
+
+                    $("#CariSoyad").removeClass("is-valid");
+                    $("#CariSoyad").addClass("is-invalid");
+
+                } else {
+                    $("#CariSoyad").removeClass("is-invalid");
+                    $("#CariSoyad").addClass("is-valid");
+
+                }
+            });
+            $("#CariMail").change(function () {
+                if ($("#CariMail").val().trim() == "") {
+
+                    $("#CariMail").removeClass("is-valid");
+                    $("#CariMail").addClass("is-invalid");
+
+                } else {
+                    $("#CariMail").removeClass("is-invalid");
+                    $("#CariMail").addClass("is-valid");
+
+                }
+            });
+            $("#CariSehir").change(function () {
+                if ($("#CariSehir").val().trim() == "") {
+
+                    $("#CariSehir").removeClass("is-valid");
+                    $("#CariSehir").addClass("is-invalid");
+
+                } else {
+                    $("#CariSehir").removeClass("is-invalid");
+                    $("#CariSehir").addClass("is-valid");
+
+                }
+            });
+
+
+        });
+    </script>
+
+
+}

@@ -1,0 +1,56 @@
+﻿@model EuroStarFOM.Models.Siniflar.Depo
+@{
+    ViewBag.Title = "DepoEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Depo Ekle</h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            <form class="form-group" method="post">
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Depo Ad", new { @style = "font-weight: bold;" })
+                        @Html.TextBoxFor(x => x.DepoAd, new { @class = "form-control is-invalid" })
+                        <div class="invalid-feedback">Lütfen Depo Adı Giriniz.</div>
+                        <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+                    </div>
+                    <div class="col-8">
+                        @Html.Label("Açıklama", new { @style = "font-weight: bold;" })
+                        @Html.TextBoxFor(x => x.Aciklama, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <br />
+
+                <br />
+                <button class="btn btn-info">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section ScriptsBlock{
+    <script>
+        $(document).ready(function () {
+            $("#DepoAd").change(function () {
+                if ($("#DepoAd").val() == "") {
+
+                    $("#DepoAd").removeClass("is-valid");
+                    $("#DepoAd").addClass("is-invalid");
+
+                } else {
+                    $("#DepoAd").removeClass("is-invalid");
+                    $("#DepoAd").addClass("is-valid");
+
+                }
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,54 @@
+﻿@model EuroStarFOM.Models.Siniflar.Departman
+@{
+    ViewBag.Title = "DepartmanGetir";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Departman Güncelle</h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            @using (Html.BeginForm("DepartmanGuncelle", "Departman", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            @Html.Label("Departman Ad")
+                            @Html.TextBoxFor(x => x.DepartmanAd, new { @class = "form-control is-valid" })
+                            @Html.HiddenFor(x => x.DepartmanID)
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <button class="btn btn-warning">Güncelle</button>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock{
+    <script>
+        $(document).ready(function () {
+           
+            $("#DepartmanAd").change(function () {
+                if ($("#DepartmanAd").val().trim() == "") {
+                    $("#DepartmanAd").addClass("is-invalid");
+                    $("#DepartmanAd").removeClass("is-valid");
+                } else {
+                    $("#DepartmanAd").addClass("is-valid");
+                    $("#DepartmanAd").removeClass("is-invalid");
+                }
+
+            });
+
+
+        });
+    </script>
+}

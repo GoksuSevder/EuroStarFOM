@@ -1,0 +1,104 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model  List<SatisHaraket>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/smartadmin-html-full/dist/css/datagrid/datatables/datatables.bundle.css" rel="stylesheet" media="screen, print" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Satis Listesi</h2>
+        <div class="panel-toolbar">
+            <a href="/Satis/YeniSatis" title="Yeni Satış Yap" class="btn btn-info btn-icon rounded-circle mr-1 ">
+                <i class="fal fa-plus"></i>
+            </a>
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+
+            <table id="mytable" class="table  table-hover table-light table-responsive-sm table-light table-striped ">
+                <thead class=" bg-info-900 ">
+                    <tr>
+                        <th>ID</th>
+                        <th>Ürün</th>
+                        <th>Cari</th>
+                        <th>Personel</th>
+                        <th>Adet</th>
+                        <th>Fiyat</th>
+                        <th>Toplam</th>
+                        <th>Tarih</th>
+                        <th>İşlemler</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.SatisID</td>
+
+                            <td>@item.Urun.UrunAd</td>
+                            <td>@item.Cari.CariAd @item.Cari.CariSoyad</td>
+                            <td>@item.Personel.PersonelAd @item.Personel.PersonelSoyad</td>
+                            <td>@item.Adet</td>
+                            <td>@item.Fiyat</td>
+                            <td>@item.ToplamTutar</td>
+                            <td>@item.Tarih</td>
+                            <td>
+                                @*<a href="/Satis/SatisSil/@item.SatisID" title="Sil" class="btn btn-danger btn-icon rounded-circle"> <i class="fal fa-trash-alt"></i></a>*@
+
+                                <a href="/Satis/SatisGetir/@item.SatisID" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1">
+                                    <i class="fal fa-edit"></i>
+                                </a>
+
+                                <a href="/Satis/SatisDetay/@item.SatisID" title="Satış Detay" class="btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                                    <i class="fal fa-align-justify"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section ScriptsBlock {
+
+    <script src="~/Scripts/jquery/jquery.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#mytable thead tr').clone(true).appendTo('#mytable thead');
+            $('#mytable thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+            var table = $('#mytable').DataTable(
+                {
+                    //responsive: true,
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                });
+
+        });
+
+    </script>
+}

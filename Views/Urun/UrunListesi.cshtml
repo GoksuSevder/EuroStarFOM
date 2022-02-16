@@ -1,0 +1,102 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model  List<Urun>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<link href="~/smartadmin-html-full/dist/css/vendors.bundle.css" rel="stylesheet" />
+<link href="~/smartadmin-html-full/dist/css/app.bundle.css" rel="stylesheet" />
+<link href="~/smartadmin-html-full/dist/css/datagrid/datatables/datatables.bundle.css" rel="stylesheet" media="screen, print" />
+
+
+<br />
+<table id="mytab" class="table  table-hover table-light table-responsive-sm table-light table-striped " style="margin-left:5px">
+    <thead class=" bg-info-900 ">
+        <tr>
+            <th>ID</th>
+            <th>Adı</th>
+            <th>Marka</th>
+            <th>Stok</th>
+            <th>Alış Fiyat</th>
+            <th>Satış Fiyat</th>
+            <th>Kategori</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UrunID</td>
+                <td>@item.UrunAd</td>
+                <td>@item.Marka</td>
+                <td>@item.Stok.Miktar</td>
+                <td>@item.AlisFiyat</td>
+                <td>@item.SatisFiyat</td>
+                <td>@item.Kategori.KategoriAd</td>
+                 
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script src="~/Scripts/jquery/jquery.min.js"></script>
+<script src="~/smartadmin-html-full/dist/js/vendors.bundle.js"></script>
+<script src="~/smartadmin-html-full/dist/js/app.bundle.js"></script>
+<script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
+
+<script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.export.js"></script>
+<script>
+    $(document).ready(function () {
+      
+        $('#mytab').dataTable(
+            {
+                responsive: true,
+                lengthChange: false,
+                dom:
+                    "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: 'Sütun Seç',
+                        titleAttr: 'Görüntülenecek sütunlar',
+                        className: 'mr-sm-3'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        titleAttr: 'Generate PDF',
+                        className: 'btn-outline-danger btn-sm mr-1'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        titleAttr: 'Generate Excel',
+                        className: 'btn-outline-success btn-sm mr-1'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV',
+                        titleAttr: 'Generate CSV',
+                        className: 'btn-outline-primary btn-sm mr-1'
+                    },
+                    {
+                        extend: 'copyHtml5',
+                        text: 'Kopyala',
+                        titleAttr: 'Copy to clipboard',
+                        className: 'btn-outline-primary btn-sm mr-1'
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Yazdır',
+                        titleAttr: 'Tabloyu Yazdır',
+                        className: 'btn-outline-primary btn-sm'
+                    }
+                ]
+            });
+    });
+
+</script>

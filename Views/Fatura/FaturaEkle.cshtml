@@ -1,0 +1,53 @@
+﻿@model EuroStarFOM.Models.Siniflar.Faturalar
+@{
+    ViewBag.Title = "FaturaEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Yeni Fatura Sayfası</h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            <form class="form-group" method="post">
+                @Html.Label("Cari")
+                @Html.DropDownListFor(x => x.CariId, (List<SelectListItem>)ViewBag.CariList, new { @class = "select2 form-control w-100" })
+                <br />
+                <br />
+                @Html.Label("Seri No")
+                @Html.TextBoxFor(x => x.FaturaSeriNo, new { @class = "form-control" })
+                <br />
+                @Html.Label("Sıra No")
+                @Html.TextBoxFor(x => x.FaturaSiraNo, new { @class = "form-control" })
+                <br />
+                @Html.Label("Vergi Dairesi")
+                @Html.TextBoxFor(x => x.VergiDairesi, new { @class = "form-control" })
+                <br />
+                @Html.Label("Tarih")
+                @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control" })
+                <br />
+                @Html.Label("Saat")
+                @Html.TextBoxFor(x => x.Saat, new { @class = "form-control" })
+                <br />
+                @Html.Label("Teslim Eden")
+                @Html.TextBoxFor(x => x.TeslimEden, new { @class = "form-control" })
+                <br />
+                @Html.Label("Teslim Alan")
+                @Html.TextBoxFor(x => x.TeslimAlan, new { @class = "form-control" })
+                <br />
+                <button class="btn btn-info">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+   
+    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+    <script src="~/Scripts/DropDown.js"></script>
+
+}

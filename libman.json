@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.6.0",
+      "destination": "Scripts/jquery/"
+    },
+    {
+      "library": "jquery-validate@1.19.3",
+      "destination": "Scripts/jquery-validate/"
+    },
+    {
+      "library": "bootstrap@5.1.3",
+      "destination": "Scripts/bootstrap/"
+    },
+    {
+      "library": "datatables.net@2.1.1",
+      "destination": "Scripts/datatables.net/"
+    }
+  ]
+}

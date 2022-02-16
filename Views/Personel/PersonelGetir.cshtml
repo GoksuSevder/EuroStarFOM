@@ -1,0 +1,111 @@
+﻿@model EuroStarFOM.Models.Siniflar.Personel
+@{
+    ViewBag.Title = "PersonelGetir";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Personel Güncelle</h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            @using (Html.BeginForm("PersonelGuncelle", "Personel", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.PersonelID)
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Personel Ad")
+                        @Html.TextBoxFor(x => x.PersonelAd, new { @class = "form-control is-valid" })
+                        @Html.ValidationMessageFor(x => x.PersonelAd, "", new { @style = "color:red" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Personel Soyad")
+                        @Html.TextBoxFor(x => x.PersonelSoyad, new { @class = "form-control is-valid" })
+                        @Html.ValidationMessageFor(x => x.PersonelSoyad, "", new { @style = "color:red" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Personel Görsel")
+                        @Html.TextBoxFor(x => x.PersonelGorsel, new { @class = "form-control is-valid" })
+                        @Html.ValidationMessageFor(x => x.PersonelGorsel, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Personel Departman")
+                        @Html.DropDownListFor(x => x.DepartmanId, (List<SelectListItem>)ViewBag.departmanList, new { @class = "select2 form-control w-100 is-invalid" })
+                    </div>
+                </div>
+                <br />
+                <button class="btn btn-warning">Güncelle</button>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock{
+    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+    <script src="~/Scripts/DropDown.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#PersonelAd").change(function () {
+                if ($("#PersonelAd").val().trim() == "") {
+
+                    $("#PersonelAd").removeClass("is-valid");
+                    $("#PersonelAd").addClass("is-invalid");
+
+                } else {
+                    $("#PersonelAd").removeClass("is-invalid");
+                    $("#PersonelAd").addClass("is-valid");
+
+                }
+            });
+
+            $("#PersonelSoyad").change(function () {
+                if ($("#PersonelSoyad").val().trim() == "") {
+
+                    $("#PersonelSoyad").removeClass("is-valid");
+                    $("#PersonelSoyad").addClass("is-invalid");
+
+                } else {
+                    $("#PersonelSoyad").removeClass("is-invalid");
+                    $("#PersonelSoyad").addClass("is-valid");
+
+                }
+            });
+            $("#PersonelGorsel").change(function () {
+                if ($("#PersonelGorsel").val().trim() == "") {
+
+                    $("#PersonelGorsel").removeClass("is-valid");
+                    $("#PersonelGorsel").addClass("is-invalid");
+
+                } else {
+                    $("#PersonelGorsel").removeClass("is-invalid");
+                    $("#PersonelGorsel").addClass("is-valid");
+
+                }
+            });
+            $("#Departman").change(function () {
+                if ($("#Departman").val().trim() == "") {
+
+                    $("#Departman").removeClass("is-valid");
+                    $("#Departman").addClass("is-invalid");
+
+                } else {
+                    $("#Departman").removeClass("is-invalid");
+                    $("#Departman").addClass("is-valid");
+
+                }
+            });
+
+
+
+        });
+    </script>
+}

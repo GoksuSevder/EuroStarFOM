@@ -1,0 +1,132 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model  List<SatisHaraket>
+@{
+    ViewBag.Title = "SatisDetay";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/smartadmin-html-full/dist/css/datagrid/datatables/datatables.bundle.css" rel="stylesheet" media="screen, print" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2> Satış Detay</h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+
+            <table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped ">
+                <thead class=" bg-info-900 ">
+                    <tr>
+                        <th>Satış ID</th>
+                        <th>Ürün</th>
+                        <th>Cari</th>
+                        <th>Personel</th>
+                        <th>Fiyat</th>
+                        <th>Adet</th>
+                        <th>Toplam</th>
+                        <th>Tarih</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.SatisID</td>
+
+                            <td>@item.Urun.UrunAd</td>
+                            <td>@item.Cari.CariAd @item.Cari.CariSoyad</td>
+                            <td>@item.Personel.PersonelAd @item.Personel.PersonelSoyad</td>
+                            <td>@item.Fiyat</td>
+                            <td>@item.Adet</td>
+                            <td>@item.ToplamTutar</td>
+                            <td>@item.Tarih</td>
+                             
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section ScriptsBlock {
+    <script src="~/Scripts/jquery/jquery.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.export.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
+            $('#dt-basic-example thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+            var table = $('#dt-basic-example').DataTable(
+                {
+                    //responsive: true,
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    responsive: true,
+                    lengthChange: false,
+                    dom:
+                        "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    buttons: [
+                        {
+                            extend: 'colvis',
+                            text: 'Sütun Seç',
+                            titleAttr: 'Görüntülenecek sütunlar',
+                            className: 'mr-sm-3'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: 'PDF',
+                            titleAttr: 'Generate PDF',
+                            className: 'btn-outline-danger btn-sm mr-1'
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            text: 'Excel',
+                            titleAttr: 'Generate Excel',
+                            className: 'btn-outline-success btn-sm mr-1'
+                        },
+                        {
+                            extend: 'csvHtml5',
+                            text: 'CSV',
+                            titleAttr: 'Generate CSV',
+                            className: 'btn-outline-primary btn-sm mr-1'
+                        },
+                        {
+                            extend: 'copyHtml5',
+                            text: 'Kopyala',
+                            titleAttr: 'Copy to clipboard',
+                            className: 'btn-outline-primary btn-sm mr-1'
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Yazdır',
+                            titleAttr: 'Tabloyu Yazdır',
+                            className: 'btn-outline-primary btn-sm'
+                        }
+                    ]
+                });
+
+        });
+
+    </script>
+}

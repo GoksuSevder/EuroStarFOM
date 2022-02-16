@@ -1,0 +1,149 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model SatisHaraket
+@{
+    ViewBag.Title = "SatisGetir";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Satış İşlemi Güncelleme Sayfası </h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            @using (Html.BeginForm("SatisGuncelle", "Satis", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.SatisID)
+
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Ürün")
+                        @Html.DropDownListFor(x => x.UrunId, (List<SelectListItem>)ViewBag.Urundeger, new { @class = "select2 form-control w-100 is-valid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Cari")
+                        @Html.DropDownListFor(x => x.CariId, (List<SelectListItem>)ViewBag.Carideger, new { @class = "select2 form-control w-100 is-valid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Personel")
+                        @Html.DropDownListFor(x => x.PersonelId, (List<SelectListItem>)ViewBag.Personeldeger, new { @class = "select2 form-control w-100 is-valid" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        @Html.LabelFor(x => x.Adet)
+                        @Html.TextBoxFor(x => x.Adet, new { @class = "form-control is-valid", @type = "number" })
+                    </div>
+                    <div class="col-4">
+                        @Html.LabelFor(x => x.Fiyat)
+                        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control is-valid", @type = "number" })
+                    </div>
+                    <div class="col-4">
+                        @Html.LabelFor(x => x.ToplamTutar)
+                        @Html.TextBoxFor(x => x.ToplamTutar, new { @class = "form-control is-valid", @type = "number" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        @Html.LabelFor(x => x.Tarih)
+                        @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control is-valid", @type = "date" })
+                    </div>
+
+                </div>
+
+                <br />
+                <button class="btn btn-warning"> Güncelle </button>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section ScriptsBlock{
+    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+    <script src="~/Scripts/DropDown.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#UrunId").change(function () {
+                if ($("#UrunId").val().trim() == "") {
+
+                    $("#UrunId").removeClass("is-valid");
+                    $("#UrunId").addClass("is-invalid");
+
+                } else {
+                    $("#UrunId").removeClass("is-invalid");
+                    $("#UrunId").addClass("is-valid");
+
+                }
+            });
+            $("#CariId").change(function () {
+                if ($("#CariId").val().trim() == "") {
+
+                    $("#CariId").removeClass("is-valid");
+                    $("#CariId").addClass("is-invalid");
+
+                } else {
+                    $("#CariId").removeClass("is-invalid");
+                    $("#CariId").addClass("is-valid");
+
+                }
+            });
+            $("#PersonelId").change(function () {
+                if ($("#PersonelId").val().trim() == "") {
+
+                    $("#PersonelId").removeClass("is-valid");
+                    $("#PersonelId").addClass("is-invalid");
+
+                } else {
+                    $("#PersonelId").removeClass("is-invalid");
+                    $("#PersonelId").addClass("is-valid");
+
+                }
+            });
+            $("#Adet").change(function () {
+                if ($("#Adet").val().trim() == "") {
+
+                    $("#Adet").removeClass("is-valid");
+                    $("#Adet").addClass("is-invalid");
+
+                } else {
+                    $("#Adet").removeClass("is-invalid");
+                    $("#Adet").addClass("is-valid");
+
+                }
+            });
+            $("#Fiyat").change(function () {
+                if ($("#Fiyat").val().trim() == "") {
+
+                    $("#Fiyat").removeClass("is-valid");
+                    $("#Fiyat").addClass("is-invalid");
+
+                } else {
+                    $("#Fiyat").removeClass("is-invalid");
+                    $("#Fiyat").addClass("is-valid");
+
+                }
+            });
+            $("#Tutar").change(function () {
+                if ($("#Tutar").val().trim() == "mm/dd/yyyy") {
+
+                    $("#Tutar").removeClass("is-valid");
+                    $("#Tutar").addClass("is-invalid");
+
+                } else {
+                    $("#Tutar").removeClass("is-invalid");
+                    $("#Tutar").addClass("is-valid");
+
+                }
+            });
+
+
+
+        });
+    </script>
+}

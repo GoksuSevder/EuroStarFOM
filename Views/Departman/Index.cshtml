@@ -1,0 +1,92 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model  List<Departman>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/smartadmin-html-full/dist/css/datagrid/datatables/datatables.bundle.css" rel="stylesheet" media="screen, print" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Departman Listesi</h2>
+        <div class="panel-toolbar">
+            <a href="/Departman/DepartmanEkle" title="Yeni Kayıt" class="btn btn-info btn-icon rounded-circle mr-1 ">
+                <i class="fal fa-plus"></i>
+            </a>
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+
+            <table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped ">
+                <thead class=" bg-info-900 ">
+                    <tr>
+                        <th>ID</th>
+                        <th>Departman Adı</th>
+                        <th>İşlemler</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.DepartmanID</td>
+
+                            <td>@item.DepartmanAd</td>
+                            <td>
+                                <a href="/Departman/DepartmanSil/@item.DepartmanID" title="Sil" class="btn btn-danger btn-icon rounded-circle"> <i class="fal fa-trash-alt"></i></a>
+
+                                <a href="/Departman/DepartmanGetir/@item.DepartmanID" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1">
+                                    <i class="fal fa-edit"></i>
+                                </a>
+
+                                <a href="/Departman/DepartmanDetay/@item.DepartmanID" title="Detay" class="btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                                    <i class="fal fa-align-justify"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section ScriptsBlock {
+    <script src="~/Scripts/jquery/jquery.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+            $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
+            $('#dt-basic-example thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control form-control-sm" placeholder="' + title + '" />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+            var table = $('#dt-basic-example').DataTable(
+                {
+                    responsive: true,
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                   
+                });
+
+        });
+
+    </script>
+}

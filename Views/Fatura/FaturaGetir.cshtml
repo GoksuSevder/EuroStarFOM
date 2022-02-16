@@ -1,0 +1,46 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model Faturalar
+@{
+    ViewBag.Title = "FaturaGetir";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Ürün Güncelle </h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            @using (Html.BeginForm("FaturaGuncelle", "Fatura", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.FaturaID)
+                @Html.Label("Seri No")
+                @Html.TextBoxFor(x => x.FaturaSeriNo, new { @class = "form-control" })
+                <br />
+                @Html.Label("Sıra No")
+                @Html.TextBoxFor(x => x.FaturaSiraNo, new { @class = "form-control" })
+                <br />
+                @Html.Label("Vergi Dairesi")
+                @Html.TextBoxFor(x => x.VergiDairesi, new { @class = "form-control" })
+                <br />
+                @Html.Label("Tarih")
+                @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control" })
+                <br />
+                @Html.Label("Saat")
+                @Html.TextBoxFor(x => x.Saat, new { @class = "form-control" })
+                <br />
+                @Html.Label("Teslim Eden")
+                @Html.TextBoxFor(x => x.TeslimEden, new { @class = "form-control" })
+                <br />
+                @Html.Label("Teslim Alan")
+                @Html.TextBoxFor(x => x.TeslimAlan, new { @class = "form-control" })
+                <br />
+
+                <button class="btn btn-warning"> Güncelle </button>
+            }
+        </div>
+    </div>
+</div>

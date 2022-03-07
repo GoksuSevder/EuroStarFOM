@@ -103,6 +103,7 @@
                         </a>
                     </div>
 
+
                     <ul id="js-nav-menu" class="nav-menu">
                         <li class="active">
                             <a href="blank.html" title="Ana Sayfa" data-filter-tags="ana sayfa">
@@ -112,70 +113,170 @@
                         </li>
                         <li class="nav-title">İşlemler</li>
                         <li>
-                            <a href="/Depo/Index" title="Depo" data-filter-tags="depo">
-                                <i class="fal fa-database"></i>
-                                <span class="nav-link-text" data-i18n="nav.category">Depo</span>
-                            </a>
-                        </li>
-                        @*<li>
-                            <a href="/Stok/Index" title="Stok" data-filter-tags="stok">
-                                <i class="fal fa-database"></i>
-                                <span class="nav-link-text" data-i18n="nav.category">Stok</span>
-                            </a>
-                        </li>*@
-                        <li>
-                            <a href="/Kategori/Index" title="Kategori" data-filter-tags="kategori">
-                                <i class="fal fa-file"></i>
-                                <span class="nav-link-text" data-i18n="nav.category">Kategori</span>
-                            </a>
-                            @*<ul>
-                                    <li>
-                                        <a href="javascript:void(0);" title="Menu child" data-filter-tags="utilities menu child">
-                                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Sub-category</span>
-                                        </a>
-                                        <ul>
-                                            <li>
-                                                <a href="javascript:void(0);" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Sublevel Item</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);" title="Another Item" data-filter-tags="utilities menu child another item">
-                                                    <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Another Item</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="disabled">
-                                        <a href="javascript:void(0);" title="Disabled item" data-filter-tags="utilities disabled item">
-                                            <span class="nav-link-text" data-i18n="nav.utilities_disabled_item">Disabled item</span>
-                                        </a>
-                                    </li>
-                                </ul>*@
-                        </li>
-                        <li>
-                            <a href="/Urun/Index" title="Ürünler" data-filter-tags="ürünler">
-                                <i class="fal fa-flask"></i>
-                                <span class="nav-link-text" data-i18n="nav.category">Ürünler</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/Departman/Index" title="Departmanlar" data-filter-tags="departmanlar">
-                                <i class="fal fa-bars"></i>
-                                <span class="nav-link-text" data-i18n="nav.category">Departmanlar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/Cari/Index" title="Cariler" data-filter-tags="cariler">
+                            <a href="#" title="Cariler" data-filter-tags="cariler">
                                 <i class="fal fa-user"></i>
                                 <span class="nav-link-text" data-i18n="nav.category">Cariler</span>
                             </a>
+                            <ul>
+                                <li>
+                                    <a href="/Cari/Index" title="Cari" data-filter-tags="cari listesi">
+                                        <i class="fal fa-user"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Cari Listesi</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Cari/CariEkle" title="Cari Ekle" data-filter-tags="cari ekle">
+                                        <i class="fal fa-user"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Cari Ekle</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Cari/CariFatura" title="Cari Fatura" data-filter-tags="cari fatura">
+                                        <i class="fal fa-user"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Cari Fatura</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="/Personel/Index" title="Personeller" data-filter-tags="personeller">
+                            <a href="#" title="Ürünler" data-filter-tags="ürünler">
+                                <i class="fal fa-flask"></i>
+                                <span class="nav-link-text" data-i18n="nav.category">Ürünler</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="/Urun/Index" title="Ürün Listesi" data-filter-tags="ürün listesi">
+                                        <i class="fal fa-flask"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Ürün Listesi</span>
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="/Urun/UrunEkle" title="Ürün Ekle" data-filter-tags="ürün ekle">
+                                        <i class="fal fa-flask"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Ürün Ekle</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Depo/Index" title="Depo" data-filter-tags="depo">
+                                        <i class="fal fa-database"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Depo</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Kategori/Index" title="Kategori" data-filter-tags="kategori">
+                                        <i class="fal fa-file"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Kategori</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" title="Sigorta" data-filter-tags="sigorta">
+                                <i class="fal fa-flask"></i>
+                                <span class="nav-link-text" data-i18n="nav.category">Sigorta</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="/Urun/Index" title="Ürün Listesi" data-filter-tags="ürün listesi">
+                                        <i class="fal fa-flask"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">İş Emri</span>
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="/Dosyalar/AcikDosyalar" title="Ürün Ekle" data-filter-tags="ürün ekle">
+                                        <i class="fal fa-flask"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Açık Dosyalar</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Depo/Index" title="Depo" data-filter-tags="depo">
+                                        <i class="fal fa-database"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Kapalı Dosyalar</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Kategori/Index" title="Kategori" data-filter-tags="kategori">
+                                        <i class="fal fa-file"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Yeni Dosya</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Kategori/Index" title="Kategori" data-filter-tags="kategori">
+                                        <i class="fal fa-file"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Expertiz</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" title="Faturalar" data-filter-tags="faturalar">
+                                <i class="fal fa-book"></i>
+                                <span class="nav-link-text" data-i18n="nav.category">Faturalar</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="/Fatura/Index" title="Fatura Sayfası" data-filter-tags="faturalar">
+
+                                        <span class="nav-link-text" data-i18n="nav.category">Faturalar Listesi</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Fatura/DinamikFaturaEkle?tip=2" id="fAlisFatura" title="Alış Fatura" data-filter-tags="alış fatura">
+                                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Alış Fatura</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Fatura/DinamikFaturaEkle?tip=1" title="Satış Fatura" data-filter-tags="satış fatura">
+                                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Satış Fatura</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Fatura/DinamikFaturaEkle?tip=4" title="Alış İade" data-filter-tags="alış iade">
+                                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Alış İade</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Fatura/DinamikFaturaEkle?tip=3" title="Satış İade" data-filter-tags="satış iade">
+                                        <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Satış İade</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                       
+                        <li>
+                            <a href="#" title="Personeller" data-filter-tags="personeller">
                                 <i class="fal fa-street-view"></i>
                                 <span class="nav-link-text" data-i18n="nav.category">Personeller</span>
                             </a>
+                            <ul>
+                                <li>
+                                    <a href="/Personel/Index" title="Personel Listesi" data-filter-tags="personel listesi">
+                                        <i class="fal fa-street-view"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Personel Listesi</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Personel/PersonelEkle" title="Personel Ekle" data-filter-tags="personel ekle">
+                                        <i class="fal fa-street-view"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Personel Ekle</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Departman/Index" title="Departmanlar" data-filter-tags="departmanlar">
+                                        <i class="fal fa-bars"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Departmanlar</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Departman/DepartmanEkle" title="Departman Ekle" data-filter-tags="departman ekle">
+                                        <i class="fal fa-bars"></i>
+                                        <span class="nav-link-text" data-i18n="nav.category">Departman Ekle</span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
                         <li>
                             <a href="#" title="Admin" data-filter-tags="admin">
@@ -184,44 +285,44 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0);" title="Yetkilendirme" data-filter-tags="yetkilendirme">
+                                    <a href="#" title="Yetkilendirme" data-filter-tags="yetkilendirme">
                                         <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Yetkilendirme</span>
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="javascript:void(0);" title="Giriş Yap" data-filter-tags="giriş yap">
+                                            <a href="#" title="Giriş Yap" data-filter-tags="giriş yap">
                                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Giriş Yap</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" title="Kayıt Ol" data-filter-tags="kayıt ol">
+                                            <a href="#" title="Kayıt Ol" data-filter-tags="kayıt ol">
                                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Kayıt Ol</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" title="Şifremi Unuttum" data-filter-tags="şifremi unuttum">
+                                            <a href="#" title="Şifremi Unuttum" data-filter-tags="şifremi unuttum">
                                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">Şifremi Unuttum</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" title="Hata Sayfaları" data-filter-tags="hata sayfaları">
+                                    <a href="#" title="Hata Sayfaları" data-filter-tags="hata sayfaları">
                                         <span class="nav-link-text" data-i18n="nav.utilities_menu_child">Hata Sayfaları</span>
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="javascript:void(0);" title="401 Sayfa" data-filter-tags="401 sayfa">
+                                            <a href="#" title="401 Sayfa" data-filter-tags="401 sayfa">
                                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">401 Sayfa</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" title="404 Sayfa" data-filter-tags="404 sayfa">
+                                            <a href="#" title="404 Sayfa" data-filter-tags="404 sayfa">
                                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">404 Sayfa</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" title="500 Sayfa" data-filter-tags="500 sayfa">
+                                            <a href="#" title="500 Sayfa" data-filter-tags="500 sayfa">
                                                 <span class="nav-link-text" data-i18n="nav.utilities_menu_child_another_item">500 Sayfa</span>
                                             </a>
                                         </li>
@@ -230,25 +331,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-title">Rapor &amp; Faturalar</li>
-                        <li>
-                            <a href="/Satis/Index" title="Satışlar" data-filter-tags="satışlar">
-                                <i class="fal fa-taxi"></i>
-                                <span class="nav-link-text" data-i18n="nav.category">Satışlar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/Fatura/Index" title="Faturalar" data-filter-tags="faturalar">
-                                <i class="fal fa-book"></i>
-                                <span class="nav-link-text" data-i18n="nav.category">Faturalar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" title="Fatura Kalemler" data-filter-tags="fatura kalemler">
-                                <i class="fal fa-pen"></i>
-                                <span class="nav-link-text" data-i18n="nav.category">Fatura Kalemler</span>
-                            </a>
-                        </li>
+
                         <li>
                             <a href="#" title="Giderler" data-filter-tags="gider">
                                 <i class="fal fa-gift"></i>
@@ -1689,6 +1772,7 @@
     <script src="~/Scripts/jquery-1.7.min.js"></script>
     <script src="~/smartadmin-html-full/dist/js/vendors.bundle.js"></script>
     <script src="~/smartadmin-html-full/dist/js/app.bundle.js"></script>
+
     @RenderSection("ScriptsBlock", required: false)
 
 </body>

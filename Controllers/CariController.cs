@@ -74,5 +74,78 @@ namespace EuroStarFOM.Controllers
             ViewBag.CariAdi = cariAdi;
             return View(deger);
         }
+        public ActionResult CariFatura()
+        {
+            var degerler = c.Caris.Where(x => x.Durum == true).ToList();
+            return View(degerler);
+        }
+        public ActionResult CariFaturaDetay(int id)
+        {
+            var deger = c.Faturalars.Where(x => x.CariId == id).ToList();
+            var cariAdi = c.Caris.Where(x => x.CariID == id).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
+            ViewBag.CariAdi = cariAdi;
+            return View(deger);
+
+        }
+        public ActionResult TarihAraligi(int id,DateTime altsinir,DateTime ustsinir,string islemtip)
+        {
+            var d = c.Faturalars.ToList();
+            try
+            {
+                if (islemtip == "")
+                {
+                    var deger = c.Faturalars.Where(x => x.CariId == id && x.VadeTarih >= altsinir && x.VadeTarih <= ustsinir)
+                    .Select(y => new {
+                        IslemTip = y.IslemTip,
+                        SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
+                        IrsaliyeNo = y.IrsaliyeNumarasi,
+                        Tarih = y.Tarih,
+                        VadeTarih = y.VadeTarih,
+                        Toplam = y.Toplam
+                    })
+                .ToList();
+                    return Json(deger, JsonRequestBehavior.AllowGet);
+
+                }
+                else
+                {
+                    var deger = c.Faturalars.Where(x => x.CariId == id && x.VadeTarih >= altsinir && x.VadeTarih <= ustsinir && x.IslemTip == islemtip)
+                   .Select(y => new {
+                       IslemTip = y.IslemTip,
+                       SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
+                       IrsaliyeNo = y.IrsaliyeNumarasi,
+                       Tarih = y.Tarih,
+                       VadeTarih = y.VadeTarih,
+                       Toplam = y.Toplam
+                   })
+                .ToList();
+                    return Json(deger, JsonRequestBehavior.AllowGet);
+
+                }
+            }
+            catch (Exception)
+            {
+
+                return View("Index");
+            }
+           
+
+        }
+        public ActionResult CariFaturaData(int id)
+        {
+            var deger = c.Faturalars.Where(x => x.CariId == id )
+                .Select(y => new {
+                    IslemTip = y.IslemTip,
+                    SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
+                    IrsaliyeNo = y.IrsaliyeNumarasi,
+                    Tarih = y.Tarih,
+                    VadeTarih = y.VadeTarih,
+                    Toplam = y.Toplam
+                })
+                .ToList();
+
+            return Json(deger, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

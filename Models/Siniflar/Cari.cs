@@ -23,6 +23,16 @@ namespace EuroStarFOM.Models.Siniflar
         [StringLength(13)]
         public string CariSehir { get; set; }
         [Column(TypeName = ("Varchar"))]
+        [StringLength(100)]
+        public string Adres { get; set; } 
+        
+        public int VergiNo { get; set; } 
+        
+        [Column(TypeName = ("Varchar"))]
+        [StringLength(60)]
+        public string VergiDairesi { get; set; }
+       
+        [Column(TypeName = ("Varchar"))]
         [StringLength(50)]
         public string CariMail { get; set; }
         public bool Durum { get; set; }

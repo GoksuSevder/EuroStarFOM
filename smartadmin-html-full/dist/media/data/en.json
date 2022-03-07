@@ -1,6 +1,7 @@
 {
   "app": {
-    "name": "SmartAdmin"
+    //"name": "SmartAdmin",
+    "name": "EuroStarFOM"
   },
   "nav": {
     "application_intel": "Analytics Intel",

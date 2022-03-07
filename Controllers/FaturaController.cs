@@ -64,12 +64,12 @@ namespace EuroStarFOM.Controllers
         {
             var degerler = c.FaturaKalems.Where(x => x.FaturaId == id).ToList();
 
-            var faturaId = c.Faturalars.Where(x => x.FaturaID == id).Select(y => y.FaturaID).FirstOrDefault();
+            var irsaliyeNumarasi = c.Faturalars.Where(x => x.FaturaID == id).Select(y => y.IrsaliyeNumarasi).FirstOrDefault();
             var faturaCari = c.Faturalars.Where(x => x.FaturaID == id).Select(y => y.Cari.CariAd + " " + y.Cari.CariSoyad).FirstOrDefault();
             var faturaVergiDairesi = c.Faturalars.Where(x => x.FaturaID == id).Select(y => y.VergiDairesi).FirstOrDefault();
             var faturaSeriSiraNo = c.Faturalars.Where(x => x.FaturaID == id).Select(y => y.FaturaSeriNo + " " + y.FaturaSiraNo).FirstOrDefault();
 
-            ViewBag.FaturaId = faturaId;
+            ViewBag.IrsaliyeNumarasi = irsaliyeNumarasi;
             ViewBag.FaturaCari = faturaCari;
             ViewBag.FaturaVergiDairesi = faturaVergiDairesi;
             ViewBag.FaturaSeriSiraNo = faturaSeriSiraNo;
@@ -108,7 +108,7 @@ namespace EuroStarFOM.Controllers
             ffkm.FaturaKalemDeger = c.FaturaKalems.ToList();
             ffkm.CariDeger = c.Caris.ToList();
             ffkm.UrunDeger = c.Uruns.ToList();
-            ffkm.DepoDeger = c.Depos.Where(x=>x.Durum==true).ToList();
+            ffkm.DepoDeger = c.Depos.Where(x => x.Durum == true).ToList();
             return View(ffkm);
         }
         [HttpPost]
@@ -156,8 +156,23 @@ namespace EuroStarFOM.Controllers
             {
                 return RedirectToAction("DinamikFaturaEkle");
             }
-           
+
         }
 
+        public ActionResult CariGetir(int id)
+        {
+            var cari = c.Caris.Where(x => x.CariID == id).FirstOrDefault();
+            return Json(cari, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UrunGetir(int id)
+        {
+            var urun = c.Uruns.Where(x => x.UrunID == id).Select(y =>new { 
+            satis=y.SatisFiyat,
+            alis=y.AlisFiyat
+            
+            }).FirstOrDefault();
+            return Json(urun, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -11,7 +11,7 @@
     <div class="modal-body">
         <div class="panel">
             <div class="panel-hdr bg-danger-900 bg-info-gradient">
-                <h2>Yeni Fatura Sayfası</h2>
+                <h2 class="IslemTip">Yeni Fatura </h2>
                 <div class="panel-toolbar">
                 </div>
             </div>
@@ -19,11 +19,11 @@
                 <div class="panel-content">
                     <input type="hidden" id="FaturaId" />
                     <div class="row ml-auto">
-                        <div class="col-5">
+                        <div class="col-lg-5 col-md-12">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>İşlem Tipi</strong></label>
                                 <select class="select2 form-control w-100 is-invalid" id="IslemTip" name="IslemTip" required>
-                                    <option>İşlem Tipi Seçin</option>
+                                    <option> </option>
                                     <option value="1">Satış Faturası</option>
                                     <option value="2">Alış Faturası</option>
                                     <option value="3">Satış İade</option>
@@ -33,7 +33,7 @@
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
                         </div>
-                        <div class="col-1">
+                        <div class="col-lg-1 col-md-4 col-sm-4">
                             <div class="form-group ">
                                 <label class="col-form-label" for="FaturaSeriNo"><strong>Seri No</strong></label>
                                 <input type="text" id="FaturaSeriNo" name="FaturaSeriNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" maxlength="1" required />
@@ -41,7 +41,7 @@
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-lg-2 col-md-8 col-sm-8">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Sıra No</strong></label>
                                 <input type="text" id="FaturaSiraNo" name="FaturaSiraNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" maxlength="13" required />
@@ -49,8 +49,7 @@
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
                         </div>
-
-                        <div class="col-2">
+                        <div class="col-lg-2 col-md-6 col-sm-6">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Tarih</strong></label>
                                 <input type="date" id="Tarih" name="Tarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
@@ -58,7 +57,7 @@
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-lg-2 col-md-6 col-sm-6">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Vade Tarih</strong></label>
                                 <input type="date" id="VadeTarih" name="VadeTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
@@ -68,14 +67,14 @@
                         </div>
                     </div>
                     <div class="row ml-auto">
-                        <div class="col-5">
+                        <div class="col-lg-5 col-md-12">
                             <div class="form-group ">
 
                                 <label for="CariID" class="col-form-label">
                                     <strong>Cari</strong>
                                 </label>
                                 <select class="select2 form-control w-100 is-invalid" id="CariID" name="CariID">
-                                    <option>Cari Seçin</option>
+                                    <option> </option>
                                     @foreach (var item in Model.CariDeger)
                                     {
                                         <option value="@item.CariID">@item.CariID | @item.CariAd   @item.CariSoyad</option>
@@ -86,23 +85,23 @@
 
                             </div>
                         </div>
-                        <div class="col-1">
+                        <div class="col-lg-1 col-md-4 col-sm-4">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Vergi Numarası</strong></label>
-                                <input type="text" id="VergiNumarasi" name="VergiNumarasi" maxlength="13" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
-                                <div class="invalid-feedback">Vergi Numarası Giriniz.</div>
-                                <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+                                <input type="text" id="VergiNumarasi" name="VergiNumarasi" maxlength="13" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
+                                @*<div class="invalid-feedback">Vergi Numarası Giriniz.</div>
+                                    <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>*@
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-lg-2 col-md-8 col-sm-8">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Vergi Dairesi</strong></label>
-                                <input type="text" id="VergiDairesi" name="VergiDairesi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
-                                <div class="invalid-feedback">Vergi Dairesi Giriniz.</div>
-                                <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+                                <input type="text" id="VergiDairesi" name="VergiDairesi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
+                                @*<div class="invalid-feedback">Vergi Dairesi Giriniz.</div>
+                                    <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>*@
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-lg-2 col-md-6 col-sm-6">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>İrsaliye Numarası</strong></label>
                                 <input type="text" id="IrsaliyeNumarasi" name="IrsaliyeNumarasi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
@@ -110,10 +109,10 @@
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-lg-2 col-md-6 col-sm-6">
                             <label class="col-form-label"><strong>Depo</strong></label>
                             <select class="select2 form-control w-100 is-invalid" required id="DepoId" name="DepoId">
-                                <option>Depo Seçin</option>
+                                <option></option>
                                 @foreach (var item in Model.DepoDeger)
                                 {
                                     <option value="@item.DepoId">@item.DepoAd</option>
@@ -124,15 +123,15 @@
                         </div>
                     </div>
                     <div class="row ml-auto">
-                        <div class="col-5">
+                        <div class="col-lg-5 col-md-12">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Adres</strong></label>
-                                <input type="text" id="Adres" name="Adres" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
+                                <input type="text" id="Adres" name="Adres" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
                             </div>
-                            <div class="invalid-feedback">Adres Giriniz.</div>
-                            <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+                            @*<div class="invalid-feedback">Adres Giriniz.</div>
+                                <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>*@
                         </div>
-                        <div class="col-1">
+                        <div class="col-lg-1 col-md-12">
                             <div class="form-group mt-6">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="KdvDahil" value="KdvDahil" checked>
@@ -140,7 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-lg-6 col-md-12">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Açıklama</strong></label>
                                 <input type="text" id="AciklamaFatura" name="AciklamaFatura" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
@@ -155,7 +154,7 @@
         </div>
         <div class="panel">
             <div class="panel-hdr bg-danger-900 bg-info-gradient">
-                <h2>Fatura Kalem Sayfası</h2>
+                <h2>Fatura Kalemleri </h2>
                 <div class="panel-toolbar">
 
                 </div>
@@ -167,7 +166,7 @@
                         <div class="form-group col-12">
                             <label class="col-form-label"><strong>Ürün</strong></label>
                             <select class="select2 form-control w-100 is-invalid" required id="UrunId" name="UrunId">
-                                <option>Ürün Seçin</option>
+                                <option></option>
                                 @foreach (var item in Model.UrunDeger)
                                 {
                                     <option value="@item.UrunID">@item.UrunAd</option>
@@ -232,7 +231,7 @@
 @section ScriptsBlock{
     <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
     <script src="~/Scripts/DropDown.js"></script>
-   
+
     @*Bunu Kontrol et*@
     <script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -257,6 +256,17 @@
     </script>
     <script>
         $(document).ready(function () {
+
+            var as = $(location).attr('search');
+            let result = as.slice(5, 6);
+            $("#IslemTip").val(parseInt(result));
+            var asd = $("#IslemTip option").filter(':selected').text();
+            if ($("#IslemTip :selected").text().trim() == "") {
+                asd = "Fatura";
+            };
+
+
+            $(".IslemTip").text("Yeni " + asd);
             $("#IslemTip").change(function () {
                 if ($("#IslemTip").val() == "İşlem Tipi Seçin") {
 
@@ -269,12 +279,16 @@
 
                 }
                 var e = $("#IslemTip :selected").text();
-               
-                $("#FaturaTip").text(e);
+                var asd = $("#IslemTip :selected").text();
+                if ($("#IslemTip :selected").text().trim() == "") {
+                    asd = "Faturalar";
+                }
+                //$("#FaturaTip").text(e);
+                $(".IslemTip").text("Yeni " + asd);
                 var div = $(".FaturaTip");
                 var div2 = $(".panel-container");
                 div.animate({ height: '300px', opacity: '0.2' }, "slow");
-                div.animate({  opacity: '0.7' }, "slow");
+                div.animate({ opacity: '0.7' }, "slow");
                 div2.animate({ height: 'hide', opacity: '0.4' }, "slow");
                 div.animate({ height: '50px', opacity: '1' }, "slow");
                 div2.animate({ height: 'show', opacity: '1' }, "slow");
@@ -329,7 +343,7 @@
                 }
             });
             $("#CariID").change(function () {
-                if ($("#CariID").val() == "Cari Seçin") {
+                if ($("#CariID").val() == "") {
 
                     $("#CariID").removeClass("is-valid");
                     $("#CariID").addClass("is-invalid");
@@ -339,30 +353,18 @@
                     $("#CariID").addClass("is-valid");
 
                 }
-            });
-            $("#VergiNumarasi").change(function () {
-                if ($("#VergiNumarasi").val() == "") {
 
-                    $("#VergiNumarasi").removeClass("is-valid");
-                    $("#VergiNumarasi").addClass("is-invalid");
+                $.post("/Fatura/CariGetir",
+                    {
+                        id: $("#CariID").val(),
+                    },
+                    function (data, status) {
+                        $("#VergiNumarasi").val(data.VergiNo);
+                        $("#VergiDairesi").val(data.VergiDairesi);
+                        console.log(data)
+                        $("#Adres").val(data.CariSehir + "  " + data.Adres);
+                    });
 
-                } else {
-                    $("#VergiNumarasi").removeClass("is-invalid");
-                    $("#VergiNumarasi").addClass("is-valid");
-
-                }
-            });
-            $("#VergiDairesi").change(function () {
-                if ($("#VergiDairesi").val() == "") {
-
-                    $("#VergiDairesi").removeClass("is-valid");
-                    $("#VergiDairesi").addClass("is-invalid");
-
-                } else {
-                    $("#VergiDairesi").removeClass("is-invalid");
-                    $("#VergiDairesi").addClass("is-valid");
-
-                }
             });
             $("#IrsaliyeNumarasi").change(function () {
                 if ($("#IrsaliyeNumarasi").val() == "") {
@@ -377,7 +379,7 @@
                 }
             });
             $("#DepoId").change(function () {
-                if ($("#DepoId").val() == "Depo Seçin") {
+                if ($("#DepoId").val() == "") {
 
                     $("#DepoId").removeClass("is-valid");
                     $("#DepoId").addClass("is-invalid");
@@ -385,18 +387,6 @@
                 } else {
                     $("#DepoId").removeClass("is-invalid");
                     $("#DepoId").addClass("is-valid");
-
-                }
-            });
-            $("#Adres").change(function () {
-                if ($("#Adres").val() == "") {
-
-                    $("#Adres").removeClass("is-valid");
-                    $("#Adres").addClass("is-invalid");
-
-                } else {
-                    $("#Adres").removeClass("is-invalid");
-                    $("#Adres").addClass("is-valid");
 
                 }
             });
@@ -413,7 +403,7 @@
                 }
             });
             $("#UrunId").change(function () {
-                if ($("#UrunId").val() == "Ürün Seçin") {
+                if ($("#UrunId").val() == "") {
 
                     $("#UrunId").removeClass("is-valid");
                     $("#UrunId").addClass("is-invalid");
@@ -423,6 +413,7 @@
                     $("#UrunId").addClass("is-valid");
 
                 }
+               
             });
         });
         $("#KdvDahil").click(function () {
@@ -442,12 +433,16 @@
             var UrunId = $("#UrunId").val(),
                 UrunAd = $("#UrunId option").filter(':selected').text(),
 
+
+
                 detailsTableBody = $("#detailsTable tbody");
 
-            var degerler = '<tr><td > ' + UrunId + '</td><td > ' + UrunAd + '</td><td><input type="text" id="Aciklama" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td ><select id="Kdv" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"><option value="0.08">%8</option><option value="0.18">%18</option></select></td><td><input type="number" id="Miktar" name="Miktar" placeholder="Miktar Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></<td><td><input input type="number" id="Tutar" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr > ';
+            var degerler = '<tr><td > ' + UrunId + '</td><td > ' + UrunAd + '</td><td><input type="text" id="Aciklama" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td ><select id="Kdv" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"><option value="0.08">%8</option><option value="0.18">%18</option></select></td><td><input type="number" id="Miktar" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></<td><td><input input type="number" id="Tutar" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr > ';
 
 
             detailsTableBody.append(degerler);
+           
+           
             toplamTutar();
         });
         function toplamTutar() {
@@ -492,6 +487,7 @@
                 document.getElementById('AraToplam').value = araToplam.toFixed(2);
                 document.getElementById('KdvToplam').value = kdvToplam.toFixed(2);
                 document.getElementById('GenelToplam').value = genelToplam.toFixed(2);
+
             });
         }
         function toplamTutar2() {

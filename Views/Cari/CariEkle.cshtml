@@ -35,6 +35,20 @@
                         @Html.Label("Cari Şehir")
                         @Html.TextBoxFor(x => x.CariSehir, new { @class = "form-control is-invalid" })
                     </div>
+                    <div class="col-4">
+                        @Html.Label("Adres")
+                        @Html.TextBoxFor(x => x.Adres, new { @class = "form-control is-invalid" })
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-4">
+                        @Html.Label("Vergi No")
+                        @Html.TextBoxFor(x => x.VergiNo, new { @class = "form-control is-invalid" })
+                    </div>
+                    <div class="col-4">
+                        @Html.Label("Vergi Adres")
+                        @Html.TextBoxFor(x => x.VergiDairesi, new { @class = "form-control is-invalid" })
+                    </div>
                 </div>
                 <br />
                 <br />
@@ -92,6 +106,42 @@
                 } else {
                     $("#CariSehir").removeClass("is-invalid");
                     $("#CariSehir").addClass("is-valid");
+
+                }
+            });
+            $("#Adres").change(function () {
+                if ($("#Adres").val().trim() == "") {
+
+                    $("#Adres").removeClass("is-valid");
+                    $("#Adres").addClass("is-invalid");
+
+                } else {
+                    $("#Adres").removeClass("is-invalid");
+                    $("#Adres").addClass("is-valid");
+
+                }
+            });
+            $("#VergiNo").change(function () {
+                if ($("#VergiNo").val().trim() == "") {
+
+                    $("#VergiNo").removeClass("is-valid");
+                    $("#VergiNo").addClass("is-invalid");
+
+                } else {
+                    $("#VergiNo").removeClass("is-invalid");
+                    $("#VergiNo").addClass("is-valid");
+
+                }
+            });
+            $("#VergiDairesi").change(function () {
+                if ($("#VergiDairesi").val().trim() == "") {
+
+                    $("#VergiDairesi").removeClass("is-valid");
+                    $("#VergiDairesi").addClass("is-invalid");
+
+                } else {
+                    $("#VergiDairesi").removeClass("is-invalid");
+                    $("#VergiDairesi").addClass("is-valid");
 
                 }
             });

@@ -24,7 +24,7 @@
                         <th>Depo</th>
                         <th>Depo Açıklama</th>
                         <th>İşlemler</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -34,11 +34,11 @@
                             <td>@item.DepoId</td>
                             <td>@item.DepoAd </td>
                             <td>@item.Aciklama </td>
-                            
+
                             <td>
                                 <a href="/Depo/DepoSil/@item.DepoId" title="Sil" class="btn btn-danger btn-icon rounded-circle"> <i class="fal fa-trash-alt"></i></a>
                                 <a href="/Depo/DepoGetir/@item.DepoId" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a>
-                               <a href="/Stok/Index/@item.DepoId" title="Satın Alma Geçmişi" class="btn btn-default btn-icon rounded-circle waves-effect waves-themed"><i class="fal fa-2x fa-calendar-check"></i></a>
+                                <a href="/Stok/Index/@item.DepoId" title="Satın Alma Geçmişi" class="btn btn-default btn-icon rounded-circle waves-effect waves-themed"><i class="fal fa-2x fa-calendar-check"></i></a>
                             </td>
                         </tr>
                     }
@@ -49,15 +49,26 @@
     </div>
 </div>
 
-
-
-
 @section ScriptsBlock {
-    <script src="~/Scripts/jquery/jquery.js"></script>
     <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
     <script>
         $(document).ready(function () {
-          
+            // Setup - add a text input to each footer cell
+            $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
+            $('#dt-basic-example thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
             var table = $('#dt-basic-example').DataTable(
                 {
                     //responsive: true,

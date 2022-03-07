@@ -5,16 +5,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 @*<link href="~/smartadmin-html-full/dist/css/datagrid/datatables/datatables.bundle.css" rel="stylesheet" media="screen, print" />*@
-<h2>
-    @ViewBag.FaturaCari
-</h2>
-<h2>
-    @ViewBag.FaturaVergiDairesi
-</h2>
-<h2>
-    @ViewBag.FaturaSeriSiraNo
-</h2>
- 
+
 <div class="panel">
     <div class="panel-hdr bg-danger-900 bg-info-gradient">
         <h2> Fatura Kalemler </h2>
@@ -27,7 +18,35 @@
     </div>
     <div class="panel-container show">
         <div class="panel-content">
-
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-form-label"><strong>Cari Ad-Soyad</strong></label>
+                        <input type="text" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" value=" @ViewBag.FaturaCari" disabled />
+                    </div>
+                </div>
+               <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-form-label"><strong>Vergi Dairesi</strong></label>
+                        <input type="text" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" value=" @ViewBag.FaturaVergiDairesi" disabled />
+                    </div>
+                </div>
+               <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-form-label"><strong>Seri-Sıra No</strong></label>
+                        <input type="text" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" value=" @ViewBag.FaturaSeriSiraNo" disabled />
+                    </div>
+                </div>
+               <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-form-label"><strong>Irsaliye Numarası</strong></label>
+                        <input type="text" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" value=" @ViewBag.IrsaliyeNumarasi" disabled />
+                    </div>
+                </div>
+              
+            </div>
+            <br />
+            <br />
             <table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped ">
                 <thead class=" bg-info-900 ">
                     <tr>

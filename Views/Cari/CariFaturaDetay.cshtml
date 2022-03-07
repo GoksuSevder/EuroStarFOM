@@ -1,0 +1,271 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model  List<Faturalar>
+@{
+    ViewBag.Title = "CariFaturaDetay";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/smartadmin-html-full/dist/css/datagrid/datatables/datatables.bundle.css" rel="stylesheet" media="screen, print" />
+<link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
+<link href="~/smartadmin-html-full/dist/css/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.css" rel="stylesheet" />
+<br />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Cari Fatura </h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+
+            <div class="row">
+                <div class="col-3">
+                    @Html.Label("Cari Ad", new { @style = "font-weight: bold;" })
+                    <input type="text" value="@ViewBag.CariAdi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" disabled />
+                </div>
+
+                <div class="col-3">
+                    @Html.Label("İşlem Tipi ")
+                    <select class="select2 form-control w-100 " id="IslemTip" name="IslemTip">
+                        <option></option>
+                        <option value="1">Satış Faturası</option>
+                        <option value="2">Alış Faturası</option>
+                        <option value="3">Satış İade</option>
+                        <option value="4">Alış İade</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    @Html.Label("Tarih ")
+                    <input type="text" class="form-control" id="custom-range">
+                </div>
+            </div>
+            <br />
+            <br />
+            <div id="TableDiv">
+                <table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped ">
+                    <thead class=" bg-info-900 ">
+                        <tr>
+                            <th>İşlem Tipi</th>
+                            <th>Seri-Sıra No</th>
+                            <th>İrsaliye No</th>
+                            <th>Tarih</th>
+                            <th>Vade Tarih</th>
+                            <th>Toplam</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>@item.IslemTip</td>
+                                    <td>@item.FaturaSeriNo + @item.FaturaSiraNo</td>
+                                    <td>@item.IrsaliyeNumarasi</td>
+                                    <td>@item.VadeTarih.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.Toplam</td>
+                                </tr>
+                            }*@
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+
+
+
+
+
+@section ScriptsBlock {
+
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.export.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+    <script src="~/Scripts/DropDown.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/dependency/moment/moment.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+    <script>
+        $(document).ready(function () {
+
+
+            $('#custom-range').daterangepicker(
+                {
+                    "showDropdowns": true,
+                    "showWeekNumbers": false,
+                    "showISOWeekNumbers": false,
+                    "timePicker": false,
+                    "timePicker24Hour": false,
+                    "timePickerSeconds": false,
+                    "autoApply": true,
+                    "maxSpan":
+                    {
+                        "days": 30
+                    },
+                    locale: {
+                        format: "DD/MM/yy",
+
+                        monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                        dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
+                        firstDay: 1
+                    },
+                    ranges:
+                    {
+                        'Bugün': [moment(), moment()],
+                        'Dün': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Son 7 Gün': [moment().subtract(6, 'days'), moment()],
+                        'Son 30 Gün': [moment().subtract(29, 'days'), moment()],
+                        'Bu Ay': [moment().startOf('month'), moment().endOf('month')],
+                        'Geçen Ay': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    "alwaysShowCalendars": true,
+                    "applyButtonClasses": "btn-default shadow-0",
+                    "cancelClass": "btn-success shadow-0"
+                }, function (start, end, label) {
+                    console.log('New date range selected: ' + start.format('DD/MM/YYYY') + ' to ' + end.format('DD/MM/YYYY') + ' (predefined range: ' + label + ')');
+
+                });
+            $("#custom-range").on("change", function () {
+                var selected = $(this).val();
+                var ilkgun = selected.slice(0, 2);
+                var ilkay = selected.slice(3, 5);
+                var ilkyil = selected.slice(6, 10);
+                var ilkTarih = ilkay + "/" + ilkgun + "/" + ilkyil;
+                var songun = selected.slice(13, 15);
+                var sonay = selected.slice(16, 18);
+                var sonyil = selected.slice(19, 23);
+                var sonTarih = sonay + "/" + songun + "/" + sonyil;
+                console.log(ilkTarih)
+                console.log(sonTarih)
+                var pathname = $(location).attr("pathname").substr(22);
+                var cariid = parseFloat(pathname);
+                var islemtipi = null;
+                var degerler = null;
+                $('#TableDiv').empty();
+                Tablo();
+                if ($('#IslemTip :selected').text().trim() != "") {
+                    islemtipi = $('#IslemTip :selected').text().trim();
+                };
+                $.post("/Cari/TarihAraligi",
+                    {
+                        id: cariid,
+                        altsinir: ilkTarih,
+                        ustsinir: sonTarih,
+                        islemtip: islemtipi,
+                    },
+                    function (data, status) {
+                        var i = 0;
+
+                        $.each(data, function () {
+                            var vadeTarih = moment(data[i].VadeTarih).format('DD/MM/YYYY');
+                            var tarih = moment(data[i].Tarih).format('DD/MM/YYYY');
+                            degerler = '<tr><td>' + data[i].IslemTip + ' </td ><td>' + data[i].SeriSiraNo + ' </td ><td>' + data[i].IrsaliyeNo + ' </td ><td>' + tarih + ' </td ><td>' + vadeTarih + ' </td ><td>' + data[i].Toplam + ' </td ></tr > ';
+                            $("#dt-basic-example").append(degerler);
+
+                            i++;
+                        });
+                        LoadTable();
+                    });
+            });
+            function LoadTable() {
+                $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
+                $('#dt-basic-example thead tr:eq(1) th').each(function (i) {
+                    var title = $(this).text();
+                    $(this).html('<input type="text" class="form-control form-control-sm" placeholder="' + title + '" />');
+
+                    $('input', this).on('keyup change', function () {
+                        if (table.column(i).search() !== this.value) {
+                            table
+                                .column(i)
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+
+                var table = $('#dt-basic-example').DataTable(
+                    {
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        responsive: true,
+                        lengthChange: false,
+                        dom:
+                            "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                        buttons: [
+                            {
+                                extend: 'colvis',
+                                text: 'Sütun Seç',
+                                titleAttr: 'Görüntülenecek sütunlar',
+                                className: 'mr-sm-3'
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                text: 'PDF',
+                                titleAttr: 'Generate PDF',
+                                className: 'btn-outline-danger btn-sm mr-1'
+                            },
+                            {
+                                extend: 'excelHtml5',
+                                text: 'Excel',
+                                titleAttr: 'Generate Excel',
+                                className: 'btn-outline-success btn-sm mr-1'
+                            },
+                            {
+                                extend: 'csvHtml5',
+                                text: 'CSV',
+                                titleAttr: 'Generate CSV',
+                                className: 'btn-outline-primary btn-sm mr-1'
+                            },
+                            {
+                                extend: 'copyHtml5',
+                                text: 'Kopyala',
+                                titleAttr: 'Copy to clipboard',
+                                className: 'btn-outline-primary btn-sm mr-1'
+                            },
+                            {
+                                extend: 'print',
+                                text: 'Yazdır',
+                                titleAttr: 'Tabloyu Yazdır',
+                                className: 'btn-outline-primary btn-sm'
+                            }
+                        ]
+                    });
+            };
+            function Tablo() {
+                var tbl = '<table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped "><thead class=" bg-info-900 "><tr><th>İşlem Tipi</th><th>Seri-Sıra No</th><th>İrsaliye No</th><th>Tarih</th><th>Vade Tarih</th><th>Toplam</th></tr></thead><tbody></tbody></table>';
+                $('#TableDiv').append(tbl);
+
+            };
+            $('#dt-basic-example').ready(function () {
+                var pathname = $(location).attr("pathname").substr(22);
+                var asdas = parseFloat(pathname);
+                var degerler = null,
+                    tableBody = $('#dt-basic-example tbody');
+                $.post("/Cari/CariFaturaData",
+                    {
+                        id: asdas,
+                    },
+                    function (data, status) {
+                        var i = 0;
+                        $.each(data, function () {
+                            var vadeTarih = moment(data[i].VadeTarih).format('DD/MM/YYYY');
+                            var tarih = moment(data[i].Tarih).format('DD/MM/YYYY');
+                            degerler = '<tr><td>' + data[i].IslemTip + ' </td ><td>' + data[i].SeriSiraNo + ' </td ><td>' + data[i].IrsaliyeNo + ' </td ><td>' + tarih + ' </td ><td>' + vadeTarih + ' </td ><td>' + data[i].Toplam + ' </td ></tr > ';
+
+                            tableBody.append(degerler);
+
+                            i++;
+                        });
+                        LoadTable();
+                    });
+            });
+        });
+    </script>
+}

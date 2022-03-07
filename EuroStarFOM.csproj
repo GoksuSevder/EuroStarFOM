@@ -130,6 +130,7 @@
     <Compile Include="Controllers\CariController.cs" />
     <Compile Include="Controllers\DepartmanController.cs" />
     <Compile Include="Controllers\DepoController.cs" />
+    <Compile Include="Controllers\DosyalarController.cs" />
     <Compile Include="Controllers\FaturaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KategoriController.cs" />
@@ -2047,6 +2048,9 @@
     <Content Include="Views\Fatura\DinamikFaturaEkle.cshtml" />
     <Content Include="Views\Stok\StokUrunEkle.cshtml" />
     <Content Include="Views\Stok\StokGuncelle.cshtml" />
+    <Content Include="Views\Cari\CariFatura.cshtml" />
+    <Content Include="Views\Cari\CariFaturaDetay.cshtml" />
+    <Content Include="Views\Dosyalar\AcikDosyalar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

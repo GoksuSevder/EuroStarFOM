@@ -149,6 +149,19 @@ namespace EuroStarFOM.Controllers
                     c.FaturaKalems.Add(fk);
                 }
                 c.SaveChanges();
+                CariHareketler cariHareketler = new CariHareketler();
+                cariHareketler.CariID = CariID;
+                cariHareketler.FaturaID = f.FaturaID;
+                cariHareketler.Tarih = Tarih;
+                cariHareketler.VadeTarih = VadeTarih;
+                cariHareketler.Aciklama = AciklamaFatura;
+                cariHareketler.IslemTip = IslemTip;
+                if (IslemTip == "Satış Faturası" || IslemTip == "Alış İade")
+                    cariHareketler.CariDenAlacak = decimal.Parse(GenelToplam);
+                else if (IslemTip == "Satış İade" || IslemTip == "Alış Faturası")
+                    cariHareketler.CariNinAlacak = decimal.Parse(GenelToplam);
+                c.CariHareketlers.Add(cariHareketler);
+                c.SaveChanges();
                 ViewBag.Message = "Fatura Başarıyla Kaydedildi";
                 return Json(ViewBag.Message, JsonRequestBehavior.AllowGet);
             }
@@ -167,10 +180,11 @@ namespace EuroStarFOM.Controllers
 
         public ActionResult UrunGetir(int id)
         {
-            var urun = c.Uruns.Where(x => x.UrunID == id).Select(y =>new { 
-            satis=y.SatisFiyat,
-            alis=y.AlisFiyat
-            
+            var urun = c.Uruns.Where(x => x.UrunID == id).Select(y => new
+            {
+                satis = y.SatisFiyat,
+                alis = y.AlisFiyat
+
             }).FirstOrDefault();
             return Json(urun, JsonRequestBehavior.AllowGet);
         }

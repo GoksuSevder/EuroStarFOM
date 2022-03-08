@@ -51,7 +51,7 @@ namespace EuroStarFOM.Models.Siniflar
         [ForeignKey("CariId")]
         public virtual Cari Cari { get; set; }
         public ICollection<FaturaKalem> FaturaKalems { get; set; }
-
+        public ICollection<CariHareketler> CariHareketlers { get; set; }
 
 
     }

@@ -260,13 +260,15 @@
             var as = $(location).attr('search');
             let result = as.slice(5, 6);
             $("#IslemTip").val(parseInt(result));
+
+            console.log(parseInt(result));
             var asd = $("#IslemTip option").filter(':selected').text();
             if ($("#IslemTip :selected").text().trim() == "") {
                 asd = "Fatura";
             };
-
-
             $(".IslemTip").text("Yeni " + asd);
+
+
             $("#IslemTip").change(function () {
                 if ($("#IslemTip").val() == "İşlem Tipi Seçin") {
 
@@ -412,8 +414,30 @@
                     $("#UrunId").removeClass("is-invalid");
                     $("#UrunId").addClass("is-valid");
 
-                }
-               
+                };
+                //if ($("#IslemTip :selected").text().trim() == "Satış Faturası" || $("#IslemTip :selected").text().trim() == "Satış Iade") {
+                //    $.post("/Fatura/UrunGetir",
+                //        {
+                //            id: $("#UrunId").val(),
+                //        },
+                //        function (data, status) {
+
+                //            console.log("UrunGetir : " + data.satis)
+                //            $("#BirimFiyat").text(data.satis);
+                //        });
+                //};
+                //if ($("#IslemTip :selected").text().trim() == "Alış Faturası" || $("#IslemTip :selected").text().trim() == "Alış Iade") {
+                //    $.post("/Fatura/UrunGetir",
+                //        {
+                //            id: $("#UrunId").val(),
+                //        },
+                //        function (data, status) {
+
+                //            console.log("UrunGetir : " + data.alis)
+                //            $("#BirimFiyat").text(data.alis);
+                //        });
+                //};
+
             });
         });
         $("#KdvDahil").click(function () {
@@ -432,19 +456,55 @@
 
             var UrunId = $("#UrunId").val(),
                 UrunAd = $("#UrunId option").filter(':selected').text(),
-
+                birimfiyat = 0,
 
 
                 detailsTableBody = $("#detailsTable tbody");
+            var p = $.post("/Fatura/UrunGetir",
+                {
+                    id: UrunId,
+                },
+                function (data, status) {
 
-            var degerler = '<tr><td > ' + UrunId + '</td><td > ' + UrunAd + '</td><td><input type="text" id="Aciklama" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td ><select id="Kdv" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"><option value="0.08">%8</option><option value="0.18">%18</option></select></td><td><input type="number" id="Miktar" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></<td><td><input input type="number" id="Tutar" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr > ';
+                    if ($("#IslemTip :selected").val() == 1 || $("#IslemTip :selected").val() == 3) {
+                        birimfiyat = parseFloat(data.satis);
+                        //$("#BirimFiyat").val(birimfiyat);
+                    };
+                    if ($("#IslemTip :selected").val() == 2 || $("#IslemTip :selected").val() == 4) {
+                        birimfiyat = parseFloat(data.alis);
+
+                        //$("#BirimFiyat").val(birimfiyat);
+                    };
+
+                });
+            $.when(p).done(function () {
+                var degerler = '<tr><td > ' + UrunId + '</td><td > ' + UrunAd + '</td><td><input type="text" id="Aciklama" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td ><select id="Kdv" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"><option value="0.08">%8</option><option value="0.18">%18</option></select></td><td><input type="number" id="Miktar" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" value="' + birimfiyat + '"  placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></<td><td><input input type="number" id="Tutar" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr > ';
+
+                detailsTableBody.append(degerler);
+                toplamTutar();
+                $("#UrunId option:selected").remove();
+            });
 
 
-            detailsTableBody.append(degerler);
-           
-           
-            toplamTutar();
+            //BirimFiyatYaz(UrunId);
         });
+        function BirimFiyatYaz(UrunId) {
+            $.post("/Fatura/UrunGetir",
+                {
+                    id: UrunId,
+                },
+                function (data, status) {
+
+                    if ($("#IslemTip :selected").val() == 1 || $("#IslemTip :selected").val() == 3) {
+                        birimfiyat = data.satis;
+                    };
+                    if ($("#IslemTip :selected").val() == 2 || $("#IslemTip :selected").val() == 4) {
+                        birimfiyat = data.alis;
+
+                    };
+
+                });
+        };
         function toplamTutar() {
             $("td").change(function () {
                 $.each($("#detailsTable tbody tr"), function () {
@@ -489,6 +549,7 @@
                 document.getElementById('GenelToplam').value = genelToplam.toFixed(2);
 
             });
+            toplamTutar2();
         }
         function toplamTutar2() {
             //Satır Silinirse

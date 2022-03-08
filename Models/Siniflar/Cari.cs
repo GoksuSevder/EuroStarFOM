@@ -36,7 +36,9 @@ namespace EuroStarFOM.Models.Siniflar
         [StringLength(50)]
         public string CariMail { get; set; }
         public bool Durum { get; set; }
+        public decimal Bakiye { get; set; }
 
+        //public ICollection<CariHareketler> CariHareketlers { get; set; }
         public ICollection<SatisHaraket> SatisHarakets { get; set; }
         public ICollection<Faturalar> Faturalars { get; set; }
 

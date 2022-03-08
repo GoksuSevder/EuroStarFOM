@@ -82,8 +82,10 @@ namespace EuroStarFOM.Controllers
         public ActionResult CariFaturaDetay(int id)
         {
             var deger = c.Faturalars.Where(x => x.CariId == id).ToList();
-            var cariAdi = c.Caris.Where(x => x.CariID == id).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
+            var cariAdi = c.Caris.Where(x => x.CariID == id && x.Durum==true).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
+            var caribakiye = c.Caris.Where(x => x.CariID == id && x.Durum == true).Select(y => y.Bakiye).FirstOrDefault();
             ViewBag.CariAdi = cariAdi;
+            ViewBag.CariBakiye = caribakiye;
             return View(deger);
 
         }

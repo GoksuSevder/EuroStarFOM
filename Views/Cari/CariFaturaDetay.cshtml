@@ -58,19 +58,28 @@
                     </thead>
                     <tbody>
                         @*@foreach (var item in Model)
-                            {
+                    {
 
-                                <tr>
-                                    <td>@item.IslemTip</td>
-                                    <td>@item.FaturaSeriNo + @item.FaturaSiraNo</td>
-                                    <td>@item.IrsaliyeNumarasi</td>
-                                    <td>@item.VadeTarih.ToString("dd/MM/yyyy")</td>
-                                    <td>@item.Toplam</td>
-                                </tr>
-                            }*@
+                        <tr>
+                            <td>@item.IslemTip</td>
+                            <td>@item.FaturaSeriNo + @item.FaturaSiraNo</td>
+                            <td>@item.IrsaliyeNumarasi</td>
+                            <td>@item.VadeTarih.ToString("dd/MM/yyyy")</td>
+                            <td>@item.Toplam</td>
+                        </tr>
+                    }*@
 
                     </tbody>
                 </table>
+            </div>
+            <br />
+            <br />
+            <div class="row ml-auto mb-2 d-flex justify-content-end ">
+                <div class="col-2">
+                    @Html.Label("Bakiye", new { @style = "font-weight: bold;" })
+                    <input type="number" value="@ViewBag.CariBakiye" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" disabled />
+                </div>
+
             </div>
         </div>
     </div> 
@@ -92,7 +101,6 @@
     <script src="~/smartadmin-html-full/dist/js/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
     <script>
         $(document).ready(function () {
-
 
             $('#custom-range').daterangepicker(
                 {

@@ -46,30 +46,16 @@
                 <table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped ">
                     <thead class=" bg-info-900 ">
                         <tr>
-                            <th>İşlem Tipi</th>
-                            <th>Seri-Sıra No</th>
-                            <th>İrsaliye No</th>
                             <th>Tarih</th>
                             <th>Vade Tarih</th>
-                            <th>Toplam</th>
-
-
+                            <th>İşlem Tipi</th>
+                            <th>Seri-Sıra No</th>
+                            <th>Alacak</th>
+                            <th>Borç</th>
+                            <th>Tutar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @*@foreach (var item in Model)
-                    {
-
-                        <tr>
-                            <td>@item.IslemTip</td>
-                            <td>@item.FaturaSeriNo + @item.FaturaSiraNo</td>
-                            <td>@item.IrsaliyeNumarasi</td>
-                            <td>@item.VadeTarih.ToString("dd/MM/yyyy")</td>
-                            <td>@item.Toplam</td>
-                        </tr>
-                    }*@
-
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
             <br />
@@ -101,7 +87,24 @@
     <script src="~/smartadmin-html-full/dist/js/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
     <script>
         $(document).ready(function () {
+            Number.prototype.formatMoney = function (fractionDigits, decimal, separator) {
+                fractionDigits = isNaN(fractionDigits = Math.abs(fractionDigits)) ? 2 : fractionDigits;
+                decimal = typeof (decimal) === "undefined" ? "." : decimal;
+                separator = typeof (separator) === "undefined" ? "," : separator;
+                var number = this;
+                var neg = number < 0 ? "-" : "";
+                var wholePart = parseInt(number = Math.abs(+number || 0).toFixed(fractionDigits)) + "";
+                var separtorIndex = (separtorIndex = wholePart.length) > 3 ? separtorIndex % 3 : 0;
+                return neg +
+                    (separtorIndex ? wholePart.substr(0, separtorIndex) + separator : "") +
+                    wholePart.substr(separtorIndex).replace(/(\d{3})(?=\d)/g, "$1" + separator) +
+                    (fractionDigits ? decimal + Math.abs(number - wholePart).toFixed(fractionDigits).slice(2) : "");
+            };
+            function formatMoney(raw) {
 
+                return Number(raw).formatMoney(2, ',', '.');
+
+            }
             $('#custom-range').daterangepicker(
                 {
                     "showDropdowns": true,
@@ -172,7 +175,7 @@
                         $.each(data, function () {
                             var vadeTarih = moment(data[i].VadeTarih).format('DD/MM/YYYY');
                             var tarih = moment(data[i].Tarih).format('DD/MM/YYYY');
-                            degerler = '<tr><td>' + data[i].IslemTip + ' </td ><td>' + data[i].SeriSiraNo + ' </td ><td>' + data[i].IrsaliyeNo + ' </td ><td>' + tarih + ' </td ><td>' + vadeTarih + ' </td ><td>' + data[i].Toplam + ' </td ></tr > ';
+                            degerler = '<tr><td>' + tarih + ' </td ><td>' + vadeTarih + ' </td ><td>' + data[i].IslemTip + ' </td ><td>' + data[i].SeriSiraNo + ' </td ><td>' + formatMoney(data[i].Alacak) + ' </td ><td>' + formatMoney(data[i].Borc) + ' </td ><td>' + formatMoney(data[i].Toplam) + ' </td ></tr > ';
                             $("#dt-basic-example").append(degerler);
 
                             i++;
@@ -247,7 +250,7 @@
                     });
             };
             function Tablo() {
-                var tbl = '<table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped "><thead class=" bg-info-900 "><tr><th>İşlem Tipi</th><th>Seri-Sıra No</th><th>İrsaliye No</th><th>Tarih</th><th>Vade Tarih</th><th>Toplam</th></tr></thead><tbody></tbody></table>';
+                var tbl = '<table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped "><thead class=" bg-info-900 "><tr><th>Tarih</th><th>Vade Tarih</th><th>İşlem Tipi</th><th>Seri-Sıra No</th><th>Alacak</th><th>Borç</th><th>Tutar</th></tr></thead><tbody></tbody></table>';
                 $('#TableDiv').append(tbl);
 
             };
@@ -265,7 +268,7 @@
                         $.each(data, function () {
                             var vadeTarih = moment(data[i].VadeTarih).format('DD/MM/YYYY');
                             var tarih = moment(data[i].Tarih).format('DD/MM/YYYY');
-                            degerler = '<tr><td>' + data[i].IslemTip + ' </td ><td>' + data[i].SeriSiraNo + ' </td ><td>' + data[i].IrsaliyeNo + ' </td ><td>' + tarih + ' </td ><td>' + vadeTarih + ' </td ><td>' + data[i].Toplam + ' </td ></tr > ';
+                            degerler = '<tr><td>' + tarih + ' </td ><td>' + vadeTarih + ' </td ><td>' + data[i].IslemTip + ' </td ><td>' + data[i].SeriSiraNo + ' </td ><td>' + formatMoney(data[i].Alacak) + ' </td ><td>' + formatMoney(data[i].Borc)  + ' </td ><td>' + formatMoney(data[i].Toplam ) + ' </td ></tr > ';
 
                             tableBody.append(degerler);
 

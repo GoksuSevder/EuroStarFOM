@@ -96,31 +96,57 @@ namespace EuroStarFOM.Controllers
             {
                 if (islemtip == "")
                 {
-                    var deger = c.Faturalars.Where(x => x.CariId == id && x.VadeTarih >= altsinir && x.VadeTarih <= ustsinir)
-                    .Select(y => new {
-                        IslemTip = y.IslemTip,
-                        SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
-                        IrsaliyeNo = y.IrsaliyeNumarasi,
-                        Tarih = y.Tarih,
-                        VadeTarih = y.VadeTarih,
-                        Toplam = y.Toplam
-                    })
-                .ToList();
+                    var deger = (from f in c.Faturalars
+                                 join ch in c.CariHareketlers on f.FaturaID equals ch.FaturaID
+                                 where ch.CariID == id && f.VadeTarih >= altsinir && f.VadeTarih <= ustsinir 
+                                 select new
+                                 {
+                                     IslemTip = f.IslemTip,
+                                     SeriSiraNo = f.FaturaSeriNo + f.FaturaSiraNo,
+                                     Tarih = f.Tarih,
+                                     VadeTarih = f.VadeTarih,
+                                     Toplam = f.Toplam,
+                                     Alacak = ch.CariDenAlacak,
+                                     Borc = ch.CariNinAlacak
+                                 }).ToList();
+                    //    var deger = c.Faturalars.Where(x => x.CariId == id && x.VadeTarih >= altsinir && x.VadeTarih <= ustsinir)
+                    //    .Select(y => new {
+                    //        IslemTip = y.IslemTip,
+                    //        SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
+                    //        IrsaliyeNo = y.IrsaliyeNumarasi,
+                    //        Tarih = y.Tarih,
+                    //        VadeTarih = y.VadeTarih,
+                    //        Toplam = y.Toplam
+                    //    })
+                    //.ToList();
                     return Json(deger, JsonRequestBehavior.AllowGet);
 
                 }
                 else
                 {
-                    var deger = c.Faturalars.Where(x => x.CariId == id && x.VadeTarih >= altsinir && x.VadeTarih <= ustsinir && x.IslemTip == islemtip)
-                   .Select(y => new {
-                       IslemTip = y.IslemTip,
-                       SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
-                       IrsaliyeNo = y.IrsaliyeNumarasi,
-                       Tarih = y.Tarih,
-                       VadeTarih = y.VadeTarih,
-                       Toplam = y.Toplam
-                   })
-                .ToList();
+                    var deger = (from f in c.Faturalars
+                                 join ch in c.CariHareketlers on f.FaturaID equals ch.FaturaID
+                                 where ch.CariID == id && f.VadeTarih >= altsinir && f.VadeTarih <= ustsinir && f.IslemTip == islemtip
+                                  select new
+                                 {
+                                     IslemTip = f.IslemTip,
+                                     SeriSiraNo = f.FaturaSeriNo + f.FaturaSiraNo,
+                                     Tarih = f.Tarih,
+                                     VadeTarih = f.VadeTarih,
+                                     Toplam = f.Toplam,
+                                     Alacak = ch.CariDenAlacak,
+                                     Borc = ch.CariNinAlacak
+                                 }).ToList();
+                //    var deger = c.Faturalars.Where(x => x.CariId == id && x.VadeTarih >= altsinir && x.VadeTarih <= ustsinir && x.IslemTip == islemtip)
+                //   .Select(y => new {
+                //       IslemTip = y.IslemTip,
+                //       SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
+                //       IrsaliyeNo = y.IrsaliyeNumarasi,
+                //       Tarih = y.Tarih,
+                //       VadeTarih = y.VadeTarih,
+                //       Toplam = y.Toplam
+                //   })
+                //.ToList();
                     return Json(deger, JsonRequestBehavior.AllowGet);
 
                 }
@@ -135,17 +161,20 @@ namespace EuroStarFOM.Controllers
         }
         public ActionResult CariFaturaData(int id)
         {
-            var deger = c.Faturalars.Where(x => x.CariId == id )
-                .Select(y => new {
-                    IslemTip = y.IslemTip,
-                    SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
-                    IrsaliyeNo = y.IrsaliyeNumarasi,
-                    Tarih = y.Tarih,
-                    VadeTarih = y.VadeTarih,
-                    Toplam = y.Toplam
-                })
-                .ToList();
-
+            var deger = (from f in c.Faturalars
+                          join ch in c.CariHareketlers on f.FaturaID equals ch.FaturaID
+                          where ch.CariID == id
+                          select new
+                          {
+                              IslemTip = f.IslemTip,
+                              SeriSiraNo = f.FaturaSeriNo + f.FaturaSiraNo,
+                              Tarih = f.Tarih,
+                              VadeTarih = f.VadeTarih,
+                              Toplam = f.Toplam,
+                              Alacak = ch.CariDenAlacak,
+                              Borc = ch.CariNinAlacak
+                          }).ToList();
+                         
             return Json(deger, JsonRequestBehavior.AllowGet);
 
         }

@@ -27,7 +27,7 @@
                         <th>Seri-Sıra No</th>
                         <th>Vergi Dairesi</th>
 
-                        <th>Toplam</th>
+                        <th>Tutar</th>
                         <th>Detaylar</th>
 
                     </tr>
@@ -41,7 +41,7 @@
                             <td>@item.FaturaSeriNo @item.FaturaSiraNo</td>
                             <td>@item.VergiDairesi</td>
 
-                            <td>@item.Toplam</td>
+                            <td>@item.Toplam.ToString("#,##0.00")</td>
                             <td>
 
                                 <a href="/Fatura/FaturaGetir/@item.FaturaID" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1">

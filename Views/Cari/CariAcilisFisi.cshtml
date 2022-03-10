@@ -1,0 +1,86 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model  List<Cari>
+@{
+    ViewBag.Title = "CariAcilisFisi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/smartadmin-html-full/dist/css/datagrid/datatables/datatables.bundle.css" rel="stylesheet" media="screen, print" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Cari Listesi</h2>
+        <div class="panel-toolbar">
+            <a href="/Cari/CariEkle" title="Yeni Kayıt" class="btn btn-info btn-icon rounded-circle mr-1 ">
+                <i class="fal fa-plus"></i>
+            </a>
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            <table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped ">
+                <thead class=" bg-info-900 ">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cari Ad</th>
+                        <th>Cari Soyad</th>
+                        <th>Şehir</th>
+                        <th>Mail</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td align="right">@item.CariID</td>
+                            <td align="center">@item.CariAd </td>
+                            <td align="center">@item.CariSoyad </td>
+                            <td align="center">@item.CariSehir</td>
+                            <td align="center">@item.CariMail</td>
+                            <td align="center">
+                                <a href="/Cari/AcilisFisi/@item.CariID" title="Açılış Fişi" class="btn btn-info btn-icon rounded-circle"><i class="fal fa-edit"></i></a>
+                               
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section ScriptsBlock {
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
+            $('#dt-basic-example thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+            var table = $('#dt-basic-example').DataTable(
+                {
+                    //responsive: true,
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                });
+
+        });
+
+    </script>
+}

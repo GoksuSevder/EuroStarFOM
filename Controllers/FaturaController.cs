@@ -106,8 +106,8 @@ namespace EuroStarFOM.Controllers
             FaturaFKalemModel ffkm = new FaturaFKalemModel();
             ffkm.FaturalarDeger = c.Faturalars.ToList();
             ffkm.FaturaKalemDeger = c.FaturaKalems.ToList();
-            ffkm.CariDeger = c.Caris.ToList();
-            ffkm.UrunDeger = c.Uruns.ToList();
+            ffkm.CariDeger = c.Caris.Where(x => x.Durum == true).ToList();
+            ffkm.UrunDeger = c.Uruns.Where(x => x.Durum == true).ToList();
             ffkm.DepoDeger = c.Depos.Where(x => x.Durum == true).ToList();
             return View(ffkm);
         }

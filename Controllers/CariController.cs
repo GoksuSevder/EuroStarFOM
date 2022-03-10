@@ -33,7 +33,7 @@ namespace EuroStarFOM.Controllers
                 c.Caris.Add(cari);
                 c.SaveChanges();
             }
-           
+
             return RedirectToAction("Index");
         }
         public ActionResult CariSil(int id)
@@ -64,12 +64,12 @@ namespace EuroStarFOM.Controllers
                 deger.Durum = true;
                 c.SaveChanges();
             }
-          
+
             return RedirectToAction("Index");
         }
         public ActionResult CariSatis(int id)
         {
-             var deger = c.SatisHarakets.Where(x=>x.CariId== id).ToList();
+            var deger = c.SatisHarakets.Where(x => x.CariId == id).ToList();
             var cariAdi = c.Caris.Where(x => x.CariID == id).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
             ViewBag.CariAdi = cariAdi;
             return View(deger);
@@ -82,14 +82,14 @@ namespace EuroStarFOM.Controllers
         public ActionResult CariFaturaDetay(int id)
         {
             var deger = c.Faturalars.Where(x => x.CariId == id).ToList();
-            var cariAdi = c.Caris.Where(x => x.CariID == id && x.Durum==true).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
+            var cariAdi = c.Caris.Where(x => x.CariID == id && x.Durum == true).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
             var caribakiye = c.Caris.Where(x => x.CariID == id && x.Durum == true).Select(y => y.Bakiye).FirstOrDefault();
             ViewBag.CariAdi = cariAdi;
             ViewBag.CariBakiye = caribakiye;
             return View(deger);
 
         }
-        public ActionResult TarihAraligi(int id,DateTime altsinir,DateTime ustsinir,string islemtip)
+        public ActionResult TarihAraligi(int id, DateTime altsinir, DateTime ustsinir, string islemtip)
         {
             var d = c.Faturalars.ToList();
             try
@@ -98,7 +98,7 @@ namespace EuroStarFOM.Controllers
                 {
                     var deger = (from f in c.Faturalars
                                  join ch in c.CariHareketlers on f.FaturaID equals ch.FaturaID
-                                 where ch.CariID == id && f.VadeTarih >= altsinir && f.VadeTarih <= ustsinir 
+                                 where ch.CariID == id && f.VadeTarih >= altsinir && f.VadeTarih <= ustsinir
                                  select new
                                  {
                                      IslemTip = f.IslemTip,
@@ -127,7 +127,7 @@ namespace EuroStarFOM.Controllers
                     var deger = (from f in c.Faturalars
                                  join ch in c.CariHareketlers on f.FaturaID equals ch.FaturaID
                                  where ch.CariID == id && f.VadeTarih >= altsinir && f.VadeTarih <= ustsinir && f.IslemTip == islemtip
-                                  select new
+                                 select new
                                  {
                                      IslemTip = f.IslemTip,
                                      SeriSiraNo = f.FaturaSeriNo + f.FaturaSiraNo,
@@ -137,16 +137,16 @@ namespace EuroStarFOM.Controllers
                                      Alacak = ch.CariDenAlacak,
                                      Borc = ch.CariNinAlacak
                                  }).ToList();
-                //    var deger = c.Faturalars.Where(x => x.CariId == id && x.VadeTarih >= altsinir && x.VadeTarih <= ustsinir && x.IslemTip == islemtip)
-                //   .Select(y => new {
-                //       IslemTip = y.IslemTip,
-                //       SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
-                //       IrsaliyeNo = y.IrsaliyeNumarasi,
-                //       Tarih = y.Tarih,
-                //       VadeTarih = y.VadeTarih,
-                //       Toplam = y.Toplam
-                //   })
-                //.ToList();
+                    //    var deger = c.Faturalars.Where(x => x.CariId == id && x.VadeTarih >= altsinir && x.VadeTarih <= ustsinir && x.IslemTip == islemtip)
+                    //   .Select(y => new {
+                    //       IslemTip = y.IslemTip,
+                    //       SeriSiraNo = y.FaturaSeriNo + y.FaturaSiraNo,
+                    //       IrsaliyeNo = y.IrsaliyeNumarasi,
+                    //       Tarih = y.Tarih,
+                    //       VadeTarih = y.VadeTarih,
+                    //       Toplam = y.Toplam
+                    //   })
+                    //.ToList();
                     return Json(deger, JsonRequestBehavior.AllowGet);
 
                 }
@@ -156,27 +156,68 @@ namespace EuroStarFOM.Controllers
 
                 return View("Index");
             }
-           
+
 
         }
         public ActionResult CariFaturaData(int id)
         {
             var deger = (from f in c.Faturalars
-                          join ch in c.CariHareketlers on f.FaturaID equals ch.FaturaID
-                          where ch.CariID == id
-                          select new
-                          {
-                              IslemTip = f.IslemTip,
-                              SeriSiraNo = f.FaturaSeriNo + f.FaturaSiraNo,
-                              Tarih = f.Tarih,
-                              VadeTarih = f.VadeTarih,
-                              Toplam = f.Toplam,
-                              Alacak = ch.CariDenAlacak,
-                              Borc = ch.CariNinAlacak
-                          }).ToList();
-                         
+                         join ch in c.CariHareketlers on f.FaturaID equals ch.FaturaID
+                         where ch.CariID == id
+                         select new
+                         {
+                             IslemTip = f.IslemTip,
+                             SeriSiraNo = f.FaturaSeriNo + f.FaturaSiraNo,
+                             Tarih = f.Tarih,
+                             VadeTarih = f.VadeTarih,
+                             Toplam = f.Toplam,
+                             Alacak = ch.CariDenAlacak,
+                             Borc = ch.CariNinAlacak
+                         }).ToList();
+
             return Json(deger, JsonRequestBehavior.AllowGet);
 
+        }
+        public ActionResult CariGetirJson(int id)
+        {
+            var cari = c.Caris.Where(x => x.CariID == id).FirstOrDefault();
+            return Json(cari, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult AcilisFisi()
+        {
+            var degerler = c.Caris.Where(x => x.Durum == true).ToList();
+            return View(degerler);
+        }
+        [HttpPost]
+        public ActionResult AcilisFisi(int CariID, string IslemTip, string Aciklama, int Borc, int Alacak, DateTime Tarih)
+        {
+           
+            try
+            {
+                if (Borc == 0 && Alacak ==0)
+                {
+                    return Json("Borç ya da Alacak'ı Kontroledin", JsonRequestBehavior.AllowGet);
+                }
+                var degerler = new CariHareketler();
+                degerler.CariID = CariID;
+                degerler.IslemTip = IslemTip;
+                degerler.Aciklama = Aciklama;
+                degerler.CariNinAlacak = Borc;
+                degerler.CariDenAlacak = Alacak;
+                degerler.Tarih = Tarih;
+                degerler.VadeTarih = Tarih;
+                c.CariHareketlers.Add(degerler);
+                c.SaveChanges();
+                return Json(degerler, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+
+                return Json("Beklenmedik bir hata oldu. Lütfen tekrar deneyin.", JsonRequestBehavior.AllowGet);
+            }
+           
+           
         }
     }
 }

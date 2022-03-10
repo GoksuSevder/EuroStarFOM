@@ -1,0 +1,216 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model  List<Cari>
+@{
+    ViewBag.Title = "AcilisFisi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
+<div class="panel">
+    <div class="panel-hdr bg-danger-900 bg-info-gradient">
+        <h2>Açılış fişi</h2>
+        <div class="panel-toolbar">
+
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+            <br />
+            <div class="row">
+                <div class="col-lg-3 col-md-12">
+                    <div class="form-group ">
+
+                        <label for="CariID" class="col-form-label">
+                            <strong>Cari</strong>
+                        </label>
+                        <select class="select2 form-control w-100 is-invalid" id="CariID" name="CariID">
+                            <option> </option>
+                            @foreach (var item in Model)
+                            {
+                                <option value="@item.CariID">@item.CariID | @item.CariAd   @item.CariSoyad</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">Lütfen Cari Seçin.</div>
+                        <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+
+                    </div>
+                </div>
+                <div class="col-7"></div>
+                <div class="col-2 ">
+                    @Html.Label("Bakiye", new { @style = "font-weight: bold;" })
+                    <input type="text" id="Bakiye" value="0.00" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " style="text-align:right" disabled />
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-1">
+                    @Html.Label("İşlem Tipi", new { @style = "font-weight: bold;" })
+                    <input type="text" id="IslemTip" value="Açılış fişi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" disabled />
+                </div>
+                <div class="col-2">
+                    @Html.Label("Tarih", new { @style = "font-weight: bold;" })
+                    <input type="date" id="Tarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                    <div class="invalid-feedback">Lütfen Tarih Seçin.</div>
+                    <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+                </div>
+                <div class="col-5">
+                    @Html.Label("Açıklama", new { @style = "font-weight: bold;" })
+                    <input type="text" id="Aciklama" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" style="text-align:right" />
+                    <div class="invalid-feedback">Lütfen Açıklama Giriniz.</div>
+                    <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+
+                </div>
+                <div class="col-2 ">
+                    @Html.Label("Borç", new { @style = "font-weight: bold;" })
+                    <input type="number" id="Borc" value="0" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " style="text-align:right" />
+                    <div class="invalid-feedback">Lütfen Açıklama Giriniz.</div>
+                    <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+                </div>
+                <div class="col-2 ">
+                    @Html.Label("Alacak", new { @style = "font-weight: bold;" })
+                    <input type="number" id="Alacak" value="0" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " style="text-align:right" />
+                    <div class="invalid-feedback">Lütfen Açıklama Giriniz.</div>
+                    <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
+                </div>
+
+                @*<div class="col-3">
+                              @Html.Label("Tarih ")
+                             <input type="text" class="form-control" id="custom-range">
+                    </div>*@
+            </div><br /><br />
+            <div class="row ml-auto mb-2 d-flex justify-content-end ">
+                <div class="col-3 d-flex justify-content-end  mr-3">
+                    <button id="saveOrder" type="submit" class="btn btn-success">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section ScriptsBlock {
+    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+    <script src="~/Scripts/DropDown.js"></script>
+    <script>
+        Number.prototype.formatMoney = function (fractionDigits, decimal, separator) {
+            fractionDigits = isNaN(fractionDigits = Math.abs(fractionDigits)) ? 2 : fractionDigits;
+            decimal = typeof (decimal) === "undefined" ? "." : decimal;
+            separator = typeof (separator) === "undefined" ? "," : separator;
+            var number = this;
+            var neg = number < 0 ? "-" : "";
+            var wholePart = parseInt(number = Math.abs(+number || 0).toFixed(fractionDigits)) + "";
+            var separtorIndex = (separtorIndex = wholePart.length) > 3 ? separtorIndex % 3 : 0;
+            return neg +
+                (separtorIndex ? wholePart.substr(0, separtorIndex) + separator : "") +
+                wholePart.substr(separtorIndex).replace(/(\d{3})(?=\d)/g, "$1" + separator) +
+                (fractionDigits ? decimal + Math.abs(number - wholePart).toFixed(fractionDigits).slice(2) : "");
+        };
+        function formatMoney(raw) {
+
+            return Number(raw).formatMoney(2, ',', '.');
+
+        }
+        $("#CariID").change(function () {
+            if ($("#CariID").val() == "") {
+
+                $("#CariID").removeClass("is-valid");
+                $("#CariID").addClass("is-invalid");
+
+            } else {
+                $("#CariID").removeClass("is-invalid");
+                $("#CariID").addClass("is-valid");
+
+            }
+
+            $.post("/Cari/CariGetirJson",
+                {
+                    id: $("#CariID").val(),
+                },
+                function (data, status) {
+
+
+                    $("#Bakiye").val(formatMoney(data.Bakiye));
+
+                });
+
+        });
+        $("#Tarih").change(function () {
+            if ($("#Tarih").val() == "mm/dd/yyyy") {
+
+                $("#Tarih").removeClass("is-valid");
+                $("#Tarih").addClass("is-invalid");
+
+            } else {
+                $("#Tarih").removeClass("is-invalid");
+                $("#Tarih").addClass("is-valid");
+
+            }
+        });
+        $("#Aciklama").change(function () {
+            if ($("#Aciklama").val() == "") {
+
+                $("#Aciklama").removeClass("is-valid");
+                $("#Aciklama").addClass("is-invalid");
+
+            } else {
+                $("#Aciklama").removeClass("is-invalid");
+                $("#Aciklama").addClass("is-valid");
+
+            }
+        });
+        function saveOrder(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Cari/AcilisFisi",
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    alert("Kayıt Başarılı.");
+
+                    location.reload();
+                },
+                error: function () {
+                    console.log("Error!");
+                    alert("Ayarlarınızı Kontrol Edin");
+                }
+            });
+        }
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+            if ($.trim($("#CariID").val()) == "") return;
+            if ($.trim($("#Aciklama").val()) == "") return;
+
+            console.log(parseInt( $("#CariID").val()));
+            console.log($("#IslemTip").val());
+            console.log($("#Aciklama").val());
+            console.log($("#Borc").val());
+            console.log($("#Alacak").val());
+            console.log($("#Tarih").val());
+
+            var data = JSON.stringify({
+
+                CariID: parseInt($("#CariID").val()),
+                IslemTip: $("#IslemTip").val(),
+                Aciklama: $("#Aciklama").val(),
+                Borc: $("#Borc").val(),
+                Alacak: $("#Alacak").val(),
+                Tarih: $("#Tarih").val()
+
+            });
+            console.log(data);
+          
+            $.when(saveOrder(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
+}

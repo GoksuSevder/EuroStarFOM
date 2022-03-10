@@ -15,8 +15,8 @@ namespace EuroStarFOM.Models.Siniflar
         //[ForeignKey("CariID")]
         //public virtual Cari Cari { get; set; }
         public int FaturaID { get; set; }
-        [ForeignKey("FaturaID")]
-        public virtual Faturalar Faturalar { get; set; }
+        //[ForeignKey("FaturaID")]
+        //public virtual Faturalar Faturalar { get; set; }
         [Column(TypeName = ("Varchar"))]
         [StringLength(30)]
         public string IslemTip { get; set; }

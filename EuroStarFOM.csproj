@@ -2052,6 +2052,8 @@
     <Content Include="Views\Cari\CariFatura.cshtml" />
     <Content Include="Views\Cari\CariFaturaDetay.cshtml" />
     <Content Include="Views\Dosyalar\AcikDosyalar.cshtml" />
+    <Content Include="Views\Cari\CariAcilisFisi.cshtml" />
+    <Content Include="Views\Cari\AcilisFisi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

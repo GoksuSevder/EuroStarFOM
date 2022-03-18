@@ -40,6 +40,7 @@ namespace EuroStarFOM.Models.Siniflar
         [ForeignKey("StokId")]
         public virtual Stok Stok { get; set; }
         public ICollection<SatisHaraket> SatisHarakets { get; set; }
+        public ICollection<DosyaDegisenParca> DosyaDegisenParca { get; set; }
 
 
     }

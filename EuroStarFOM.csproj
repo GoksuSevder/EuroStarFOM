@@ -146,6 +146,8 @@
     <Compile Include="Models\Siniflar\Context.cs" />
     <Compile Include="Models\Siniflar\Depo.cs" />
     <Compile Include="Models\Siniflar\DepoStok.cs" />
+    <Compile Include="Models\Siniflar\DosyaDegisenParca.cs" />
+    <Compile Include="Models\Siniflar\Dosyalar.cs" />
     <Compile Include="Models\Siniflar\Stok.cs" />
     <Compile Include="Models\Siniflar\TamirHareket.cs" />
     <Compile Include="Models\Siniflar\Urun.cs" />
@@ -159,6 +161,8 @@
     <Compile Include="Models\Siniflar\Admin.cs" />
     <Compile Include="Models\Siniflar\Kategori.cs" />
     <Compile Include="Models\SinifModel\DepoStokUrun.cs" />
+    <Compile Include="Models\SinifModel\DosyaEkleModel.cs" />
+    <Compile Include="Models\SinifModel\DosyaIndexModel.cs" />
     <Compile Include="Models\SinifModel\FaturaFKalemModel.cs" />
     <Compile Include="Models\SinifModel\StokUrunEkleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2054,6 +2058,9 @@
     <Content Include="Views\Dosyalar\AcikDosyalar.cshtml" />
     <Content Include="Views\Cari\CariAcilisFisi.cshtml" />
     <Content Include="Views\Cari\AcilisFisi.cshtml" />
+    <Content Include="Views\Cari\TahsilatOdeme.cshtml" />
+    <Content Include="Views\Dosyalar\DosyaEkle.cshtml" />
+    <Content Include="Views\Dosyalar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

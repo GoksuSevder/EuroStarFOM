@@ -22,6 +22,8 @@ namespace EuroStarFOM.Models.Siniflar
         public DbSet<Depo> Depos { get; set; }
         public DbSet<Stok> Stoks { get; set; }
         public DbSet<CariHareketler> CariHareketlers { get; set; }
+        public DbSet<Dosyalar> Dosyalars { get; set; }
+        public DbSet<DosyaDegisenParca> DosyaDegisenParcas { get; set; }
         //public DbSet<DepoStok> DepoStoks { get; set; }
     }
 }

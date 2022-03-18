@@ -219,5 +219,43 @@ namespace EuroStarFOM.Controllers
            
            
         }
+
+        [HttpGet]
+        public ActionResult TahsilatOdeme()
+        {
+            var degerler = c.Caris.Where(x => x.Durum == true).ToList();
+            return View(degerler);
+        }
+        [HttpPost]
+        public ActionResult TahsilatOdeme(int CariID, string IslemTip, string Aciklama, int Odeme, int Tahsilat, DateTime Tarih)
+        {
+
+            try
+            {
+                if (Odeme == 0 && Tahsilat == 0)
+                {
+                    return Json("Ödeme ya da Alacak'ı Kontroledin", JsonRequestBehavior.AllowGet);
+                }
+                var degerler = new CariHareketler();
+                degerler.CariID = CariID;
+                degerler.IslemTip = IslemTip;
+                degerler.Aciklama = Aciklama;
+                degerler.CariNinAlacak = Tahsilat ;
+                degerler.CariDenAlacak = Odeme;
+                degerler.Tarih = Tarih;
+                degerler.VadeTarih = Tarih;
+                c.CariHareketlers.Add(degerler);
+                c.SaveChanges();
+                return Json(degerler, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+
+                return Json("Beklenmedik bir hata oldu. Lütfen tekrar deneyin.", JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
     }
 }

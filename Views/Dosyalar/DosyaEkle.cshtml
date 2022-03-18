@@ -1,0 +1,832 @@
+﻿
+@{
+    ViewBag.Title = "DosyaEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
+
+@*<div class="alert border-info bg-transparent text-info fade show" id="AlertId" role="alert" hidden>
+    <div class="d-flex align-items-center">
+        <div class="alert-icon">
+            <i class="fal fa-exclamation-triangle"></i>
+        </div>
+        <div class="flex-1">
+            <span class="h5 m-0 fw-700" id="AlertSpan"> </span>
+        </div>
+        <button type="button" id="AlertYes" class="btn btn-info btn-pills btn-sm btn-w-m  mr-1">
+            Evet
+        </button>
+        <button type="button" id="AlertNo" class="btn btn-danger btn-pills btn-sm btn-w-m" data-dismiss="alert" aria-label="Close">
+            Hayır
+        </button>
+    </div>
+</div>*@
+<form id="YeniDosyaForm">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Dosya Bilgileri</h2>
+                    <div class="panel-toolbar">
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong> Dosya No</strong></label>
+                                <input type="text" id="DosyaNo" name="DosyaNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Dosya Açılış Tarihi</strong></label>
+                                <input type="date" id="DAcilisTarih" name="DAcilisTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Sigorta Şirketi</strong></label>
+                                <select class="select2 form-control w-100 is-invalid" id="SgrtSirketi" name="SgrtSirketi">
+                                    <option> </option>
+                                    @foreach (var item in ViewBag.SigortaSirketi)
+                                    {
+                                        <option value="@item.Value">@item.Text </option>
+                                    }
+                                </select>
+
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Dosya Kabul Tarihi</strong></label>
+                                <input type="date" id="DKabulTarih" name="DKabulTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong> Araç Plaka</strong></label>
+                                <input type="text" id="AracPlaka" name="AracPlaka" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="DosyaDurumu" class="col-form-label">
+                                    <strong>Dosya Durumu</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="DosyaDurumu" name="DosyaDurumu">
+                                    <option> </option>
+                                    <option value="1">Yeni Kayıt </option>
+                                    <option value="2">Eksper İnceliyor </option>
+                                    <option value="3">Onarımda </option>
+                                    <option value="4">Faturalandı </option>
+                                    <option value="5">Tamamlandı </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Exper Bilgileri</h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Exper Adı</strong></label>
+                            <input type="text" id="ExperAdi" name="ExperAdi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Gsm</strong></label>
+                            <input type="number" id="ExperGsm" name="ExperGsm" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Tel</strong></label>
+                            <input type="number" id="ExperTel" name="ExperTel" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Eposta</strong></label>
+                            <input type="text" id="ExperTelEposta" name="ExperTelEposta" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xl-6">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Servis Bilgileri</h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Servis Adı</strong></label>
+                            <input type="text" id="ServisAdi" name="ServisAdi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Servis Yetkili</strong></label>
+                            <input type="text" id="ServisYetkili" name="ServisYetkili" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Servis Tel</strong></label>
+                            <input type="number" id="ServisTel" name="ServisTel" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Servis GSM</strong></label>
+                            <input type="number" id="ServisGsm" name="ServisGsm" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Durum </h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label for="Kategori" class="col-form-label">
+                                    <strong>Kategori</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="Kategori" name="Kategori">
+                                    <option> </option>
+                                    <option value="1">Ücretli </option>
+                                    <option value="2">Garantili </option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong> Araç Plaka</strong></label>
+                                <input type="text" id="AracPlaka2" name="AracPlaka2" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label for="AltAsama" class="col-form-label">
+                                    <strong>Alt Aşama</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="AltAsama" name="AltAsama">
+                                    <option> </option>
+                                    <option value="0">Alt Asama0 </option>
+                                    <option value="1">Alt Asama1 </option>
+                                    <option value="2">Alt Asama2 </option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Araç Marka</strong></label>
+                                <input type="text" id="AracMarka" name="AracMarka" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+
+
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label for="Sürec" class="col-form-label">
+                                    <strong>Süreç</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="Surec" name="Surec">
+                                    <option> </option>
+                                    <option value="0">Sürec0 </option>
+                                    <option value="1">Sürec1 </option>
+                                    <option value="1">Sürec2 </option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Araç Model</strong></label>
+                                <input type="text" id="AracModel" name="AracModel" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+
+
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label for="Oncelik" class="col-form-label">
+                                    <strong>Öncelik</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="Oncelik" name="Oncelik">
+                                    <option> </option>
+                                    <option value="0">Oncelik0 </option>
+                                    <option value="1">Oncelik1 </option>
+                                    <option value="2">Oncelik2 </option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Araç Yılı</strong></label>
+                                <input type="number" id="AracYili" name="AracYili" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Ürün Değerlendirme</h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <label for="UrunDegerlendirme" class="col-form-label">
+                            <strong>Ürün Değerlendirme</strong>
+                        </label>
+                        <textarea class="form-control w-100 is-invalid" id="UrunDegerlendirme" name="UrunDegerlendirme">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Değişen Parça </h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Ürün</strong></label>
+                                <select class="select2 form-control w-100 is-invalid" id="UrunID" name="UrunID">
+                                    <option> </option>
+                                    @foreach (var item in ViewBag.UrunGetir)
+                                    {
+                                        <option value="@item.Value">@item.Text </option>
+                                    }
+                                </select>
+
+                            </div>
+                            <div class="row mt-6 d-flex justify-content-end mb-3">
+                                <div class="col-md-4 col-lg-offset-4 text-white text-right">
+                                    <a id="addToList" class="btn btn-success"> Ekle</a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <table id="detailsTable1" class="table m-0 table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr class="bg-info-400">
+                                        <th style="width:10%">Ürün Kodu</th>
+                                        <th style="width:25%">Ürün</th>
+                                        <th style="width:25%">Açıklama</th>
+                                        <th style="width:10%">%Kdv</th>
+                                        <th style="width:10%">Miktar</th>
+                                        <th style="width:10%">Fiyat</th>
+                                        <th style="width:10%">Tutar</th>
+                                        <th style="width:10%">İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Sigorta Fatura </h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+
+                            <div class="col-xl-4">
+                                <label class="col-form-label"><strong>Fatura No</strong></label>
+                                <input type="text" id="FaturaNo" name="FaturaNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                            <div class="col-xl-4">
+                                <label class="col-form-label"><strong>Fatura Tutar</strong></label>
+                                <input type="number" id="FaturaTutar" name="FaturaTutar" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                            <div class="col-xl-4">
+                                <label class="col-form-label"><strong>Tarih</strong></label>
+                                <input type="date" id="FaturaTarih" name="FaturaTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="saveDosya" type="submit" class="btn btn-danger">Dosya Kaydet</button>
+    </div>
+</form>
+@section ScriptsBlock{
+    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+    <script src="~/Scripts/DropDown.js"></script>
+    <script>
+        $("#DosyaNo").change(function () {
+            if ($("#DosyaNo").val().trim() == "") {
+                $("#DosyaNo").removeClass("is-valid");
+                $("#DosyaNo").addClass("is-invalid");
+
+            } else {
+                $("#DosyaNo").removeClass("is-invalid");
+                $("#DosyaNo").addClass("is-valid");
+            }
+        });
+        $("#DAcilisTarih").change(function () {
+            if ($("#DAcilisTarih").val() == "mm/dd/yyyy") {
+                $("#DAcilisTarih").removeClass("is-valid");
+                $("#DAcilisTarih").addClass("is-invalid");
+
+            } else {
+                $("#DAcilisTarih").removeClass("is-invalid");
+                $("#DAcilisTarih").addClass("is-valid");
+            }
+        });
+        $("#SgrtSirketi").change(function () {
+            if ($("#SgrtSirketi").val().trim() == "") {
+                $("#SgrtSirketi").removeClass("is-valid");
+                $("#SgrtSirketi").addClass("is-invalid");
+
+            } else {
+                $("#SgrtSirketi").removeClass("is-invalid");
+                $("#SgrtSirketi").addClass("is-valid");
+            }
+        });
+        $("#DKabulTarih").change(function () {
+            if ($("#DKabulTarih").val() == "mm/dd/yyyy") {
+                $("#DKabulTarih").removeClass("is-valid");
+                $("#DKabulTarih").addClass("is-invalid");
+
+            } else {
+                $("#DKabulTarih").removeClass("is-invalid");
+                $("#DKabulTarih").addClass("is-valid");
+            }
+        });
+        $("#AracPlaka").change(function () {
+            if ($("#AracPlaka").val().trim() == "") {
+                $("#AracPlaka").removeClass("is-valid");
+                $("#AracPlaka").addClass("is-invalid");
+
+            } else {
+                $("#AracPlaka").removeClass("is-invalid");
+                $("#AracPlaka").addClass("is-valid");
+            }
+        });
+        $("#DosyaDurumu").change(function () {
+            if ($("#DosyaDurumu").val().trim() == "") {
+                $("#DosyaDurumu").removeClass("is-valid");
+                $("#DosyaDurumu").addClass("is-invalid");
+
+            } else {
+                $("#DosyaDurumu").removeClass("is-invalid");
+                $("#DosyaDurumu").addClass("is-valid");
+            }
+        });
+        $("#ExperAdi").change(function () {
+            if ($("#ExperAdi").val().trim() == "") {
+                $("#ExperAdi").removeClass("is-valid");
+                $("#ExperAdi").addClass("is-invalid");
+
+            } else {
+                $("#ExperAdi").removeClass("is-invalid");
+                $("#ExperAdi").addClass("is-valid");
+            }
+        });
+        $("#ExperGsm").change(function () {
+            if ($("#ExperGsm").val().trim() == "") {
+                $("#ExperGsm").removeClass("is-valid");
+                $("#ExperGsm").addClass("is-invalid");
+
+            } else {
+                $("#ExperGsm").removeClass("is-invalid");
+                $("#ExperGsm").addClass("is-valid");
+            }
+        });
+        $("#ExperTel").change(function () {
+            if ($("#ExperTel").val().trim() == "") {
+                $("#ExperTel").removeClass("is-valid");
+                $("#ExperTel").addClass("is-invalid");
+
+            } else {
+                $("#ExperTel").removeClass("is-invalid");
+                $("#ExperTel").addClass("is-valid");
+            }
+        });
+        $("#ExperTelEposta").change(function () {
+            if ($("#ExperTelEposta").val().trim() == "") {
+                $("#ExperTelEposta").removeClass("is-valid");
+                $("#ExperTelEposta").addClass("is-invalid");
+
+            } else {
+                $("#ExperTelEposta").removeClass("is-invalid");
+                $("#ExperTelEposta").addClass("is-valid");
+            }
+        });
+        $("#ServisAdi").change(function () {
+            if ($("#ServisAdi").val().trim() == "") {
+                $("#ServisAdi").removeClass("is-valid");
+                $("#ServisAdi").addClass("is-invalid");
+
+            } else {
+                $("#ServisAdi").removeClass("is-invalid");
+                $("#ServisAdi").addClass("is-valid");
+            }
+        });
+        $("#ServisYetkili").change(function () {
+            if ($("#ServisYetkili").val().trim() == "") {
+                $("#ServisYetkili").removeClass("is-valid");
+                $("#ServisYetkili").addClass("is-invalid");
+
+            } else {
+                $("#ServisYetkili").removeClass("is-invalid");
+                $("#ServisYetkili").addClass("is-valid");
+            }
+        });
+        $("#ServisTel").change(function () {
+            if ($("#ServisTel").val().trim() == "") {
+                $("#ServisTel").removeClass("is-valid");
+                $("#ServisTel").addClass("is-invalid");
+
+            } else {
+                $("#ServisTel").removeClass("is-invalid");
+                $("#ServisTel").addClass("is-valid");
+            }
+        });
+        $("#ServisGsm").change(function () {
+            if ($("#ServisGsm").val().trim() == "") {
+                $("#ServisGsm").removeClass("is-valid");
+                $("#ServisGsm").addClass("is-invalid");
+
+            } else {
+                $("#ServisGsm").removeClass("is-invalid");
+                $("#ServisGsm").addClass("is-valid");
+            }
+        });
+        $("#Kategori").change(function () {
+            if ($("#Kategori").val().trim() == "") {
+                $("#Kategori").removeClass("is-valid");
+                $("#Kategori").addClass("is-invalid");
+
+            } else {
+                $("#Kategori").removeClass("is-invalid");
+                $("#Kategori").addClass("is-valid");
+            }
+        });
+        $("#AracPlaka2").change(function () {
+            if ($("#AracPlaka2").val().trim() == "") {
+                $("#AracPlaka2").removeClass("is-valid");
+                $("#AracPlaka2").addClass("is-invalid");
+
+            } else {
+                $("#AracPlaka2").removeClass("is-invalid");
+                $("#AracPlaka2").addClass("is-valid");
+            }
+        });
+        $("#AltAsama").change(function () {
+            if ($("#AltAsama").val().trim() == "") {
+                $("#AltAsama").removeClass("is-valid");
+                $("#AltAsama").addClass("is-invalid");
+
+            } else {
+                $("#AltAsama").removeClass("is-invalid");
+                $("#AltAsama").addClass("is-valid");
+            }
+        });
+        $("#AracMarka").change(function () {
+            if ($("#AracMarka").val().trim() == "") {
+                $("#AracMarka").removeClass("is-valid");
+                $("#AracMarka").addClass("is-invalid");
+
+            } else {
+                $("#AracMarka").removeClass("is-invalid");
+                $("#AracMarka").addClass("is-valid");
+            }
+        });
+        $("#Surec").change(function () {
+            if ($("#Surec").val().trim() == "") {
+                $("#Surec").removeClass("is-valid");
+                $("#Surec").addClass("is-invalid");
+
+            } else {
+                $("#Surec").removeClass("is-invalid");
+                $("#Surec").addClass("is-valid");
+            }
+        });
+        $("#AracModel").change(function () {
+            if ($("#AracModel").val().trim() == "") {
+                $("#AracModel").removeClass("is-valid");
+                $("#AracModel").addClass("is-invalid");
+
+            } else {
+                $("#AracModel").removeClass("is-invalid");
+                $("#AracModel").addClass("is-valid");
+            }
+        });
+        $("#Oncelik").change(function () {
+            if ($("#Oncelik").val().trim() == "") {
+                $("#Oncelik").removeClass("is-valid");
+                $("#Oncelik").addClass("is-invalid");
+
+            } else {
+                $("#Oncelik").removeClass("is-invalid");
+                $("#Oncelik").addClass("is-valid");
+            }
+        });
+        $("#AracYili").change(function () {
+            if ($("#AracYili").val().trim() == "") {
+                $("#AracYili").removeClass("is-valid");
+                $("#AracYili").addClass("is-invalid");
+
+            } else {
+                $("#AracYili").removeClass("is-invalid");
+                $("#AracYili").addClass("is-valid");
+            }
+        });
+        $("#UrunDegerlendirme").change(function () {
+            if ($("#UrunDegerlendirme").val().trim() == "") {
+                $("#UrunDegerlendirme").removeClass("is-valid");
+                $("#UrunDegerlendirme").addClass("is-invalid");
+
+            } else {
+                $("#UrunDegerlendirme").removeClass("is-invalid");
+                $("#UrunDegerlendirme").addClass("is-valid");
+            }
+        });
+        $("#FaturaNo").change(function () {
+            if ($("#FaturaNo").val().trim() == "") {
+                $("#FaturaNo").removeClass("is-valid");
+                $("#FaturaNo").addClass("is-invalid");
+
+            } else {
+                $("#FaturaNo").removeClass("is-invalid");
+                $("#FaturaNo").addClass("is-valid");
+            }
+        });
+        $("#FaturaTutar").change(function () {
+            if ($("#FaturaTutar").val().trim() == "") {
+                $("#FaturaTutar").removeClass("is-valid");
+                $("#FaturaTutar").addClass("is-invalid");
+
+            } else {
+                $("#FaturaTutar").removeClass("is-invalid");
+                $("#FaturaTutar").addClass("is-valid");
+            }
+        });
+        $("#FaturaTarih").change(function () {
+            if ($("#FaturaTarih").val() == "mm/dd/yyyy") {
+                $("#FaturaTarih").removeClass("is-valid");
+                $("#FaturaTarih").addClass("is-invalid");
+
+            } else {
+                $("#FaturaTarih").removeClass("is-invalid");
+                $("#FaturaTarih").addClass("is-valid");
+            }
+        });
+
+
+
+        function saveDosya(data) {
+
+            if ($.trim($("#DosyaNo").val()) == "") return;
+            if ($.trim($("#DosyaNo").val()) == "") return;
+            if ($.trim($("#DAcilisTarih").val()) == "") return;
+            if ($.trim($("#SgrtSirketi option").filter(':selected').val()) == "") return;
+            if ($.trim($("#DKabulTarih").val()) == "") return;
+            if ($.trim($("#AracPlaka").val()) == "") return;
+            if ($.trim($("#DosyaDurumu option").filter(':selected').val()) == 0) return;
+            if ($.trim($("#ExperAdi").val()) == "") return;
+            if ($.trim($("#ExperGsm").val()) == "") return;
+            if ($.trim($("#ExperTel").val()) == "") return;
+            if ($.trim($("#ExperTelEposta").val()) == "") return;
+            if ($.trim($("#ServisAdi").val()) == "") return;
+            if ($.trim($("#ServisYetkili").val()) == "") return;
+            if ($.trim($("#ServisTel").val()) == "") return;
+            if ($.trim($("#ServisGsm").val()) == "") return;
+            if ($.trim($("#Kategori option").filter(':selected').val()) == "") return;
+            if ($.trim($("#AltAsama option").filter(':selected').val()) == "") return;
+            if ($.trim($("#AracMarka").val()) == "") return;
+            if ($.trim($("#Surec option").filter(':selected').val()) == "") return;
+            if ($.trim($("#AracModel").val()) == "") return;
+            if ($.trim($("#Oncelik option").filter(':selected').val()) == "") return;
+            if ($.trim($("#AracYili").val()) == "") return;
+            if ($.trim($("#UrunDegerlendirme").val().trim()) == "") return;
+            if ($.trim($("#FaturaNo").val()) == "") return;
+            if ($.trim($("#FaturaTutar").val()) == "") return;
+            if ($.trim($("#FaturaTarih").val()) == "") return;
+            //sonradan eklendi, kayıtda kontrol edilmedi.
+            if ($.trim($("#BirimFiyat").val()) == "") return;
+
+
+            //$("#AlertId").removeAttr("hidden");
+            //$("#AlertSpan").text("olacak");
+
+            //if ($.trim($("#BirimFiyat").val()) != "") return;
+
+
+
+
+
+
+
+
+
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Dosyalar/DosyaEkle",
+                data: data,
+                success: function (result) {
+
+                    //$("#AlertId").removeAttr("hidden");
+                    //$("#AlertSpan").text(result);
+
+
+
+                    console.log(result);
+                    location.reload();
+                    alert(result);
+                },
+                error: function () {
+                    console.log("Error!");
+                    alert("Ayarlarınızı Kontrol Edin");
+                }
+            });
+        }
+        $("#saveDosya").click(function (e) {
+            e.preventDefault();
+          
+
+            var orderArr = [];
+            orderArr.length = 0;
+
+            $.each($("#detailsTable1 tbody tr"), function () {
+                orderArr.push({
+                    UrunId: $(this).find('td:eq(0)').html().trim(),
+                    UrunAd: $(this).find('td:eq(1)').html().trim(),
+                    Aciklama: $(this).find('#Aciklama').val(),
+                    Kdv: $(this).find('#Kdv').val(),
+                    Miktar: $(this).find('#Miktar').val(),
+                    BirimFiyat: $(this).find('#BirimFiyat').val(),
+                    Tutar: $(this).find('td:eq(6)').html()
+
+                });
+            });
+            var data = JSON.stringify({
+                DosyaNo: $("#DosyaNo").val(),
+                DAcilisTarih: $("#DAcilisTarih").val(),
+                SgrtSirketi: $("#SgrtSirketi option").filter(':selected').val(),
+                DKabulTarih: $("#DKabulTarih").val(),
+                AracPlaka: $("#AracPlaka").val(),
+                DosyaDurumu: $("#DosyaDurumu option").filter(':selected').val(),
+                ExperAdi: $("#ExperAdi").val(),
+                ExperGsm: $("#ExperGsm").val(),
+                ExperTel: $("#ExperTel").val(),
+                ExperTelEposta: $("#ExperTelEposta").val(),
+                ServisAdi: $("#ServisAdi").val(),
+                ServisYetkili: $("#ServisYetkili").val(),
+                ServisTel: $("#ServisTel").val(),
+                ServisGsm: $("#ServisGsm").val(),
+                Kategori: $("#Kategori option").filter(':selected').val(),
+                AltAsama: $("#AltAsama option").filter(':selected').val(),
+                AracMarka: $("#AracMarka").val(),
+                Surec: $("#Surec option").filter(':selected').val(),
+                AracModel: $("#AracModel").val(),
+                Oncelik: $("#Oncelik option").filter(':selected').val(),
+                AracYili: $("#AracYili").val(),
+                UrunDegerlendirme: $("#UrunDegerlendirme").val().trim(),
+                FaturaNo: $("#FaturaNo").val(),
+                FaturaTutar: $("#FaturaTutar").val(),
+                FaturaTarih: $("#FaturaTarih").val(),
+                kalemler: orderArr
+            });
+            console.log(data);
+            $.when(saveDosya(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+            if ($.trim($("#UrunID").val()) == "") return;
+
+            var UrunId = $("#UrunID").val(),
+                UrunAd = $("#UrunID option").filter(':selected').text(),
+                birimfiyat = 123,
+
+
+                detailsTableBody = $("#detailsTable1 tbody");
+
+            var p = $.post("/Dosyalar/UrunGetir",
+                {
+                    id: UrunId,
+                },
+                function (data, status) {
+
+                    UrunId = data.UrunId;
+                    UrunAd = data.UrunAd;
+                    birimfiyat = data.birimfiyat
+                });
+            $.when(p).done(function () {
+                var degerler = '<tr><td > ' + UrunId + '</td><td > ' + UrunAd + '</td><td><input type="text" id="Aciklama" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td ><select id="Kdv" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"><option value="0.08">%8</option><option value="0.18">%18</option></select></td><td><input type="number" id="Miktar" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" value="' + birimfiyat + '"  placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></<td><td><input input type="number" id="Tutar" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr > ';
+
+                detailsTableBody.append(degerler);
+                toplamTutar2();
+
+                $("#UrunID option:selected").remove();
+            });
+        });
+        function toplamTutar() {
+            $("td").change(function () {
+                alert("td değişti");
+                $.each($("#detailsTable1 tbody tr"), function () {
+                    var Kdv = $(this).find('#Kdv').val();
+                    var BirimFiyat = $(this).find('#BirimFiyat').val();
+                    var Miktar = $(this).find('#Miktar').val();
+
+                    var sonuc = (Kdv * Miktar * BirimFiyat) + (Miktar * BirimFiyat);
+                    $(this).find('td:eq(6)').text(sonuc);
+                });
+            });
+        };
+        function toplamTutar2() {
+
+            $.each($("#detailsTable1 tbody tr"), function () {
+                var Kdv = $(this).find('#Kdv').val();
+                var BirimFiyat = $(this).find('#BirimFiyat').val();
+                var Miktar = $(this).find('#Miktar').val();
+
+
+                var sonuc = null;
+
+                sonuc = (Kdv * Miktar * BirimFiyat) + (Miktar * BirimFiyat);
+                $(this).find('td:eq(6)').text(sonuc);
+            });
+
+        };
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#fd3995").fadeOut(800, function () {
+                    $(this).remove();
+                    //toplamTutar();
+                });
+            }
+
+        });
+
+    </script>
+}

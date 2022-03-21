@@ -17,6 +17,7 @@ namespace EuroStarFOM.Controllers
 
             return View();
         }
+
         public ActionResult DosyaListeGetir(string DosyaNo, string AracPlaka, string SigortaSirketi, string Marka, int DosyaDurumu, string KapatmailkTarih, string KapatmasonTarih, string CevapilkTarih, string CevapsonTarih, string OnarimIhbarilkTarih, string OnarimIhbarsonTarih)
         {
             var degerler = (from d in c.Dosyalars.ToList()
@@ -24,6 +25,7 @@ namespace EuroStarFOM.Controllers
                            into liste
                             select new
                             {
+                                DosyaID = d.DosylarID,
                                 SigortaSirketi = d.Cari.CariAd + " " + d.Cari.CariSoyad,
                                 DosylarNo = d.DosylarNo,
                                 DosyaDurum = d.DosyaDurum,
@@ -53,16 +55,13 @@ namespace EuroStarFOM.Controllers
             }
             if (DosyaDurumu != 0)
             {
-                var dosyaDurumu = DosyaDurumu == 0 ? default : degerler.Where(x => x.DosyaDurum ==(DosyaDurum)DosyaDurumu).ToList();
+                var dosyaDurumu = DosyaDurumu == 0 ? default : degerler.Where(x => x.DosyaDurum == (DosyaDurum)DosyaDurumu).ToList();
                 return Json(dosyaDurumu, JsonRequestBehavior.AllowGet);
             }
 
             return Json(degerler, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AcikDosyalar()
-        {
-            return View();
-        }
+
         [HttpGet]
         public ActionResult DosyaEkle()
         {
@@ -147,6 +146,88 @@ namespace EuroStarFOM.Controllers
                 return Json(ViewBag.Message, JsonRequestBehavior.AllowGet);
             }
 
+        }
+        public ActionResult DosyaGetir(int id)
+        {
+            var degerler = (from d in c.Dosyalars.ToList()
+                            //join dp in c.DosyaDegisenParcas.ToList() on d.DosylarID equals dp.DosyaID
+                            //into liste
+                            where d.DosylarID == id
+                            select new
+                            {
+                                DosyaID = d.DosylarID,
+                                DosylarNo = d.DosylarNo,
+                                DosyaDurum = d.DosyaDurum,
+                                Kategori = d.Kategori,
+                                AltAsama = d.AltAsama,
+                                Oncelik = d.Oncelik,
+                                Surec = d.Surec,
+                                CariID = d.CariID,
+                                SigortaSirketi = d.Cari.CariAd + " " + d.Cari.CariSoyad,
+                                EksperAdi = d.EksperAdi,
+                                EksperGSM = d.EksperGSM,
+                                EksperTel = d.EksperTel,
+                                EksperEposta = d.EksperEposta,
+                                ServisAdi = d.ServisAdi,
+                                ServisYetkili = d.ServisYetkili,
+                                ServisGSM = d.ServisGSM,
+                                ServisTel = d.ServisTel,
+                                AracPlaka = d.AracPlaka,
+                                AracMarka = d.AracMarka,
+                                AracModel = d.AracModel,
+                                AracYil = d.AracYil,
+                                UrunDegerlendirme = d.UrunDegerlendirme,
+                                FaturaNo = d.FaturaNo,
+                                FaturaTutar = d.FaturaTutar,
+                                FaturaTarih = d.FaturaTarih,
+                                DKapanisTarih = d.DKapanisTarih,
+                                DAcilisTarih = d.DAcilisTarih,
+                                DKabulTarih = d.DKabulTarih,
+                                //DosyaDegisenParcaID = liste.Select(x => x.DDP_ID),
+                                //ParçaAdeti = liste.Select(x => x.Miktar)
+                            }).FirstOrDefault();
+
+            return Json(degerler, JsonRequestBehavior.AllowGet);
+        } 
+        public ActionResult DosyaUrunGetir(int id)
+        {
+            var degerler = (from ddp in c.DosyaDegisenParcas.ToList()
+                            where ddp.DosyaID == id
+                            select new
+                            {
+                                Aciklama= ddp,
+                                Miktar = ddp,
+                                BirimFiyat = ddp,
+                                Tutar = ddp,
+                                Kdv = ddp
+
+                            }
+                            ).ToList();
+
+            return Json(degerler, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult DosyaGuncelle(int id)
+        {
+            List<SelectListItem> sigortaSirketi = (from x in c.Caris.ToList()
+                                                   where x.Durum == true
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CariAd + " " + x.CariSoyad,
+                                                       Value = x.CariID.ToString()
+                                                   }).ToList();
+            List<SelectListItem> urunGetir = (from x in c.Uruns.ToList()
+                                              where x.Durum == true
+                                              select new SelectListItem
+                                              {
+                                                  Text = x.UrunAd,
+                                                  Value = x.UrunID.ToString()
+                                              }).ToList();
+            ViewBag.UrunGetir = urunGetir;
+            ViewBag.SigortaSirketi = sigortaSirketi;
+
+            var deger = c.Dosyalars.Where(q => q.DosylarID == id).FirstOrDefault();
+
+            return View(deger);
         }
         public ActionResult UrunGetir(int id)
         {

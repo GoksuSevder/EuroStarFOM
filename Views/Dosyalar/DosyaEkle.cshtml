@@ -667,19 +667,8 @@
             //sonradan eklendi, kayıtda kontrol edilmedi.
             if ($.trim($("#BirimFiyat").val()) == "") return;
 
-
             //$("#AlertId").removeAttr("hidden");
             //$("#AlertSpan").text("olacak");
-
-            //if ($.trim($("#BirimFiyat").val()) != "") return;
-
-
-
-
-
-
-
-
 
             return $.ajax({
                 contentType: 'application/json; charset=utf-8',
@@ -688,12 +677,8 @@
                 url: "/Dosyalar/DosyaEkle",
                 data: data,
                 success: function (result) {
-
                     //$("#AlertId").removeAttr("hidden");
                     //$("#AlertSpan").text(result);
-
-
-
                     console.log(result);
                     location.reload();
                     alert(result);
@@ -707,7 +692,6 @@
         $("#saveDosya").click(function (e) {
             e.preventDefault();
           
-
             var orderArr = [];
             orderArr.length = 0;
 
@@ -765,7 +749,6 @@
             var UrunId = $("#UrunID").val(),
                 UrunAd = $("#UrunID option").filter(':selected').text(),
                 birimfiyat = 123,
-
 
                 detailsTableBody = $("#detailsTable1 tbody");
 

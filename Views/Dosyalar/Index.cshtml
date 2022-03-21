@@ -89,7 +89,7 @@
                 <div class="ml-6 mt-4 mb-2 d-flex justify-content-end">
                     <div class="center">
                         <button type="submit" class="btn btn-success" onclick="ListeleButtonClick()"> Listele </button>
-
+                        <input type="hidden" id=" " name=" " value=" " />
                     </div>
                 </div>
             </div>
@@ -279,7 +279,7 @@
             });
         };
         function Tablo() {
-            var tbl = '<table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped "><thead class=" bg-info-900 "> <tr><th>Sigorta Şirketi</th><th>Şube</th><th>Dosya No</th><th>Dosya Durumu</th><th>Dosya Kapatma Tarihi</th><th>Branş</th><th>Plaka</th><th>Model</th><th>Onarım İhbar Tarihi</th><th>Cevap Tarihi</th><th>Parça Adeti</th></tr ></thead><tbody></tbody></table>';
+            var tbl = '<table id="dt-basic-example" class="table  table-hover table-light table-responsive-sm table-light table-striped "><thead class=" bg-info-900 "> <tr><th>Sigorta Şirketi</th><th>Şube</th><th>Dosya No</th><th>Dosya Durumu</th><th>Dosya Kapatma Tarihi</th><th>Branş</th><th>Plaka</th><th>Model</th><th>Onarım İhbar Tarihi</th><th>Cevap Tarihi</th><th>Parça Adeti</th><th>İşlemler</th></tr ></thead><tbody></tbody></table>';
             $('#TableDiv').append(tbl);
 
         };
@@ -318,8 +318,7 @@
                             dKapanisTarih = "Dosya kapatılmadı.";
                         }
                         dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
-
-                        deger = '<tr><td>' + data[i].SigortaSirketi + '</td><td>Şube</td><td>' + data[i].DosylarNo + '</td><td>' + dosyaDurumu + '</td><td>' + dKapanisTarih + '</td><td>Branş</td><td>' + data[i].AracPlaka + '</td><td>Model</td><td>' + dAcilisTarih + '</td> <td>' + dKabulTarih + '</td><td>' + data[i].ParçaAdeti + '</td> </tr >';
+                        deger = '<tr> <input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + data[i].SigortaSirketi + '</td><td>Şube</td><td>' + data[i].DosylarNo + '</td><td>' + dosyaDurumu + '</td><td>' + dKapanisTarih + '</td><td>Branş</td><td>' + data[i].AracPlaka + '</td><td>Model</td><td>' + dAcilisTarih + '</td> <td>' + dKabulTarih + '</td><td>' + data[i].ParçaAdeti + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID+'" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td> </tr >';
                         $("#dt-basic-example tbody").append(deger);
                         i++;
                     });

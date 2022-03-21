@@ -1,0 +1,497 @@
+﻿@using EuroStarFOM.Models.Siniflar
+@model Dosyalar
+@{
+    ViewBag.Title = "AcikDosyalar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/smartadmin-html-full/dist/css/datagrid/datatables/datatables.bundle.css" rel="stylesheet" media="screen, print" />
+<link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
+<link href="~/smartadmin-html-full/dist/css/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.css" rel="stylesheet" />
+
+
+
+
+<form id="GuncelleDosyaForm">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Dosya Bilgileri</h2>
+                    <div class="panel-toolbar">
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <input type="hidden" id="DosylarID" name="@Model.DosylarID" value="@Model.DosylarID" />
+                                <label class="col-form-label"><strong> Dosya No</strong></label>
+                                <input type="text" id="DosyaNo" name="DosyaNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Dosya Açılış Tarihi</strong></label>
+                                <input type="date" id="DAcilisTarih" name="DAcilisTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Sigorta Şirketi</strong></label>
+                                <select name="SgrtSirketi" class="select2 form-control w-100 is-invalid" id="SgrtSirketi">
+                                    <option> </option>
+                                    @foreach (var item in ViewBag.SigortaSirketi)
+                                    {
+                                        <option value="@item.Value">@item.Text </option>
+                                    }
+                                </select>
+
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Dosya Kabul Tarihi</strong></label>
+                                <input type="date" id="DKabulTarih" name="DKabulTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong> Araç Plaka</strong></label>
+                                <input type="text" id="AracPlaka" name="AracPlaka" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="DosyaDurumu" class="col-form-label">
+                                    <strong>Dosya Durumu</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="DosyaDurumu" name="DosyaDurumu">
+                                    <option> </option>
+                                    <option value="1">Yeni Kayıt </option>
+                                    <option value="2">Eksper İnceliyor </option>
+                                    <option value="3">Onarımda </option>
+                                    <option value="4">Faturalandı </option>
+                                    <option value="5">Tamamlandı </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Exper Bilgileri</h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Exper Adı</strong></label>
+                            <input type="text" id="ExperAdi" name="ExperAdi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Gsm</strong></label>
+                            <input type="number" id="ExperGsm" name="ExperGsm" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Tel</strong></label>
+                            <input type="number" id="ExperTel" name="ExperTel" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Eposta</strong></label>
+                            <input type="text" id="ExperTelEposta" name="ExperTelEposta" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xl-6">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Servis Bilgileri</h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Servis Adı</strong></label>
+                            <input type="text" id="ServisAdi" name="ServisAdi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Servis Yetkili</strong></label>
+                            <input type="text" id="ServisYetkili" name="ServisYetkili" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Servis Tel</strong></label>
+                            <input type="number" id="ServisTel" name="ServisTel" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                        <br />
+                        <div class="col-xl-12">
+                            <label class="col-form-label"><strong>Servis GSM</strong></label>
+                            <input type="number" id="ServisGsm" name="ServisGsm" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Durum </h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label for="Kategori" class="col-form-label">
+                                    <strong>Kategori</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="Kategori" name="Kategori">
+                                    <option> </option>
+                                    <option value="1">Ücretli </option>
+                                    <option value="2">Garantili </option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong> Araç Plaka</strong></label>
+                                <input type="text" id="AracPlaka2" name="AracPlaka2" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label for="AltAsama" class="col-form-label">
+                                    <strong>Alt Aşama</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="AltAsama" name="AltAsama">
+                                    <option> </option>
+                                    <option value="0">Alt Asama0 </option>
+                                    <option value="1">Alt Asama1 </option>
+                                    <option value="2">Alt Asama2 </option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Araç Marka</strong></label>
+                                <input type="text" id="AracMarka" name="AracMarka" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+
+
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label for="Sürec" class="col-form-label">
+                                    <strong>Süreç</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="Surec" name="Surec">
+                                    <option> </option>
+                                    <option value="0">Sürec0 </option>
+                                    <option value="1">Sürec1 </option>
+                                    <option value="1">Sürec2 </option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Araç Model</strong></label>
+                                <input type="text" id="AracModel" name="AracModel" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+
+
+                        </div><br />
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label for="Oncelik" class="col-form-label">
+                                    <strong>Öncelik</strong>
+                                </label>
+                                <select class="select2 form-control w-100 is-invalid" id="Oncelik" name="Oncelik">
+                                    <option> </option>
+                                    <option value="0">Oncelik0 </option>
+                                    <option value="1">Oncelik1 </option>
+                                    <option value="2">Oncelik2 </option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Araç Yılı</strong></label>
+                                <input type="number" id="AracYili" name="AracYili" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Ürün Değerlendirme</h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <label for="UrunDegerlendirme" class="col-form-label">
+                            <strong>Ürün Değerlendirme</strong>
+                        </label>
+                        <textarea class="form-control w-100 is-invalid" id="UrunDegerlendirme" name="UrunDegerlendirme">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Değişen Parça </h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label class="col-form-label"><strong>Ürün</strong></label>
+                                <select class="select2 form-control w-100 is-invalid" id="UrunID" name="UrunID">
+                                    <option> </option>
+                                    @foreach (var item in ViewBag.UrunGetir)
+                                    {
+                                        <option value="@item.Value">@item.Text </option>
+                                    }
+                                </select>
+
+                            </div>
+                            <div class="row mt-6 d-flex justify-content-end mb-3">
+                                <div class="col-md-4 col-lg-offset-4 text-white text-right">
+                                    <a id="addToList" class="btn btn-success"> Ekle</a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <table id="detailsTable1" class="table m-0 table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr class="bg-info-400">
+                                        <th style="width:10%">Ürün Kodu</th>
+                                        <th style="width:25%">Ürün</th>
+                                        <th style="width:25%">Açıklama</th>
+                                        <th style="width:10%">%Kdv</th>
+                                        <th style="width:10%">Miktar</th>
+                                        <th style="width:10%">Fiyat</th>
+                                        <th style="width:10%">Tutar</th>
+                                        <th style="width:10%">İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr bg-danger-900 bg-info-gradient">
+                    <h2>Sigorta Fatura </h2>
+                    <div class="panel-toolbar">
+
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="row">
+
+                            <div class="col-xl-4">
+                                <label class="col-form-label"><strong>Fatura No</strong></label>
+                                <input type="text" id="FaturaNo" name="FaturaNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                            <div class="col-xl-4">
+                                <label class="col-form-label"><strong>Fatura Tutar</strong></label>
+                                <input type="number" id="FaturaTutar" name="FaturaTutar" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+                            <div class="col-xl-4">
+                                <label class="col-form-label"><strong>Tarih</strong></label>
+                                <input type="date" id="FaturaTarih" name="FaturaTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="saveDosya" type="submit" class="btn btn-danger">Dosya Kaydet</button>
+    </div>
+</form>
+
+
+
+
+
+
+
+@section ScriptsBlock{
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.export.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+    <script src="~/Scripts/DropDown.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/dependency/moment/moment.js"></script>
+    <script src="~/smartadmin-html-full/dist/js/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+    <script>
+
+
+    DosyaGetir();
+        function DosyaGetir() {
+            $.post("/Dosyalar/DosyaGetir", {
+                id: $("#DosylarID").val()
+            }, function (data, success) {
+                var dAcilisTarih = moment(data.DAcilisTarih).format('MM/DD/YYYY');
+                console.log(data);
+                console.log(dAcilisTarih);
+                console.log($("#DosyaNo").text());
+                $("#DosyaNo").val(data.DosylarNo);
+                $("#AracPlaka").val(data.AracPlaka);
+                $("#ExperAdi").val(data.EksperAdi);
+                $("#ExperGsm").val(data.EksperGSM);
+                $("#ExperTel").val(data.EksperTel);
+                $("#ExperTelEposta").val(data.EksperEposta);
+                $("#ServisAdi").val(data.ServisAdi);
+                $("#ServisYetkili").val(data.ServisYetkili);
+                $("#ServisTel").val(data.ServisTel);
+                $("#ServisGsm").val(data.ServisGSM);
+                $("#AracPlaka2").val(data.AracPlaka);
+                $("#AracMarka").val(data.AracMarka);
+                $("#AracModel").val(data.AracModel);
+                $("#AracYili").val(data.AracYil);
+                $("#UrunDegerlendirme").val(data.UrunDegerlendirme);
+                $("#FaturaNo").val(data.FaturaNo);
+                $("#FaturaTutar").val(data.FaturaTutar);
+                $("#FaturaTarih").val(data.FaturaTarih);
+
+                console.log("data : "+ data);
+               
+
+            }).done(function () {
+                $.post("/Dosyalar/DosyaUrunGetir", {
+                    id: $("#DosylarID").val()
+                }, function (data) {
+                    console.log(data);
+                    alert("dosya geldi");
+                });
+
+            });
+
+        };
+
+
+
+
+
+
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
+            $('#dt-basic-example thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+            var table = $('#dt-basic-example').DataTable(
+                {
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    responsive: true,
+                    lengthChange: false,
+                    dom:
+                        "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    buttons: [
+                        {
+                            extend: 'colvis',
+                            text: 'Sütun Seç',
+                            titleAttr: 'Görüntülenecek sütunlar',
+                            className: 'mr-sm-3'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: 'PDF',
+                            titleAttr: 'Generate PDF',
+                            className: 'btn-outline-danger btn-sm mr-1'
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            text: 'Excel',
+                            titleAttr: 'Generate Excel',
+                            className: 'btn-outline-success btn-sm mr-1'
+                        },
+                        {
+                            extend: 'csvHtml5',
+                            text: 'CSV',
+                            titleAttr: 'Generate CSV',
+                            className: 'btn-outline-primary btn-sm mr-1'
+                        },
+                        {
+                            extend: 'copyHtml5',
+                            text: 'Kopyala',
+                            titleAttr: 'Copy to clipboard',
+                            className: 'btn-outline-primary btn-sm mr-1'
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Yazdır',
+                            titleAttr: 'Tabloyu Yazdır',
+                            className: 'btn-outline-primary btn-sm'
+                        }
+                    ]
+                });
+
+
+        });
+
+    </script>
+}

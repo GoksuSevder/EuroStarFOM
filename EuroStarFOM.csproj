@@ -2055,7 +2055,7 @@
     <Content Include="Views\Stok\StokGuncelle.cshtml" />
     <Content Include="Views\Cari\CariFatura.cshtml" />
     <Content Include="Views\Cari\CariFaturaDetay.cshtml" />
-    <Content Include="Views\Dosyalar\AcikDosyalar.cshtml" />
+    <Content Include="Views\Dosyalar\DosyaGuncelle.cshtml" />
     <Content Include="Views\Cari\CariAcilisFisi.cshtml" />
     <Content Include="Views\Cari\AcilisFisi.cshtml" />
     <Content Include="Views\Cari\TahsilatOdeme.cshtml" />

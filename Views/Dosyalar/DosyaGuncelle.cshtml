@@ -340,7 +340,7 @@
                             </div>
                             <div class="col-xl-4">
                                 <label class="col-form-label"><strong>Fatura Tutar</strong></label>
-                                <input type="number" id="FaturaTutar" name="FaturaTutar" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                                <input type="number" id="FaturaTutar" name="FaturaTutar" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" disabled />
                             </div>
                             <div class="col-xl-4">
                                 <label class="col-form-label"><strong>Tarih</strong></label>
@@ -356,7 +356,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button id="saveDosya" type="submit" class="btn btn-danger">Dosya Kaydet</button>
+        <button id="saveDosya" type="submit" class="btn btn-warning">Güncelle</button>
     </div>
 </form>
 
@@ -376,15 +376,16 @@
     <script>
 
 
-    DosyaGetir();
+
+        $("#detailsTable1 tbody").on("change", function () {
+            Topla();
+        });
+        DosyaGetir();
         function DosyaGetir() {
             $.post("/Dosyalar/DosyaGetir", {
                 id: $("#DosylarID").val()
             }, function (data, success) {
-                var dAcilisTarih = moment(data.DAcilisTarih).format('MM/DD/YYYY');
-                console.log(data);
-                console.log(dAcilisTarih);
-                console.log($("#DosyaNo").text());
+
                 $("#DosyaNo").val(data.DosylarNo);
                 $("#AracPlaka").val(data.AracPlaka);
                 $("#ExperAdi").val(data.EksperAdi);
@@ -402,28 +403,95 @@
                 $("#UrunDegerlendirme").val(data.UrunDegerlendirme);
                 $("#FaturaNo").val(data.FaturaNo);
                 $("#FaturaTutar").val(data.FaturaTutar);
-                $("#FaturaTarih").val(data.FaturaTarih);
-
-                console.log("data : "+ data);
-               
+                $("#SgrtSirketi option[value=" + data.SigortaSirketi + "]").attr('selected', 'selected');
+                $("#DosyaDurumu option[value=" + data.DosyaDurum + "]").attr('selected', 'selected');
+                $("#Kategori option[value=" + data.Kategori + "]").attr('selected', 'selected');
+                $("#AltAsama option[value=" + data.AltAsama + "]").attr('selected', 'selected');
+                $("#Surec option[value=" + data.Surec + "]").attr('selected', 'selected');
+                $("#Oncelik option[value=" + data.Oncelik + "]").attr('selected', 'selected');
+                var dAcilisTarih = moment(data.DAcilisTarih).format('YYYY-MM-DD');
+                document.getElementById("DAcilisTarih").value = dAcilisTarih;
+                var dKabulTarih = moment(data.DKabulTarih).format('YYYY-MM-DD');
+                document.getElementById("DKabulTarih").value = dKabulTarih;
+                var faturaTarih = moment(data.FaturaTarih).format('YYYY-MM-DD');
+                document.getElementById("FaturaTarih").value = faturaTarih;
 
             }).done(function () {
                 $.post("/Dosyalar/DosyaUrunGetir", {
                     id: $("#DosylarID").val()
                 }, function (data) {
-                    console.log(data);
-                    alert("dosya geldi");
+                    var detailsTableBody = $("#detailsTable1 tbody");
+                    var i = 0;
+                    var degerler = '';
+                    $.each(data, function () {
+                        var DDP_id = data[i].DDP_id;
+                        var UrunId = data[i].UrunId;
+                        var UrunAd = data[i].UrunAd;
+                        var Aciklama = data[i].Aciklama;
+                        var Miktar = data[i].Miktar;
+                        var BirimFiyat = data[i].BirimFiyat;
+                        var Tutar = data[i].Tutar;
+                        var Kdv = null;
+                        if (Aciklama == null) {
+                            Aciklama = "";
+                        }
+                        if (data[i].Kdv == 0.08) {
+                            Kdv = '%8';
+                        } else if (data[i].Kdv == 0.18) {
+                            Kdv = '%18';
+                        }
+
+
+
+                        degerler = '<tr> <input type="hidden" name="DDP_id" value="' + DDP_id + '" /><td > ' + UrunId + '</td><td > ' + UrunAd + '</td><td><input type="text" id="Aciklama" value="' + Aciklama + '" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td >' + Kdv + '</td><td><input type="number" id="Miktar" value="' + Miktar + '" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" value="' + BirimFiyat + '"  placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></<td><td><input input type="number" id="Tutar" value="' + Tutar + '" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr >';
+                        detailsTableBody.append(degerler);
+                        i++;
+                    });
+
+                }).done(function () {
+                    $.each($("#detailsTable1  tbody tr"), function () {
+                        var urunID = $(this).find('td:eq(0)').html().trim();
+                        $("#UrunID option[value=" + urunID + "]").remove();
+                    });
+                    Topla();
                 });
 
             });
 
         };
+        function Topla() {
+            var geneltutar = 0;
+            $.each($("#detailsTable1  tbody tr"), function () {
+                var Kdv = $(this).find('#Kdv').val();
+                if (Kdv == null) {
+                    Kdv = $(this).find('td:eq(3)').html().trim();
+                    if (Kdv == '%8') {
+                        Kdv = 0.08;
 
+                    } else if (Kdv == '%18') {
+                        Kdv = 0.18;
+                    }
+                }
+                var Miktar = $(this).find('#Miktar').val();
+                var BirimFiyat = $(this).find('#BirimFiyat').val();
 
+                var sonuc = (Kdv * BirimFiyat * Miktar) + (BirimFiyat * Miktar);
+                geneltutar = geneltutar + sonuc;
+                $(this).find('#Tutar').val(sonuc);
+                $("#FaturaTutar").val(geneltutar);
+            });
+        };
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#fd3995").fadeOut(800, function () {
+                    $(this).remove();
+                    Topla()
+                });
+            }
 
-
-
-
+        });
         $(document).ready(function () {
             // Setup - add a text input to each footer cell
             $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
@@ -492,6 +560,140 @@
 
 
         });
+        function saveDosya(data) {
 
+            if ($.trim($("#DosyaNo").val()) == "") return;
+            if ($.trim($("#DosyaNo").val()) == "") return;
+            if ($.trim($("#DAcilisTarih").val()) == "") return;
+            if ($.trim($("#SgrtSirketi option").filter(':selected').val()) == "") return;
+            if ($.trim($("#DKabulTarih").val()) == "") return;
+            if ($.trim($("#AracPlaka").val()) == "") return;
+            if ($.trim($("#DosyaDurumu option").filter(':selected').val()) == 0) return;
+            if ($.trim($("#ExperAdi").val()) == "") return;
+            if ($.trim($("#ExperGsm").val()) == "") return;
+            if ($.trim($("#ExperTel").val()) == "") return;
+            if ($.trim($("#ExperTelEposta").val()) == "") return;
+            if ($.trim($("#ServisAdi").val()) == "") return;
+            if ($.trim($("#ServisYetkili").val()) == "") return;
+            if ($.trim($("#ServisTel").val()) == "") return;
+            if ($.trim($("#ServisGsm").val()) == "") return;
+            if ($.trim($("#Kategori option").filter(':selected').val()) == "") return;
+            if ($.trim($("#AltAsama option").filter(':selected').val()) == "") return;
+            if ($.trim($("#AracMarka").val()) == "") return;
+            if ($.trim($("#Surec option").filter(':selected').val()) == "") return;
+            if ($.trim($("#AracModel").val()) == "") return;
+            if ($.trim($("#Oncelik option").filter(':selected').val()) == "") return;
+            if ($.trim($("#AracYili").val()) == "") return;
+            if ($.trim($("#UrunDegerlendirme").val().trim()) == "") return;
+            if ($.trim($("#FaturaNo").val()) == "") return;
+            if ($.trim($("#FaturaTutar").val()) == "") return;
+            if ($.trim($("#FaturaTarih").val()) == "") return;
+            //sonradan eklendi, kayıtda kontrol edilmedi.
+            if ($.trim($("#BirimFiyat").val()) == "") return;
+
+
+
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Dosyalar/DosyaGuncelle",
+                data: data,
+                success: function (result) {
+
+                    console.log(result);
+                    location.reload();
+                    alert(result);
+                },
+                error: function () {
+                    console.log("Error!");
+                    alert("Ayarlarınızı Kontrol Edin");
+                }
+            });
+        }
+        $("#saveDosya").click(function (e) {
+            e.preventDefault();
+
+            var orderArr = [];
+            orderArr.length = 0;
+
+            $.each($("#detailsTable1 tbody tr"), function () {
+                orderArr.push({
+                    DDP_id: $(this).find('input').val(),
+                    UrunId: $(this).find('td:eq(0)').html().trim(),
+                    UrunAd: $(this).find('td:eq(1)').html().trim(),
+                    Aciklama: $(this).find('#Aciklama').val(),
+                    Kdv: $(this).find('#Kdv').val(),
+                    Miktar: $(this).find('#Miktar').val(),
+                    BirimFiyat: $(this).find('#BirimFiyat').val(),
+                    Tutar: $(this).find('td:eq(6)').html()
+
+                });
+            });
+            var data = JSON.stringify({
+                Id: $("#DosylarID").val(),
+                DosyaNo: $("#DosyaNo").val(),
+                DAcilisTarih: $("#DAcilisTarih").val(),
+                SgrtSirketi: $("#SgrtSirketi option").filter(':selected').val(),
+                DKabulTarih: $("#DKabulTarih").val(),
+                AracPlaka: $("#AracPlaka").val(),
+                DosyaDurumu: $("#DosyaDurumu option").filter(':selected').val(),
+                ExperAdi: $("#ExperAdi").val(),
+                ExperGsm: $("#ExperGsm").val(),
+                ExperTel: $("#ExperTel").val(),
+                ExperTelEposta: $("#ExperTelEposta").val(),
+                ServisAdi: $("#ServisAdi").val(),
+                ServisYetkili: $("#ServisYetkili").val(),
+                ServisTel: $("#ServisTel").val(),
+                ServisGsm: $("#ServisGsm").val(),
+                Kategori: $("#Kategori option").filter(':selected').val(),
+                AltAsama: $("#AltAsama option").filter(':selected').val(),
+                AracMarka: $("#AracMarka").val(),
+                Surec: $("#Surec option").filter(':selected').val(),
+                AracModel: $("#AracModel").val(),
+                Oncelik: $("#Oncelik option").filter(':selected').val(),
+                AracYili: $("#AracYili").val(),
+                UrunDegerlendirme: $("#UrunDegerlendirme").val().trim(),
+                FaturaNo: $("#FaturaNo").val(),
+                FaturaTutar: $("#FaturaTutar").val(),
+                FaturaTarih: $("#FaturaTarih").val(),
+                kalemler: orderArr
+            });
+            console.log(data);
+            $.when(saveDosya(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+            if ($.trim($("#UrunID").val()) == "") return;
+
+            var UrunId = $("#UrunID").val(),
+                UrunAd = $("#UrunID option").filter(':selected').text(),
+                birimfiyat = 123,
+
+                detailsTableBody = $("#detailsTable1 tbody");
+
+            var p = $.post("/Dosyalar/UrunGetir",
+                {
+                    id: UrunId,
+                },
+                function (data, status) {
+
+                    UrunId = data.UrunId;
+                    UrunAd = data.UrunAd;
+                    birimfiyat = data.birimfiyat
+                });
+            $.when(p).done(function () {
+                var degerler = '<tr><td > ' + UrunId + '</td><td > ' + UrunAd + '</td><td><input type="text" id="Aciklama" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td ><select id="Kdv" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"><option value="0.08">%8</option><option value="0.18">%18</option></select></td><td><input type="number" id="Miktar" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" value="' + birimfiyat + '"  placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></<td><td><input input type="number" id="Tutar" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr > ';
+
+                detailsTableBody.append(degerler);
+                Topla();
+
+                $("#UrunID option:selected").remove();
+            });
+        });
     </script>
 }

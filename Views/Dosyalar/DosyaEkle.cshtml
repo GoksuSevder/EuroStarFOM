@@ -7,21 +7,21 @@
 <link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
 
 @*<div class="alert border-info bg-transparent text-info fade show" id="AlertId" role="alert" hidden>
-    <div class="d-flex align-items-center">
-        <div class="alert-icon">
-            <i class="fal fa-exclamation-triangle"></i>
+        <div class="d-flex align-items-center">
+            <div class="alert-icon">
+                <i class="fal fa-exclamation-triangle"></i>
+            </div>
+            <div class="flex-1">
+                <span class="h5 m-0 fw-700" id="AlertSpan"> </span>
+            </div>
+            <button type="button" id="AlertYes" class="btn btn-info btn-pills btn-sm btn-w-m  mr-1">
+                Evet
+            </button>
+            <button type="button" id="AlertNo" class="btn btn-danger btn-pills btn-sm btn-w-m" data-dismiss="alert" aria-label="Close">
+                Hayır
+            </button>
         </div>
-        <div class="flex-1">
-            <span class="h5 m-0 fw-700" id="AlertSpan"> </span>
-        </div>
-        <button type="button" id="AlertYes" class="btn btn-info btn-pills btn-sm btn-w-m  mr-1">
-            Evet
-        </button>
-        <button type="button" id="AlertNo" class="btn btn-danger btn-pills btn-sm btn-w-m" data-dismiss="alert" aria-label="Close">
-            Hayır
-        </button>
-    </div>
-</div>*@
+    </div>*@
 <form id="YeniDosyaForm">
     <div class="row">
         <div class="col-xl-12">
@@ -634,6 +634,27 @@
             }
         });
 
+       
+        function tableDegisti() {
+            var geneltutar = 0;
+            $.each($("#detailsTable1  tbody tr"), function () {
+
+                var Kdv = $(this).find('#Kdv').val();
+                var Miktar = $(this).find('#Miktar').val();
+                var BirimFiyat = $(this).find('#BirimFiyat').val();
+
+                var sonuc = (Kdv * BirimFiyat * Miktar) + (BirimFiyat * Miktar);
+                geneltutar = geneltutar + sonuc;
+                $(this).find('#Tutar').val(sonuc);
+                $("#FaturaTutar").val(geneltutar);
+            });
+        };
+        $("#detailsTable1 tbody").on("change", function () {
+            toplamTutar();
+            tableDegisti();
+           
+        });
+
 
 
         function saveDosya(data) {
@@ -691,7 +712,7 @@
         }
         $("#saveDosya").click(function (e) {
             e.preventDefault();
-          
+
             var orderArr = [];
             orderArr.length = 0;
 
@@ -767,13 +788,12 @@
 
                 detailsTableBody.append(degerler);
                 toplamTutar2();
-
+                tableDegisti();
                 $("#UrunID option:selected").remove();
             });
         });
         function toplamTutar() {
             $("td").change(function () {
-                alert("td değişti");
                 $.each($("#detailsTable1 tbody tr"), function () {
                     var Kdv = $(this).find('#Kdv').val();
                     var BirimFiyat = $(this).find('#BirimFiyat').val();
@@ -805,7 +825,7 @@
             if ($(this).attr('data-itemId') == "0") {
                 $(this).parents('tr').css("background-color", "#fd3995").fadeOut(800, function () {
                     $(this).remove();
-                    //toplamTutar();
+                    tableDegisti()
                 });
             }
 

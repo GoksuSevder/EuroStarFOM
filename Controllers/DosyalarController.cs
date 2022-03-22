@@ -97,11 +97,7 @@ namespace EuroStarFOM.Controllers
                 d.AltAsama = (AltAsama)model.AltAsama;
                 d.Oncelik = (Oncelik)model.Oncelik;
                 d.Surec = (Surec)model.Surec;
-                d.DosyaDurum = (DosyaDurum)1;
-                d.Kategori = (DurumKategori)1;
-                d.AltAsama = (AltAsama)1;
-                d.Oncelik = (Oncelik)1;
-                d.Surec = (Surec)1;
+
                 d.CariID = model.SgrtSirketi;
                 d.EksperAdi = model.ExperAdi;
                 d.EksperGSM = model.ExperGsm;
@@ -150,8 +146,8 @@ namespace EuroStarFOM.Controllers
         public ActionResult DosyaGetir(int id)
         {
             var degerler = (from d in c.Dosyalars.ToList()
-                            //join dp in c.DosyaDegisenParcas.ToList() on d.DosylarID equals dp.DosyaID
-                            //into liste
+                                //join dp in c.DosyaDegisenParcas.ToList() on d.DosylarID equals dp.DosyaID
+                                //into liste
                             where d.DosylarID == id
                             select new
                             {
@@ -163,7 +159,7 @@ namespace EuroStarFOM.Controllers
                                 Oncelik = d.Oncelik,
                                 Surec = d.Surec,
                                 CariID = d.CariID,
-                                SigortaSirketi = d.Cari.CariAd + " " + d.Cari.CariSoyad,
+                                SigortaSirketi = d.CariID,
                                 EksperAdi = d.EksperAdi,
                                 EksperGSM = d.EksperGSM,
                                 EksperTel = d.EksperTel,
@@ -188,24 +184,28 @@ namespace EuroStarFOM.Controllers
                             }).FirstOrDefault();
 
             return Json(degerler, JsonRequestBehavior.AllowGet);
-        } 
+        }
         public ActionResult DosyaUrunGetir(int id)
         {
             var degerler = (from ddp in c.DosyaDegisenParcas.ToList()
+                            join u in c.Uruns.ToList() on ddp.UrunID equals u.UrunID
                             where ddp.DosyaID == id
                             select new
                             {
-                                Aciklama= ddp,
-                                Miktar = ddp,
-                                BirimFiyat = ddp,
-                                Tutar = ddp,
-                                Kdv = ddp
-
+                                DDP_id = ddp.DDP_ID,
+                                Aciklama = ddp.Aciklama,
+                                Miktar = ddp.Miktar,
+                                BirimFiyat = ddp.BirimFiyat,
+                                Tutar = ddp.Tutar,
+                                Kdv = ddp.Kdv,
+                                UrunId = u.UrunID,
+                                UrunAd = u.UrunAd
                             }
                             ).ToList();
 
             return Json(degerler, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
         public ActionResult DosyaGuncelle(int id)
         {
             List<SelectListItem> sigortaSirketi = (from x in c.Caris.ToList()
@@ -228,6 +228,81 @@ namespace EuroStarFOM.Controllers
             var deger = c.Dosyalars.Where(q => q.DosylarID == id).FirstOrDefault();
 
             return View(deger);
+        }
+        [HttpPost]
+        public ActionResult DosyaGuncelle(DosyaEkleModel model, DosyaDegisenParca[] kalemler)
+        {
+            try
+            {
+                var d =c.Dosyalars.Where(x => x.DosylarID==model.Id).FirstOrDefault();
+                
+                d.DosylarNo = model.DosyaNo;
+
+                d.DosyaDurum = (DosyaDurum)model.DosyaDurumu;
+                d.Kategori = (DurumKategori)model.Kategori;
+                d.AltAsama = (AltAsama)model.AltAsama;
+                d.Oncelik = (Oncelik)model.Oncelik;
+                d.Surec = (Surec)model.Surec;
+              
+                d.CariID = model.SgrtSirketi;
+                d.EksperAdi = model.ExperAdi;
+                d.EksperGSM = model.ExperGsm;
+                d.EksperTel = model.ExperTel;
+                d.EksperEposta = model.ExperTelEposta;
+                d.ServisAdi = model.ServisAdi;
+                d.ServisYetkili = model.ServisYetkili;
+                d.ServisGSM = model.ServisGsm;
+                d.ServisTel = model.ServisTel;
+                d.AracPlaka = model.AracPlaka;
+                d.AracMarka = model.AracMarka;
+                d.AracModel = model.AracModel;
+                d.AracYil = model.AracYili;
+                d.UrunDegerlendirme = model.UrunDegerlendirme;
+                d.FaturaNo = model.FaturaNo;
+                d.FaturaTutar = model.FaturaTutar;
+                d.FaturaTarih = model.FaturaTarih;
+                d.DAcilisTarih = model.DAcilisTarih;
+                d.DKabulTarih = model.DKabulTarih;
+                c.SaveChanges();
+                foreach (var k in kalemler)
+                {
+
+                    var p = new DosyaDegisenParca();
+                    if (k.DDP_ID!=0)
+                    {
+                        p = c.DosyaDegisenParcas.Where(y => y.DDP_ID == k.DDP_ID).First();
+                        p.Aciklama = k.Aciklama;
+                        p.BirimFiyat = k.BirimFiyat;
+                        p.Miktar = k.Miktar;
+                        p.Tutar = k.Tutar;
+                       
+                        p.UrunID = k.UrunID;
+                        p.DosyaID = d.DosylarID;
+                        c.SaveChanges();
+                    }
+                    else
+                    {
+                        p.Aciklama = k.Aciklama;
+                        p.BirimFiyat = k.BirimFiyat;
+                        p.Miktar = k.Miktar;
+                        p.Tutar = k.Tutar;
+                        p.Kdv = k.Kdv;
+                        p.UrunID = k.UrunID;
+                        p.DosyaID = d.DosylarID;
+                        c.DosyaDegisenParcas.Add(p);
+                        c.SaveChanges();
+                    }
+                   
+                }
+                ViewBag.Message = "Dosya Başarıyla Güncellendi";
+                return Json(ViewBag.Message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                ViewBag.Message = "Dosya Güncellenemedi";
+                return Json(ViewBag.Message, JsonRequestBehavior.AllowGet);
+            }
+
         }
         public ActionResult UrunGetir(int id)
         {

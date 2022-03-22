@@ -7,6 +7,7 @@ namespace EuroStarFOM.Models.SinifModel
 {
     public class DosyaEkleModel
     {
+        public int Id { get; set; }
         public string DosyaNo { get; set; }
         public DateTime DAcilisTarih { get; set; }
         public int SgrtSirketi { get; set; }

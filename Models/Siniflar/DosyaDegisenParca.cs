@@ -16,11 +16,12 @@ namespace EuroStarFOM.Models.Siniflar
         public Dosyalar Dosyalar { get; set; }
         public int UrunID { get; set; }
         [ForeignKey("UrunID")]
-        public Urun Urun { get; set; }
+        public virtual Urun Urun { get; set; }
         public string Aciklama { get; set; }
         public string Miktar { get; set; }
         public decimal BirimFiyat { get; set; }
         public decimal Tutar { get; set; }
         public decimal Kdv { get; set; }
+        public bool durum { get; set; }
     }
 }

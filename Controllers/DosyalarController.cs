@@ -11,9 +11,76 @@ namespace EuroStarFOM.Controllers
     public class DosyalarController : Controller
     {
         Context c = new Context();
-        // GET: Dosyalar
         public ActionResult Index()
         {
+            var yeniDosya = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.YeniKayit).ToList();
+            var eksperInceliyor = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.EksperInceliyor).ToList();
+            var onarimda = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Onarimda).ToList();
+            var faturalandi = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Faturalandi).ToList();
+            ViewBag.YeniDosya = yeniDosya.Count;
+            ViewBag.EksperInceliyor = eksperInceliyor.Count;
+            ViewBag.Onarimda = onarimda.Count;
+            ViewBag.Faturalandi = faturalandi.Count;
+            return View();
+        }
+        public ActionResult IndexYeniDosya()
+        {
+            var yeniDosya = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.YeniKayit).ToList();
+            var eksperInceliyor = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.EksperInceliyor).ToList();
+            var onarimda = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Onarimda).ToList();
+            var faturalandi = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Faturalandi).ToList();
+            ViewBag.YeniDosya = yeniDosya.Count;
+            ViewBag.EksperInceliyor = eksperInceliyor.Count;
+            ViewBag.Onarimda = onarimda.Count;
+            ViewBag.Faturalandi = faturalandi.Count;
+            return View();
+        } 
+        public ActionResult IndexEksperInceliyor()
+        {
+            var yeniDosya = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.YeniKayit).ToList();
+            var eksperInceliyor = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.EksperInceliyor).ToList();
+            var onarimda = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Onarimda).ToList();
+            var faturalandi = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Faturalandi).ToList();
+            ViewBag.YeniDosya = yeniDosya.Count;
+            ViewBag.EksperInceliyor = eksperInceliyor.Count;
+            ViewBag.Onarimda = onarimda.Count;
+            ViewBag.Faturalandi = faturalandi.Count;
+            return View();
+        }
+        public ActionResult IndexOnarimda()
+        {
+            var yeniDosya = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.YeniKayit).ToList();
+            var eksperInceliyor = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.EksperInceliyor).ToList();
+            var onarimda = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Onarimda).ToList();
+            var faturalandi = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Faturalandi).ToList();
+            ViewBag.YeniDosya = yeniDosya.Count;
+            ViewBag.EksperInceliyor = eksperInceliyor.Count;
+            ViewBag.Onarimda = onarimda.Count;
+            ViewBag.Faturalandi = faturalandi.Count;
+            return View();
+        }
+        public ActionResult IndexFaturalandi()
+        {
+            var yeniDosya = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.YeniKayit).ToList();
+            var eksperInceliyor = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.EksperInceliyor).ToList();
+            var onarimda = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Onarimda).ToList();
+            var faturalandi = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Faturalandi).ToList();
+            ViewBag.YeniDosya = yeniDosya.Count;
+            ViewBag.EksperInceliyor = eksperInceliyor.Count;
+            ViewBag.Onarimda = onarimda.Count;
+            ViewBag.Faturalandi = faturalandi.Count;
+            return View();
+        }
+        public ActionResult IndexKapatildi()
+        {
+            var yeniDosya = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.YeniKayit).ToList();
+            var eksperInceliyor = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.EksperInceliyor).ToList();
+            var onarimda = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Onarimda).ToList();
+            var faturalandi = c.Dosyalars.Where(x => x.DosyaDurum == DosyaDurum.Faturalandi).ToList();
+            ViewBag.YeniDosya = yeniDosya.Count;
+            ViewBag.EksperInceliyor = eksperInceliyor.Count;
+            ViewBag.Onarimda = onarimda.Count;
+            ViewBag.Faturalandi = faturalandi.Count;
             return View();
         }
         public ActionResult DosyaListeGetir(string DosyaNo, string AracPlaka, string SigortaSirketi, string Marka, int DosyaDurumu, string KapatmailkTarih, string KapatmasonTarih, string CevapilkTarih, string CevapsonTarih, string OnarimIhbarilkTarih, string OnarimIhbarsonTarih)
@@ -131,7 +198,7 @@ namespace EuroStarFOM.Controllers
                     c.DosyaDegisenParcas.Add(p);
                 }
                 c.SaveChanges();
-                var id = "/Dosyalar/DosyaGuncelle/"+ d.DosylarID;
+                var id = "/Dosyalar/DosyaGuncelle/" + d.DosylarID;
                 ViewBag.Message = "Dosya Başarıyla Kaydedildi";
                 return Json(id, JsonRequestBehavior.AllowGet);
             }
@@ -142,68 +209,7 @@ namespace EuroStarFOM.Controllers
             }
 
         }
-        public ActionResult DosyaGetir(int id)
-        {
-            var degerler = (from d in c.Dosyalars.ToList()
-                            where d.DosylarID == id
-                            select new
-                            {
-                                DosyaID = d.DosylarID,
-                                DosylarNo = d.DosylarNo,
-                                DosyaDurum = d.DosyaDurum,
-                                Kategori = d.Kategori,
-                                AltAsama = d.AltAsama,
-                                Oncelik = d.Oncelik,
-                                Surec = d.Surec,
-                                CariID = d.CariID,
-                                SigortaSirketi = d.CariID,
-                                EksperAdi = d.EksperAdi,
-                                EksperGSM = d.EksperGSM,
-                                EksperTel = d.EksperTel,
-                                EksperEposta = d.EksperEposta,
-                                ServisAdi = d.ServisAdi,
-                                ServisYetkili = d.ServisYetkili,
-                                ServisGSM = d.ServisGSM,
-                                ServisTel = d.ServisTel,
-                                AracPlaka = d.AracPlaka,
-                                AracMarka = d.AracMarka,
-                                AracModel = d.AracModel,
-                                AracYil = d.AracYil,
-                                UrunDegerlendirme = d.UrunDegerlendirme,
-                                FaturaSeriNo = d.FaturaSeriNo,
-                                FaturaSiraNo = d.FaturaSiraNo,
-                                //FaturaNo = d.FaturaNo,
-                                FaturaTutar = d.FaturaTutar,
-                                FaturaTarih = d.FaturaTarih,
-                                DKapanisTarih = d.DKapanisTarih,
-                                DAcilisTarih = d.DAcilisTarih,
-                                DKabulTarih = d.DKabulTarih,
-                                //DosyaDegisenParcaID = liste.Select(x => x.DDP_ID),
-                                //ParçaAdeti = liste.Select(x => x.Miktar)
-                            }).FirstOrDefault();
 
-            return Json(degerler, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult DosyaUrunGetir(int id)
-        {
-            var degerler = (from ddp in c.DosyaDegisenParcas.ToList()
-                            join u in c.Uruns.ToList() on ddp.UrunID equals u.UrunID
-                            where ddp.DosyaID == id
-                            select new
-                            {
-                                DDP_id = ddp.DDP_ID,
-                                Aciklama = ddp.Aciklama,
-                                Miktar = ddp.Miktar,
-                                BirimFiyat = ddp.BirimFiyat,
-                                Tutar = ddp.Tutar,
-                                Kdv = ddp.Kdv,
-                                UrunId = u.UrunID,
-                                UrunAd = u.UrunAd
-                            }
-                            ).ToList();
-
-            return Json(degerler, JsonRequestBehavior.AllowGet);
-        }
         [HttpGet]
         public ActionResult DosyaGuncelle(int id)
         {
@@ -230,64 +236,6 @@ namespace EuroStarFOM.Controllers
             var deger = c.Dosyalars.Where(q => q.DosylarID == id).FirstOrDefault();
 
             return View(deger);
-        }
-        [HttpGet]
-        public ActionResult SatisFaturaDosya(int id)
-        {
-            SatisFaturaDosyaModel model = new SatisFaturaDosyaModel();
-            model.Dosya = c.Dosyalars.Where(x => x.DosylarID == id).FirstOrDefault();
-            model.Cari = (from d in c.Dosyalars.ToList()
-                          join y in c.Caris.ToList() on d.CariID equals y.CariID
-                          select y
-                          ).FirstOrDefault();
-            model.DepoDeger = c.Depos.Where(x => x.Durum == true).ToList();
-            model.UrunDeger = c.Uruns.Where(x => x.Durum == true).ToList();
-            return View(model);
-        }
-        [HttpPost]
-        public ActionResult SatisFaturaDosya(string FaturaSeriNo, string FaturaSiraNo, DateTime Tarih, DateTime VadeTarih, string VergiDairesi, int VergiNumarasi, string IrsaliyeNumarasi, string Adres, string AciklamaFatura, string IslemTip, int CariID, int DosylarID, int DepoId, string GenelToplam, FaturaKalem[] kalemler)
-        {
-            try
-            {
-                Faturalar faturalar = new Faturalar();
-                faturalar.DosylarID = DosylarID;
-                faturalar.CariId = CariID;
-                faturalar.FaturaSeriNo = FaturaSeriNo;
-                faturalar.FaturaSiraNo = FaturaSiraNo;
-                faturalar.Tarih = DateTime.Parse(Tarih.ToShortDateString());
-                faturalar.VadeTarih = DateTime.Parse(VadeTarih.ToShortDateString());
-                faturalar.VergiDairesi = VergiDairesi;
-                faturalar.VergiNumarasi = VergiNumarasi;
-                faturalar.IrsaliyeNumarasi = IrsaliyeNumarasi;
-                faturalar.Adres = Adres;
-                faturalar.Aciklama = AciklamaFatura;
-                faturalar.IslemTip = IslemTip;
-                faturalar.DepoId = DepoId;
-                faturalar.Toplam = Convert.ToDecimal(GenelToplam);
-                c.Faturalars.Add(faturalar);
-                c.SaveChanges();
-                foreach (var item in kalemler)
-                {
-                    FaturaKalem fk = new FaturaKalem();
-                    fk.FaturaId = faturalar.FaturaID;
-                    fk.UrunId = item.UrunId;
-                    fk.Aciklama = item.Aciklama;
-                    fk.BirimFiyat = item.BirimFiyat;
-                    fk.Miktar = item.Miktar;
-                    fk.Kdv = item.Kdv;
-                    c.FaturaKalems.Add(fk);
-                    c.SaveChanges();
-                }
-                ViewBag.Message = "Fatura Başarıyla Kaydedildi";
-
-                return Json(ViewBag.Message, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception)
-            {
-
-                return View();
-            }
-           
         }
         [HttpPost]
         public ActionResult DosyaGuncelle(DosyaEkleModel model, DosyaDegisenParca[] kalemler)
@@ -390,6 +338,66 @@ namespace EuroStarFOM.Controllers
             }
 
         }
+        [HttpGet]
+        public ActionResult SatisFaturaDosya(int id)
+        {
+            SatisFaturaDosyaModel model = new SatisFaturaDosyaModel();
+            model.Dosya = c.Dosyalars.Where(x => x.DosylarID == id).FirstOrDefault();
+            model.Cari = (from d in c.Dosyalars.ToList()
+                          join y in c.Caris.ToList() on d.CariID equals y.CariID
+                          select y
+                          ).FirstOrDefault();
+            model.DepoDeger = c.Depos.Where(x => x.Durum == true).ToList();
+            model.UrunDeger = c.Uruns.Where(x => x.Durum == true).ToList();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SatisFaturaDosya(string FaturaSeriNo, string FaturaSiraNo, DateTime Tarih, DateTime VadeTarih, string VergiDairesi, int VergiNumarasi, string IrsaliyeNumarasi, string Adres, string AciklamaFatura, string IslemTip, int CariID, int DosylarID, int DepoId, string GenelToplam, FaturaKalem[] kalemler)
+        {
+            try
+            {
+                Faturalar faturalar = new Faturalar();
+                faturalar.DosylarID = DosylarID;
+                faturalar.CariId = CariID;
+                faturalar.FaturaSeriNo = FaturaSeriNo;
+                faturalar.FaturaSiraNo = FaturaSiraNo;
+                faturalar.Tarih = DateTime.Parse(Tarih.ToShortDateString());
+                faturalar.VadeTarih = DateTime.Parse(VadeTarih.ToShortDateString());
+                faturalar.VergiDairesi = VergiDairesi;
+                faturalar.VergiNumarasi = VergiNumarasi;
+                faturalar.IrsaliyeNumarasi = IrsaliyeNumarasi;
+                faturalar.Adres = Adres;
+                faturalar.Aciklama = AciklamaFatura;
+                faturalar.IslemTip = IslemTip;
+                faturalar.DepoId = DepoId;
+                faturalar.Toplam = Convert.ToDecimal(GenelToplam);
+                c.Faturalars.Add(faturalar);
+                c.SaveChanges();
+                foreach (var item in kalemler)
+                {
+                    FaturaKalem fk = new FaturaKalem();
+                    fk.FaturaId = faturalar.FaturaID;
+                    fk.UrunId = item.UrunId;
+                    fk.Aciklama = item.Aciklama;
+                    fk.BirimFiyat = item.BirimFiyat;
+                    fk.Miktar = item.Miktar;
+                    fk.Kdv = item.Kdv;
+                    c.FaturaKalems.Add(fk);
+                    c.SaveChanges();
+                }
+                ViewBag.Message = "Fatura Başarıyla Kaydedildi";
+
+                return Json(ViewBag.Message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+
+                return View();
+            }
+
+        }
+
+
         public ActionResult UrunGetir(int id)
         {
             var urun = c.Uruns.Where(x => x.UrunID == id).Select(y => new
@@ -400,6 +408,68 @@ namespace EuroStarFOM.Controllers
 
             }).FirstOrDefault();
             return Json(urun, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult DosyaGetir(int id)
+        {
+            var degerler = (from d in c.Dosyalars.ToList()
+                            where d.DosylarID == id
+                            select new
+                            {
+                                DosyaID = d.DosylarID,
+                                DosylarNo = d.DosylarNo,
+                                DosyaDurum = d.DosyaDurum,
+                                Kategori = d.Kategori,
+                                AltAsama = d.AltAsama,
+                                Oncelik = d.Oncelik,
+                                Surec = d.Surec,
+                                CariID = d.CariID,
+                                SigortaSirketi = d.CariID,
+                                EksperAdi = d.EksperAdi,
+                                EksperGSM = d.EksperGSM,
+                                EksperTel = d.EksperTel,
+                                EksperEposta = d.EksperEposta,
+                                ServisAdi = d.ServisAdi,
+                                ServisYetkili = d.ServisYetkili,
+                                ServisGSM = d.ServisGSM,
+                                ServisTel = d.ServisTel,
+                                AracPlaka = d.AracPlaka,
+                                AracMarka = d.AracMarka,
+                                AracModel = d.AracModel,
+                                AracYil = d.AracYil,
+                                UrunDegerlendirme = d.UrunDegerlendirme,
+                                FaturaSeriNo = d.FaturaSeriNo,
+                                FaturaSiraNo = d.FaturaSiraNo,
+                                //FaturaNo = d.FaturaNo,
+                                FaturaTutar = d.FaturaTutar,
+                                FaturaTarih = d.FaturaTarih,
+                                DKapanisTarih = d.DKapanisTarih,
+                                DAcilisTarih = d.DAcilisTarih,
+                                DKabulTarih = d.DKabulTarih,
+                                //DosyaDegisenParcaID = liste.Select(x => x.DDP_ID),
+                                //ParçaAdeti = liste.Select(x => x.Miktar)
+                            }).FirstOrDefault();
+
+            return Json(degerler, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult DosyaUrunGetir(int id)
+        {
+            var degerler = (from ddp in c.DosyaDegisenParcas.ToList()
+                            join u in c.Uruns.ToList() on ddp.UrunID equals u.UrunID
+                            where ddp.DosyaID == id
+                            select new
+                            {
+                                DDP_id = ddp.DDP_ID,
+                                Aciklama = ddp.Aciklama,
+                                Miktar = ddp.Miktar,
+                                BirimFiyat = ddp.BirimFiyat,
+                                Tutar = ddp.Tutar,
+                                Kdv = ddp.Kdv,
+                                UrunId = u.UrunID,
+                                UrunAd = u.UrunAd
+                            }
+                            ).ToList();
+
+            return Json(degerler, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -2068,6 +2068,11 @@
     <Content Include="Views\Dosyalar\Index.cshtml" />
     <Content Include="Views\Fatura\DinamikFaturaEdit.cshtml" />
     <Content Include="Views\Dosyalar\SatisFaturaDosya.cshtml" />
+    <Content Include="Views\Dosyalar\IndexYeniDosya.cshtml" />
+    <Content Include="Views\Dosyalar\IndexEksperInceliyor.cshtml" />
+    <Content Include="Views\Dosyalar\IndexOnarimda.cshtml" />
+    <Content Include="Views\Dosyalar\IndexFaturalandi.cshtml" />
+    <Content Include="Views\Dosyalar\IndexKapatildi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

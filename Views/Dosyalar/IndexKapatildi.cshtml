@@ -1,7 +1,6 @@
-﻿@*@using EuroStarFOM.Models.SinifModel
-    @model List<DosyaIndexModel>*@
+﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "IndexKapatildi";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -66,10 +65,6 @@
 
 
 </div>
-
-
-
-
 
 <div class="modal-body">
     <div class="panel">
@@ -170,17 +165,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 @section ScriptsBlock{
     <script src="~/smartadmin-html-full/dist/js/datagrid/datatables/datatables.bundle.js"></script>
@@ -390,9 +374,11 @@
                         if (dKapanisTarih == "01/01/0001") {
                             dKapanisTarih = "Dosya kapatılmadı.";
                         }
-                        dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
-                        deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
-                        $("#dt-basic-example tbody").append(deger);
+                        if (data[i].DosyaDurum == 5) {
+                            dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
+                            deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
+                            $("#dt-basic-example tbody").append(deger);
+                        }
                         i++;
                     });
                     LoadTable();

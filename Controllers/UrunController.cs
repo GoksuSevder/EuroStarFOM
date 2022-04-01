@@ -43,7 +43,8 @@ namespace EuroStarFOM.Controllers
                 stok.Aciklama = "Açıklama Yaz.";
                 stok.Durum = true;
                 stok.Miktar = 0;
-                stok.StokKod = kelime + "-" + DateTime.Now.ToShortDateString();
+                stok.DepoId = 1;
+                stok.StokKod = kelime + DateTime.Now.ToString("yyyymmdd");
                 stok.StokTarih = DateTime.Parse(DateTime.Now.ToShortDateString());
                 c.Stoks.Add(stok);
                 c.SaveChanges();

@@ -40,8 +40,8 @@ namespace EuroStarFOM.Models.Siniflar
         [StringLength(50)]
         public string CariMail { get; set; }
         public bool Durum { get; set; }
-        public decimal Bakiye { get; set; }
-        public int Tel { get; set; }
+        public decimal? Bakiye { get; set; }
+        public int? Tel { get; set; }
         public int Gsm { get; set; }
         public string CariTip { get; set; }
 

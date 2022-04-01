@@ -11,7 +11,7 @@ namespace EuroStarFOM.Models.Siniflar
     {
         [Key]
         public int SatisID { get; set; }
-
+        [Column(TypeName = "datetime2")]
         public DateTime Tarih { get; set; }
         public int Adet { get; set; }
         public decimal Fiyat { get; set; }

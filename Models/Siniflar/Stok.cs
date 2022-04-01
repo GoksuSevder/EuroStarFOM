@@ -23,7 +23,7 @@ namespace EuroStarFOM.Models.Siniflar
         public int DepoId { get; set; }
         [ForeignKey("DepoId")]
         public virtual Depo Depo { get; set; }
-
+        [Column(TypeName = "datetime2")]
         public DateTime StokTarih { get; set; }
         public bool Durum { get; set; }
         public ICollection<Urun> Uruns { get; set; }

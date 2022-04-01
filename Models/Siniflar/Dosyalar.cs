@@ -17,7 +17,6 @@ namespace EuroStarFOM.Models.Siniflar
         public AltAsama AltAsama { get; set; }
         public Oncelik Oncelik { get; set; }
         public Surec Surec { get; set; }
-        //Sigorta Şİrketi
         public int CariID { get; set; }
         [ForeignKey("CariID")]
         public virtual Cari Cari { get; set; }
@@ -35,13 +34,26 @@ namespace EuroStarFOM.Models.Siniflar
         public int AracYil { get; set; }
         public string UrunDegerlendirme { get; set; }
         //public int UrunID { get; set; }
-        public string FaturaNo { get; set; }
-        public int FaturaTutar { get; set; }
-        public DateTime FaturaTarih { get; set; }
+        //public string FaturaNo { get; set; }
+        public int? FaturaTutar { get; set; }
+        [Column(TypeName = ("Varchar"))]
+        [StringLength(6)]
+        public string FaturaSeriNo { get; set; }
+        [Column(TypeName = ("Varchar"))]
+        [StringLength(10)]
+        public string FaturaSiraNo { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime? FaturaTarih { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime DAcilisTarih { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime DKabulTarih { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime DKapanisTarih { get; set; }
         public ICollection<DosyaDegisenParca> DosyaDegisenParca { get; set; }
+
+        public ICollection<Faturalar> Faturalars { get; set; }
+
     }
 
 

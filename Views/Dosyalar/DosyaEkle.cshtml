@@ -3,25 +3,7 @@
     ViewBag.Title = "DosyaEkle";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
 <link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
-
-@*<div class="alert border-info bg-transparent text-info fade show" id="AlertId" role="alert" hidden>
-        <div class="d-flex align-items-center">
-            <div class="alert-icon">
-                <i class="fal fa-exclamation-triangle"></i>
-            </div>
-            <div class="flex-1">
-                <span class="h5 m-0 fw-700" id="AlertSpan"> </span>
-            </div>
-            <button type="button" id="AlertYes" class="btn btn-info btn-pills btn-sm btn-w-m  mr-1">
-                Evet
-            </button>
-            <button type="button" id="AlertNo" class="btn btn-danger btn-pills btn-sm btn-w-m" data-dismiss="alert" aria-label="Close">
-                Hayır
-            </button>
-        </div>
-    </div>*@
 <form id="YeniDosyaForm">
     <div class="row">
         <div class="col-xl-12">
@@ -29,6 +11,10 @@
                 <div class="panel-hdr bg-danger-900 bg-info-gradient">
                     <h2>Dosya Bilgileri</h2>
                     <div class="panel-toolbar">
+                        @*<div id="DosyaGuncelleGit"></div>
+        <a href="/Departman/DepartmanEkle" title="Yeni Kayıt" class="btn btn-info btn-icon rounded-circle mr-1 ">
+            <i class="fal fa-plus"></i>
+        </a>*@
                     </div>
                 </div>
                 <div class="panel-container show">
@@ -54,7 +40,6 @@
                                         <option value="@item.Value">@item.Text </option>
                                     }
                                 </select>
-
                             </div>
                             <div class="col-xl-6">
                                 <label class="col-form-label"><strong>Dosya Kabul Tarihi</strong></label>
@@ -84,10 +69,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
     <div class="row">
         <div class="col-xl-6">
             <div class="panel">
@@ -118,18 +101,15 @@
                             <label class="col-form-label"><strong>Eposta</strong></label>
                             <input type="text" id="ExperTelEposta" name="ExperTelEposta" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="col-xl-6">
             <div class="panel">
                 <div class="panel-hdr bg-danger-900 bg-info-gradient">
                     <h2>Servis Bilgileri</h2>
                     <div class="panel-toolbar">
-
                     </div>
                 </div>
                 <div class="panel-container show">
@@ -165,7 +145,6 @@
                 <div class="panel-hdr bg-danger-900 bg-info-gradient">
                     <h2>Durum </h2>
                     <div class="panel-toolbar">
-
                     </div>
                 </div>
                 <div class="panel-container show">
@@ -202,8 +181,6 @@
                                 <label class="col-form-label"><strong>Araç Marka</strong></label>
                                 <input type="text" id="AracMarka" name="AracMarka" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
                             </div>
-
-
                         </div><br />
                         <div class="row">
                             <div class="col-xl-6">
@@ -221,8 +198,6 @@
                                 <label class="col-form-label"><strong>Araç Model</strong></label>
                                 <input type="text" id="AracModel" name="AracModel" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
                             </div>
-
-
                         </div><br />
                         <div class="row">
                             <div class="col-xl-6">
@@ -240,28 +215,18 @@
                                 <label class="col-form-label"><strong>Araç Yılı</strong></label>
                                 <input type="number" id="AracYili" name="AracYili" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
                             </div>
-
                         </div>
-
-
-
-
-
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
     <div class="row">
         <div class="col-xl-12">
             <div class="panel">
                 <div class="panel-hdr bg-danger-900 bg-info-gradient">
                     <h2>Ürün Değerlendirme</h2>
                     <div class="panel-toolbar">
-
                     </div>
                 </div>
                 <div class="panel-container show">
@@ -274,9 +239,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
     <div class="row">
         <div class="col-xl-12">
@@ -284,7 +247,6 @@
                 <div class="panel-hdr bg-danger-900 bg-info-gradient">
                     <h2>Değişen Parça </h2>
                     <div class="panel-toolbar">
-
                     </div>
                 </div>
                 <div class="panel-container show">
@@ -299,7 +261,6 @@
                                         <option value="@item.Value">@item.Text </option>
                                     }
                                 </select>
-
                             </div>
                             <div class="row mt-6 d-flex justify-content-end mb-3">
                                 <div class="col-md-4 col-lg-offset-4 text-white text-right">
@@ -328,41 +289,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="panel">
-                <div class="panel-hdr bg-danger-900 bg-info-gradient">
-                    <h2>Sigorta Fatura </h2>
-                    <div class="panel-toolbar">
-
-                    </div>
-                </div>
-                <div class="panel-container show">
-                    <div class="panel-content">
-                        <div class="row">
-
-                            <div class="col-xl-4">
-                                <label class="col-form-label"><strong>Fatura No</strong></label>
-                                <input type="text" id="FaturaNo" name="FaturaNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
-                            </div>
-                            <div class="col-xl-4">
-                                <label class="col-form-label"><strong>Fatura Tutar</strong></label>
-                                <input type="number" id="FaturaTutar" name="FaturaTutar" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
-                            </div>
-                            <div class="col-xl-4">
-                                <label class="col-form-label"><strong>Tarih</strong></label>
-                                <input type="date" id="FaturaTarih" name="FaturaTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <div class="modal-footer">
@@ -603,14 +529,23 @@
                 $("#UrunDegerlendirme").addClass("is-valid");
             }
         });
-        $("#FaturaNo").change(function () {
-            if ($("#FaturaNo").val().trim() == "") {
-                $("#FaturaNo").removeClass("is-valid");
-                $("#FaturaNo").addClass("is-invalid");
+        $("#FaturaSeriNo").change(function () {
+            if ($("#FaturaSeriNo").val().trim() == "") {
+                $("#FaturaSeriNo").removeClass("is-valid");
+                $("#FaturaSeriNo").addClass("is-invalid");
+            } else {
+                $("#FaturaSeriNo").removeClass("is-invalid");
+                $("#FaturaSeriNo").addClass("is-valid");
+            }
+        });
+        $("#FaturaSiraNo").change(function () {
+            if ($("#FaturaSiraNo").val().trim() == "") {
+                $("#FaturaSiraNo").removeClass("is-valid");
+                $("#FaturaSiraNo").addClass("is-invalid");
 
             } else {
-                $("#FaturaNo").removeClass("is-invalid");
-                $("#FaturaNo").addClass("is-valid");
+                $("#FaturaSiraNo").removeClass("is-invalid");
+                $("#FaturaSiraNo").addClass("is-valid");
             }
         });
         $("#FaturaTutar").change(function () {
@@ -633,8 +568,6 @@
                 $("#FaturaTarih").addClass("is-valid");
             }
         });
-
-       
         function tableDegisti() {
             var geneltutar = 0;
             $.each($("#detailsTable1  tbody tr"), function () {
@@ -652,13 +585,13 @@
         $("#detailsTable1 tbody").on("change", function () {
             toplamTutar();
             tableDegisti();
-           
+
         });
+        function refreshToList() {
 
-
-
+            //$("#UrunID").reload();
+        };
         function saveDosya(data) {
-
             if ($.trim($("#DosyaNo").val()) == "") return;
             if ($.trim($("#DosyaNo").val()) == "") return;
             if ($.trim($("#DAcilisTarih").val()) == "") return;
@@ -682,27 +615,20 @@
             if ($.trim($("#Oncelik option").filter(':selected').val()) == "") return;
             if ($.trim($("#AracYili").val()) == "") return;
             if ($.trim($("#UrunDegerlendirme").val().trim()) == "") return;
-            if ($.trim($("#FaturaNo").val()) == "") return;
-            if ($.trim($("#FaturaTutar").val()) == "") return;
-            if ($.trim($("#FaturaTarih").val()) == "") return;
-            //sonradan eklendi, kayıtda kontrol edilmedi.
             if ($.trim($("#BirimFiyat").val()) == "") return;
-
-            //$("#AlertId").removeAttr("hidden");
-            //$("#AlertSpan").text("olacak");
-
             return $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 type: 'POST',
                 url: "/Dosyalar/DosyaEkle",
                 data: data,
-                success: function (result) {
-                    //$("#AlertId").removeAttr("hidden");
-                    //$("#AlertSpan").text(result);
+                success: function (result,textStatus, jqXHR) {
                     console.log(result);
-                    location.reload();
+                    console.log(textStatus);
+                    console.log(jqXHR);
                     alert(result);
+                    window.location.pathname = result;
+
                 },
                 error: function () {
                     console.log("Error!");
@@ -715,7 +641,6 @@
 
             var orderArr = [];
             orderArr.length = 0;
-
             $.each($("#detailsTable1 tbody tr"), function () {
                 orderArr.push({
                     UrunId: $(this).find('td:eq(0)').html().trim(),
@@ -725,7 +650,6 @@
                     Miktar: $(this).find('#Miktar').val(),
                     BirimFiyat: $(this).find('#BirimFiyat').val(),
                     Tutar: $(this).find('td:eq(6)').html()
-
                 });
             });
             var data = JSON.stringify({
@@ -751,7 +675,8 @@
                 Oncelik: $("#Oncelik option").filter(':selected').val(),
                 AracYili: $("#AracYili").val(),
                 UrunDegerlendirme: $("#UrunDegerlendirme").val().trim(),
-                FaturaNo: $("#FaturaNo").val(),
+                FaturaSeriNo: $("#FaturaSeriNo").val(),
+                FaturaSiraNo: $("#FaturaSiraNo").val(),
                 FaturaTutar: $("#FaturaTutar").val(),
                 FaturaTarih: $("#FaturaTarih").val(),
                 kalemler: orderArr
@@ -828,8 +753,6 @@
                     tableDegisti()
                 });
             }
-
         });
-
     </script>
 }

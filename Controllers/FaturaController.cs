@@ -10,7 +10,6 @@ namespace EuroStarFOM.Controllers
     public class FaturaController : Controller
     {
         Context c = new Context();
-        // GET: Fatura
         public ActionResult Index()
         {
             FaturaFKalemModel ffkm = new FaturaFKalemModel();
@@ -52,9 +51,9 @@ namespace EuroStarFOM.Controllers
             faturaDeger.FaturaSiraNo = fatura.FaturaSiraNo;
             faturaDeger.VergiDairesi = fatura.VergiDairesi;
             faturaDeger.Tarih = fatura.Tarih;
-            faturaDeger.Saat = fatura.Saat;
-            faturaDeger.TeslimEden = fatura.TeslimEden;
-            faturaDeger.TeslimAlan = fatura.TeslimAlan;
+            //faturaDeger.Saat = fatura.Saat;
+            //faturaDeger.TeslimEden = fatura.TeslimEden;
+            //faturaDeger.TeslimAlan = fatura.TeslimAlan;
 
 
             c.SaveChanges();
@@ -109,10 +108,11 @@ namespace EuroStarFOM.Controllers
             ffkm.CariDeger = c.Caris.Where(x => x.Durum == true).ToList();
             ffkm.UrunDeger = c.Uruns.Where(x => x.Durum == true).ToList();
             ffkm.DepoDeger = c.Depos.Where(x => x.Durum == true).ToList();
+            ffkm.DosyaDeger = c.Dosyalars.OrderByDescending(y=>y.DosylarID).ToList();
             return View(ffkm);
         }
         [HttpPost]
-        public ActionResult DinamikFaturaEkle(string FaturaSeriNo, string FaturaSiraNo, DateTime Tarih, DateTime VadeTarih, string VergiDairesi, int VergiNumarasi, string IrsaliyeNumarasi, string Adres, string AciklamaFatura, string IslemTip, int CariID, int DepoId, string GenelToplam, FaturaKalem[] kalemler)
+        public ActionResult DinamikFaturaEkle(string FaturaSeriNo, string FaturaSiraNo, DateTime Tarih, DateTime VadeTarih, string VergiDairesi, int VergiNumarasi, string IrsaliyeNumarasi, string Adres, string AciklamaFatura, string IslemTip, int CariID, int DosylarID, int DepoId, string GenelToplam, FaturaKalem[] kalemler)
         {
             try
             {
@@ -125,14 +125,12 @@ namespace EuroStarFOM.Controllers
                 f.VergiNumarasi = VergiNumarasi;
                 f.IrsaliyeNumarasi = IrsaliyeNumarasi;
                 f.Adres = Adres;
-                f.Saat = DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString();
                 f.Toplam = decimal.Parse(GenelToplam);
                 f.CariId = CariID;
                 f.DepoId = DepoId;
+                f.DosylarID = DosylarID;
                 f.Aciklama = AciklamaFatura;
                 f.IslemTip = IslemTip;
-                f.TeslimEden = c.Caris.Where(x => x.CariID == CariID).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
-                f.TeslimAlan = c.Caris.Where(x => x.CariID == CariID).Select(y => y.CariAd + " " + y.CariSoyad).FirstOrDefault();
 
                 c.Faturalars.Add(f);
 
@@ -172,6 +170,97 @@ namespace EuroStarFOM.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult DinamikFaturaEdit(int id)
+        {
+
+            FaturaFKalemModel ffkm = new FaturaFKalemModel();
+            ffkm.FaturaDeger = c.Faturalars.Where(x => x.FaturaID == id).FirstOrDefault();
+            if (ffkm.FaturaDeger.VadeTarih == null)
+            {
+                var date = DateTime.Parse("01/01/0001");
+                ffkm.FaturaDeger.VadeTarih = date;
+            }
+            ffkm.FaturaKalemDeger = c.FaturaKalems.Where(x => x.FaturaId == id).ToList();
+            ffkm.Cari = c.Caris.Where(x => x.CariID == ffkm.FaturaDeger.CariId && x.Durum == true).FirstOrDefault();
+            ffkm.UrunDeger = c.Uruns.Where(x => x.Durum == true).ToList();
+            ffkm.DepoDeger = c.Depos.Where(x => x.Durum == true).ToList();
+            return View(ffkm);
+        }
+        [HttpPost]
+        public ActionResult DinamikFaturaEdit(int FaturaID, string FaturaSeriNo, string FaturaSiraNo, DateTime Tarih, DateTime VadeTarih, string VergiDairesi, int VergiNumarasi, string IrsaliyeNumarasi, string Adres, string AciklamaFatura, string IslemTip, int CariID, int DosylarID, int DepoId, string GenelToplam, FaturaKalem[] kalemler)
+        {
+            try
+            {
+                Faturalar f =c.Faturalars.Where(x=>x.FaturaID== FaturaID).FirstOrDefault();
+                f.FaturaSeriNo = FaturaSeriNo;
+                f.FaturaSiraNo = FaturaSiraNo;
+                f.Tarih = Tarih;
+                f.VadeTarih = VadeTarih;
+                f.VergiDairesi = VergiDairesi;
+                f.VergiNumarasi = VergiNumarasi;
+                f.IrsaliyeNumarasi = IrsaliyeNumarasi;
+                f.Adres = Adres;
+                f.Toplam = decimal.Parse(GenelToplam);
+                f.CariId = CariID;
+                f.DepoId = DepoId;
+                f.DosylarID = DosylarID;
+                f.Aciklama = AciklamaFatura;
+                f.IslemTip = IslemTip;
+
+                c.SaveChanges();
+
+                foreach (var x in kalemler)
+                {
+                    if (c.FaturaKalems.Where(y=>y.FaturaKalemID ==x.FaturaKalemID).Count() != 0)
+                    {
+                        FaturaKalem fk = c.FaturaKalems.Where(y=>y.FaturaKalemID==x.FaturaKalemID).FirstOrDefault();
+                        fk.Aciklama = x.Aciklama;
+                        fk.BirimFiyat = x.BirimFiyat;
+                        fk.Miktar = x.Miktar;
+                        fk.Tutar = x.Tutar;
+                        fk.Kdv = x.Kdv;
+                        fk.UrunId = x.UrunId;
+                        c.SaveChanges();
+                    }
+                    else
+                    {
+                        FaturaKalem fk = new FaturaKalem();
+                        fk.Aciklama = x.Aciklama;
+                        fk.BirimFiyat = x.BirimFiyat;
+                        fk.Miktar = x.Miktar;
+                        fk.Tutar = x.Tutar;
+                        fk.Kdv = x.Kdv;
+                        fk.UrunId = x.UrunId;
+                        fk.FaturaId = FaturaID;
+                        c.FaturaKalems.Add(fk);
+                        c.SaveChanges();
+                    }
+                   
+                }
+                c.SaveChanges();
+                CariHareketler cariHareketler = new CariHareketler();
+                cariHareketler.CariID = CariID;
+                cariHareketler.FaturaID = f.FaturaID;
+                cariHareketler.Tarih = Tarih;
+                cariHareketler.VadeTarih = VadeTarih;
+                cariHareketler.Aciklama = AciklamaFatura;
+                cariHareketler.IslemTip = IslemTip;
+                if (IslemTip == "Satış Faturası" || IslemTip == "Alış İade")
+                    cariHareketler.CariDenAlacak = decimal.Parse(GenelToplam);
+                else if (IslemTip == "Satış İade" || IslemTip == "Alış Faturası")
+                    cariHareketler.CariNinAlacak = decimal.Parse(GenelToplam);
+                c.CariHareketlers.Add(cariHareketler);
+                c.SaveChanges();
+                ViewBag.Message = "Fatura Başarıyla Güncellendi";
+                return Json(ViewBag.Message, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("DinamikFaturaEkle");
+            }
+        }
+
         public ActionResult CariGetir(int id)
         {
             var cari = c.Caris.Where(x => x.CariID == id).FirstOrDefault();
@@ -188,5 +277,14 @@ namespace EuroStarFOM.Controllers
             }).FirstOrDefault();
             return Json(urun, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult FaturaKalemUrunGetir(int id)
+        {
+            var urun = c.FaturaKalems.Where(x => x.FaturaId == id).Select(y => new { y.UrunId ,y.Urun.UrunAd,y.Miktar,y.BirimFiyat,y.Aciklama,y.Tutar,y.Kdv,y.FaturaKalemID}).ToList();
+            return Json(urun, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

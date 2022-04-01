@@ -141,6 +141,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203281436421_asda.cs" />
+    <Compile Include="Migrations\202203281436421_asda.designer.cs">
+      <DependentUpon>202203281436421_asda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Siniflar\CariHareketler.cs" />
     <Compile Include="Models\Siniflar\Context.cs" />
@@ -164,6 +168,7 @@
     <Compile Include="Models\SinifModel\DosyaEkleModel.cs" />
     <Compile Include="Models\SinifModel\DosyaIndexModel.cs" />
     <Compile Include="Models\SinifModel\FaturaFKalemModel.cs" />
+    <Compile Include="Models\SinifModel\SatisFaturaDosyaModel.cs" />
     <Compile Include="Models\SinifModel\StokUrunEkleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2061,6 +2066,8 @@
     <Content Include="Views\Cari\TahsilatOdeme.cshtml" />
     <Content Include="Views\Dosyalar\DosyaEkle.cshtml" />
     <Content Include="Views\Dosyalar\Index.cshtml" />
+    <Content Include="Views\Fatura\DinamikFaturaEdit.cshtml" />
+    <Content Include="Views\Dosyalar\SatisFaturaDosya.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2199,6 +2206,11 @@
     <Content Include="Views\Satis\YeniSatis.cshtml" />
     <Content Include="Views\Satis\SatisGetir.cshtml" />
     <Content Include="Views\Satis\SatisDetay.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202203281436421_asda.resx">
+      <DependentUpon>202203281436421_asda.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

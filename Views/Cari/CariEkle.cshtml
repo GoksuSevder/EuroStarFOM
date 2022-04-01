@@ -16,38 +16,43 @@
             <form class="form-group" method="post">
                 <div class="row">
                     <div class="col-4">
-                        @Html.Label("Cari Ad")
+                        @Html.Label("Cari Kısa Ad")
                         @Html.TextBoxFor(x => x.CariAd, new { @class = "form-control is-invalid" })
                         @Html.ValidationMessageFor(x => x.CariAd, "", new { @style = "color:red" })
                     </div>
                     <div class="col-4">
-                        @Html.Label("Cari Soyad")
+                        @Html.Label("Cari Tam Ad")
                         @Html.TextBoxFor(x => x.CariSoyad, new { @class = "form-control is-invalid" })
                         @Html.ValidationMessageFor(x => x.CariSoyad, "", new { @style = "color:red" })
                     </div>
                     <div class="col-4">
                         @Html.Label("E-Posta")
                         @Html.TextBoxFor(x => x.CariMail, new { @class = "form-control is-invalid" })
+                        @Html.ValidationMessageFor(x => x.CariMail, "", new { @style = "color:red" })
                     </div>
                 </div><br />
                 <div class="row">
                     <div class="col-4">
                         @Html.Label("Cari Şehir")
                         @Html.TextBoxFor(x => x.CariSehir, new { @class = "form-control is-invalid" })
+                        @Html.ValidationMessageFor(x => x.CariSehir, "", new { @style = "color:red" })
                     </div>
                     <div class="col-4">
                         @Html.Label("Adres")
                         @Html.TextBoxFor(x => x.Adres, new { @class = "form-control is-invalid" })
+                        @Html.ValidationMessageFor(x => x.Adres, "", new { @style = "color:red" })
                     </div>
                 </div><br />
                 <div class="row">
                     <div class="col-4">
                         @Html.Label("Vergi No")
                         @Html.TextBoxFor(x => x.VergiNo, new { @class = "form-control is-invalid" })
+                        @Html.ValidationMessageFor(x => x.VergiNo, "", new { @style = "color:red" })
                     </div>
                     <div class="col-4">
                         @Html.Label("Vergi Adres")
                         @Html.TextBoxFor(x => x.VergiDairesi, new { @class = "form-control is-invalid" })
+                        @Html.ValidationMessageFor(x => x.VergiDairesi, "", new { @style = "color:red" })
                     </div>
                 </div>
                 <br />

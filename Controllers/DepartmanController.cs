@@ -25,6 +25,7 @@ namespace EuroStarFOM.Controllers
         {
             try
             {
+                d.Durum = true;
                 c.Departmans.Add(d);
                 c.SaveChanges();
                 return RedirectToAction("Index");

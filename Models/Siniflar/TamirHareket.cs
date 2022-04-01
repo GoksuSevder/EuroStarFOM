@@ -14,6 +14,7 @@ namespace EuroStarFOM.Models.Siniflar
         public string Aciklama { get; set; }
         public int Asama { get; set; }
         public bool Durum { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime Tarih { get; set; }
         public int PersonelId { get; set; }
         [ForeignKey("PersonelId")]

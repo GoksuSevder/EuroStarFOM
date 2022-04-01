@@ -14,6 +14,7 @@ namespace EuroStarFOM.Models.Siniflar
         [Column(TypeName = ("Varchar"))]
         [StringLength(100)]
         public string Aciklama { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime Tarih { get; set; }
         public decimal Tutar { get; set; }
 

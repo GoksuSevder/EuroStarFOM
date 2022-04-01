@@ -1,12 +1,13 @@
 ﻿@model EuroStarFOM.Models.SinifModel.FaturaFKalemModel
 @{
-    ViewBag.Title = "DinamikFaturaEkle";
+    ViewBag.Title = "DinamikFaturaEdit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
 <link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
 <div class="FaturaTip">   <h1><strong id="FaturaTip"></strong>  </h1></div>
+
+
 <form id="NewOrderForm">
     <div class="modal-body">
         <div class="panel">
@@ -17,12 +18,12 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <input type="hidden" id="FaturaId" />
+                    <input type="hidden" id="FaturaId" value="@Model.FaturaDeger.FaturaID" />
                     <div class="row ml-auto">
                         <div class="col-lg-5 col-md-12">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>İşlem Tipi</strong></label>
-                                <select class="select2 form-control w-100 is-invalid" id="IslemTip" name="IslemTip" required>
+                                <select class="select2 form-control w-100 " id="IslemTip" name="IslemTip" required>
                                     <option> </option>
                                     <option value="1">Satış Faturası</option>
                                     <option value="2">Alış Faturası</option>
@@ -36,7 +37,7 @@
                         <div class="col-lg-1 col-md-4 col-sm-4">
                             <div class="form-group ">
                                 <label class="col-form-label" for="FaturaSeriNo"><strong>Seri No</strong></label>
-                                <input type="text" id="FaturaSeriNo" name="FaturaSeriNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" maxlength="1" required />
+                                <input type="text" id="FaturaSeriNo" name="FaturaSeriNo" value="@Model.FaturaDeger.FaturaSeriNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " maxlength="1" required />
                                 <div class="invalid-feedback">Lütfen Seri No Girin.</div>
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
@@ -44,7 +45,7 @@
                         <div class="col-lg-2 col-md-8 col-sm-8">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Sıra No</strong></label>
-                                <input type="text" id="FaturaSiraNo" name="FaturaSiraNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" maxlength="13" required />
+                                <input type="text" id="FaturaSiraNo" name="FaturaSiraNo" value="@Model.FaturaDeger.FaturaSiraNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " maxlength="13" required />
                                 <div class="invalid-feedback">Lütfen Sıra No Girin.</div>
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
@@ -52,7 +53,7 @@
                         <div class="col-lg-2 col-md-6 col-sm-6">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Tarih</strong></label>
-                                <input type="date" id="Tarih" name="Tarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
+                                <input type="date" id="Tarih" name="Tarih" value="@DateTime.Parse(Model.FaturaDeger.Tarih.ToString()).ToString("MM/dd/yyyy")" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " required />
                                 <div class="invalid-feedback">Lütfen Tarih Seçin.</div>
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
@@ -60,7 +61,7 @@
                         <div class="col-lg-2 col-md-6 col-sm-6">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Vade Tarih</strong></label>
-                                <input type="date" id="VadeTarih" name="VadeTarih" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" />
+                                <input type="date" id="VadeTarih" name="VadeTarih" value="@DateTime.Parse(Model.FaturaDeger.VadeTarih.ToString()).ToString("MM/dd/yyyy")" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " />
                                 <div class="invalid-feedback">Lütfen Tarih Seçin.</div>
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
@@ -73,13 +74,8 @@
                                 <label for="CariID" class="col-form-label">
                                     <strong>Cari</strong>
                                 </label>
-                                <select class="select2 form-control w-100 is-invalid" id="CariID" name="CariID">
-                                    <option> </option>
-                                    @foreach (var item in Model.CariDeger)
-                                    {
-                                        <option value="@item.CariID">@item.CariID | @item.CariAd   @item.CariSoyad</option>
-                                    }
-                                </select>
+                                <input type="hidden" id="CariID" name="CariID" value="@Model.Cari.CariID" />
+                                <input type="text" id="CariSoyad" name="CariSoyad" value="@Model.Cari.CariSoyad" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
                                 <div class="invalid-feedback">Lütfen Cari Seçin.</div>
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
 
@@ -88,30 +84,40 @@
                         <div class="col-lg-1 col-md-4 col-sm-4">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Vergi Numarası</strong></label>
-                                <input type="text" id="VergiNumarasi" name="VergiNumarasi" maxlength="13" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
+                                <input type="text" id="VergiNumarasi" name="VergiNumarasi" value="@Model.Cari.VergiNo" maxlength="13" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
+
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-8 col-sm-8">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Vergi Dairesi</strong></label>
-                                <input type="text" id="VergiDairesi" name="VergiDairesi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
+                                <input type="text" id="VergiDairesi" name="VergiDairesi" value="@Model.Cari.VergiDairesi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
+
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-6 col-sm-6">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>İrsaliye Numarası</strong></label>
-                                <input type="text" id="IrsaliyeNumarasi" name="IrsaliyeNumarasi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
+                                <input type="text" id="IrsaliyeNumarasi" name="IrsaliyeNumarasi" value="@Model.FaturaDeger.IrsaliyeNumarasi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " required />
                                 <div class="invalid-feedback">İrsaliye Numarası Giriniz.</div>
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-6 col-sm-6">
                             <label class="col-form-label"><strong>Depo</strong></label>
-                            <select class="select2 form-control w-100 is-invalid" required id="DepoId" name="DepoId">
+                            <select class="select2 form-control w-100 " required id="DepoId" name="DepoId">
                                 <option></option>
                                 @foreach (var item in Model.DepoDeger)
                                 {
-                                    <option value="@item.DepoId">@item.DepoAd</option>
+                                    if (Model.FaturaDeger.DepoId == item.DepoId)
+                                    {
+                                        <option value="@item.DepoId" selected>@item.DepoAd</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.DepoId">@item.DepoAd</option>
+                                    }
+
                                 }
                             </select>
                             <div class="invalid-feedback">Depo Seçiniz.</div>
@@ -122,7 +128,7 @@
                         <div class="col-lg-5 col-md-12">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Adres</strong></label>
-                                <input type="text" id="Adres" name="Adres" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
+                                <input type="text" id="Adres" value="@Model.Cari.Adres" name="Adres" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " disabled />
                             </div>
                         </div>
                         <div class="col-lg-1 col-md-12">
@@ -133,25 +139,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-12">
+                        <div class="col-lg-6 col-md-12">
                             <div class="form-group ">
                                 <label class="col-form-label"><strong>Açıklama</strong></label>
-                                <input type="text" id="AciklamaFatura" name="AciklamaFatura" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 is-invalid" required />
+                                <input type="text" id="AciklamaFatura" name="AciklamaFatura" value="@Model.FaturaDeger.Aciklama" class="form-control border-top-left-radius-3 border-bottom-left-radius-3 " required />
                                 <div class="invalid-feedback">Açıklama Giriniz.</div>
-                                <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-12">
-                            <div class="form-group ">
-                                <label class="col-form-label"><strong>Dosya No</strong></label>
-                                <select class="select2 form-control w-100 is-invalid" id="DosylarID" name="DosylarID">
-                                    <option> </option>
-                                    @foreach (var item in Model.DosyaDeger)
-                                    {
-                                        <option value="@item.DosylarID">@item.DosylarNo ( @item.DosyaDurum )</option>
-                                    }
-                                </select>
-                                <div class="invalid-feedback">Dosya Seçiniz</div>
                                 <div class="valid-feedback"><i class="ni ni-check fa-1x"> Teşekkürler</i></div>
                             </div>
                         </div>
@@ -173,7 +165,7 @@
                         <input type="hidden" id="id" />
                         <div class="form-group col-12">
                             <label class="col-form-label"><strong>Ürün</strong></label>
-                            <select class="select2 form-control w-100 is-invalid" required id="UrunId" name="UrunId">
+                            <select class="select2 form-control w-100 " required id="UrunId" name="UrunId">
                                 <option></option>
                                 @foreach (var item in Model.UrunDeger)
                                 {
@@ -187,6 +179,11 @@
                     <div class="row mt-4 d-flex justify-content-end mb-3">
                         <div class="col-md-4 col-lg-offset-4 text-white text-right">
                             <a id="addToList" class="btn btn-success">Listeye Ekle</a>
+                        </div>
+                    </div>
+                    <div class="row mt-4 d-flex justify-content-end mb-3">
+                        <div class="col-md-4 col-lg-offset-4 text-white text-right">
+                            <a id="getToList" class="btn btn-warning">Listeyi Getir</a>
                         </div>
                     </div>
                     <table id="detailsTable" class="table m-0 table-hover table-striped table-bordered">
@@ -233,25 +230,18 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button id="saveOrder" type="submit" class="btn btn-danger">Faturayı Kaydet</button>
+        <button id="saveOrder" type="submit" class="btn btn-warning">Faturayı Güncelle</button>
     </div>
 </form>
-@section ScriptsBlock{
-    <script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
-    <script src="~/Scripts/DropDown.js"></script>
-    <script>
+<input type="hidden" id="FaturaKalemID" value="'+data[i].FaturaKalemID+'" />
+
+ @section ScriptsBlock{
+<script src="~/smartadmin-html-full/dist/js/formplugins/select2/select2.bundle.js"></script>
+<script src="~/Scripts/DropDown.js"></script>
+
+<script>
         $(document).ready(function () {
 
-            var as = $(location).attr('search');
-            let result = as.slice(5, 6);
-            $("#IslemTip").val(parseInt(result));
-
-            console.log(parseInt(result));
-            var asd = $("#IslemTip option").filter(':selected').text();
-            if ($("#IslemTip :selected").text().trim() == "") {
-                asd = "Fatura";
-            };
-            $(".IslemTip").text("Yeni " + asd);
 
 
             $("#IslemTip").change(function () {
@@ -270,7 +260,6 @@
                 if ($("#IslemTip :selected").text().trim() == "") {
                     asd = "Faturalar";
                 }
-                //$("#FaturaTip").text(e);
                 $(".IslemTip").text("Yeni " + asd);
                 var div = $(".FaturaTip");
                 var div2 = $(".panel-container");
@@ -400,144 +389,102 @@
                     $("#UrunId").addClass("is-valid");
 
                 };
-                //if ($("#IslemTip :selected").text().trim() == "Satış Faturası" || $("#IslemTip :selected").text().trim() == "Satış Iade") {
-                //    $.post("/Fatura/UrunGetir",
-                //        {
-                //            id: $("#UrunId").val(),
-                //        },
-                //        function (data, status) {
 
-                //            console.log("UrunGetir : " + data.satis)
-                //            $("#BirimFiyat").text(data.satis);
-                //        });
-                //};
-                //if ($("#IslemTip :selected").text().trim() == "Alış Faturası" || $("#IslemTip :selected").text().trim() == "Alış Iade") {
-                //    $.post("/Fatura/UrunGetir",
-                //        {
-                //            id: $("#UrunId").val(),
-                //        },
-                //        function (data, status) {
-
-                //            console.log("UrunGetir : " + data.alis)
-                //            $("#BirimFiyat").text(data.alis);
-                //        });
-                //};
 
             });
         });
-        $("#KdvDahil").click(function () {
+    $("#getToList").click(function (e) {
+        e.preventDefault;
 
-            if ($("#KdvDahil").val() == "KdvDahil") {
-                $("#KdvDahil").val("KdvDahilDegil");
-            } else {
-                $("#KdvDahil").val("KdvDahil");
-            }
-            toplamTutar2();
-        });
-        $("#addToList").click(function (e) {
-            e.preventDefault();
+        var faturakalemid = $("#FaturaId").val();
+        detailsTableBody = $("#detailsTable tbody");
+        var p = $.post("/Fatura/FaturaKalemUrunGetir",
+            {
+                id: faturakalemid,
 
-            if ($.trim($("#UrunId").val()) == "") return;
+            },
+            function (data, status) {
 
-            var UrunId = $("#UrunId").val(),
-                UrunAd = $("#UrunId option").filter(':selected').text(),
-                birimfiyat = 0,
-
-
-                detailsTableBody = $("#detailsTable tbody");
-            var p = $.post("/Fatura/UrunGetir",
-                {
-                    id: UrunId,
-                },
-                function (data, status) {
-
-                    if ($("#IslemTip :selected").val() == 1 || $("#IslemTip :selected").val() == 3) {
-                        birimfiyat = parseFloat(data.satis);
-                        //$("#BirimFiyat").val(birimfiyat);
-                    };
-                    if ($("#IslemTip :selected").val() == 2 || $("#IslemTip :selected").val() == 4) {
-                        birimfiyat = parseFloat(data.alis);
-
-                        //$("#BirimFiyat").val(birimfiyat);
-                    };
-
-                });
-            $.when(p).done(function () {
-                var degerler = '<tr><td > ' + UrunId + '</td><td > ' + UrunAd + '</td><td><input type="text" id="Aciklama" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td ><select id="Kdv" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"><option value="0.08">%8</option><option value="0.18">%18</option></select></td><td><input type="number" id="Miktar" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" value="' + birimfiyat + '"  placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></<td><td><input input type="number" id="Tutar" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr > ';
-
-                detailsTableBody.append(degerler);
-                toplamTutar();
-                $("#UrunId option:selected").remove();
+                var i = 0;
+                for (var i = 0; i < data.length; i++) {
+                    var degerler = '<tr><td><input type="hidden" id="FaturaKalemID" value="' + data[i].FaturaKalemID +'" /><input type="text" id="UrunId" name="UrunId" value="' + data[i].UrunId + '" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td><input type="text" id="UrunAd" value="' + data[i].UrunAd + '" name="UrunAd" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td><input type="text" id="Aciklama" value="' + data[i].Aciklama + '" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td><input type="text" id="Kdv" name="Kdv" value="' + data[i].Kdv + '" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/> </td><td><input type="number" id="Miktar" value="' + data[i].Miktar + '" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" value="' + data[i].BirimFiyat + '" placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><input input type="number" id="Tutar" value="' + data[i].Tutar + '" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr>';
+                    detailsTableBody.append(degerler);
+                }
             });
-
-
-            //BirimFiyatYaz(UrunId);
+        $.when(p).done(function () {
+            $("#getToList").remove();
+            toplamTutar();
         });
-        function BirimFiyatYaz(UrunId) {
-            $.post("/Fatura/UrunGetir",
-                {
-                    id: UrunId,
-                },
-                function (data, status) {
 
-                    if ($("#IslemTip :selected").val() == 1 || $("#IslemTip :selected").val() == 3) {
-                        birimfiyat = data.satis;
-                    };
-                    if ($("#IslemTip :selected").val() == 2 || $("#IslemTip :selected").val() == 4) {
-                        birimfiyat = data.alis;
+    });
 
-                    };
+    $("#KdvDahil").click(function () {
 
-                });
-        };
-        function toplamTutar() {
-            $("td").change(function () {
-                $.each($("#detailsTable tbody tr"), function () {
-                    var Kdv = $(this).find('#Kdv').val();
-                    var BirimFiyat = $(this).find('#BirimFiyat').val();
-                    var Miktar = $(this).find('#Miktar').val();
-                    var Kdvsiz = (BirimFiyat * Miktar * Kdv) + (BirimFiyat * Miktar);
-                    var Kdvli = (BirimFiyat * Miktar);
-                    var sonuc = null;
-                    if ($("#KdvDahil").val() == "KdvDahil") {
-                        sonuc = Kdvli;
-                    } else {
-                        sonuc = Kdvsiz;
-                    }
-
-                    $(this).find('td:eq(6)').text(sonuc);
-                });
-                var araToplam = 0;
-                var kdvToplam = 0;
-                var genelToplam = 0;
-
-                $("#detailsTable tbody tr").each(function () {
-                    var Kdv = $(this).find('#Kdv').val();
-                    var BirimFiyat = $(this).find('#BirimFiyat').val();
-                    var Miktar = $(this).find('#Miktar').val();
-                    var x = null;
-                    if ($("#KdvDahil").val() == "KdvDahil") {
-                        var a = (BirimFiyat * Miktar) * 100;
-                        var c = (100 * Kdv) + 100;
-                        x = (a / c);
-                    } else {
-                        x = (BirimFiyat * Miktar);
-                    }
-                    var toplam = $(this).find("td:eq(6)").text();
-
-                    araToplam = araToplam + x;
-                    genelToplam = genelToplam + parseFloat(toplam);
-                    kdvToplam = genelToplam - araToplam;
-                });
-                document.getElementById('AraToplam').value = araToplam.toFixed(2);
-                document.getElementById('KdvToplam').value = kdvToplam.toFixed(2);
-                document.getElementById('GenelToplam').value = genelToplam.toFixed(2);
-
-            });
-            toplamTutar2();
+        if ($("#KdvDahil").val() == "KdvDahil") {
+            $("#KdvDahil").val("KdvDahilDegil");
+        } else {
+            $("#KdvDahil").val("KdvDahil");
         }
-        function toplamTutar2() {
-            //Satır Silinirse
+        toplamTutar2();
+    });
+    $("#addToList").click(function (e) {
+        e.preventDefault();
+
+        if ($.trim($("#UrunId").val()) == "") return;
+
+        var UrunId = $("#UrunId").val(),
+            UrunAd = $("#UrunId option").filter(':selected').text(),
+            birimfiyat = 0,
+
+
+            detailsTableBody = $("#detailsTable tbody");
+        var p = $.post("/Fatura/UrunGetir",
+            {
+                id: UrunId,
+            },
+            function (data, status) {
+
+                if ($("#IslemTip :selected").val() == 1 || $("#IslemTip :selected").val() == 3) {
+                    birimfiyat = parseFloat(data.satis);
+                    //$("#BirimFiyat").val(birimfiyat);
+                };
+                if ($("#IslemTip :selected").val() == 2 || $("#IslemTip :selected").val() == 4) {
+                    birimfiyat = parseFloat(data.alis);
+
+                    //$("#BirimFiyat").val(birimfiyat);
+                };
+
+            });
+        $.when(p).done(function () {
+            var degerler = '<tr><td ><input type="text" id="UrunId" name="UrunId" value="' + UrunId + '" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td><input type="text" id="UrunAd" value="' + UrunAd + '" name="UrunAd" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td><input type="text" id="Aciklama" name="Aciklama" placeholder="Açıklama Giriniz" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"/></td><td ><select id="Kdv" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent"><option value="0.08">%8</option><option value="0.18">%18</option></select></td><td><input type="number" id="Miktar" name="Miktar" value="1" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td> <input type="number" id="BirimFiyat" name="BirimFiyat" value="' + birimfiyat + '"  placeholder="Fiyat Miktarı" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></<td><td><input input type="number" id="Tutar" name="Tutar" placeholder="Tutar" class="rounded-0 border-top-0 border-left-0 border-right-0 border-bottom-0  px-0 bg-transparent" /></td><td><a data-itemId="0" href="#" class="deleteItem btn btn-danger btn-icon rounded-circle mr-1"><i class="fal fa-trash-alt"></i></a></td></tr > ';
+
+            detailsTableBody.append(degerler);
+            toplamTutar();
+            $("#UrunId option:selected").remove();
+        });
+
+
+        //BirimFiyatYaz(UrunId);
+    });
+    function BirimFiyatYaz(UrunId) {
+        $.post("/Fatura/UrunGetir",
+            {
+                id: UrunId,
+            },
+            function (data, status) {
+
+                if ($("#IslemTip :selected").val() == 1 || $("#IslemTip :selected").val() == 3) {
+                    birimfiyat = data.satis;
+                };
+                if ($("#IslemTip :selected").val() == 2 || $("#IslemTip :selected").val() == 4) {
+                    birimfiyat = data.alis;
+
+                };
+
+            });
+    };
+    function toplamTutar() {
+        $("td").change(function () {
             $.each($("#detailsTable tbody tr"), function () {
                 var Kdv = $(this).find('#Kdv').val();
                 var BirimFiyat = $(this).find('#BirimFiyat').val();
@@ -578,77 +525,127 @@
             document.getElementById('AraToplam').value = araToplam.toFixed(2);
             document.getElementById('KdvToplam').value = kdvToplam.toFixed(2);
             document.getElementById('GenelToplam').value = genelToplam.toFixed(2);
-        }
-        $(document).on('click', 'a.deleteItem', function (e) {
-            e.preventDefault();
-            var $self = $(this);
-            if ($(this).attr('data-itemId') == "0") {
-                $(this).parents('tr').css("background-color", "#fd3995").fadeOut(800, function () {
-                    $(this).remove();
-                    toplamTutar2();
-                });
+
+        });
+        toplamTutar2();
+    }
+    function toplamTutar2() {
+        //Satır Silinirse
+        $.each($("#detailsTable tbody tr"), function () {
+            var Kdv = $(this).find('#Kdv').val();
+            var BirimFiyat = $(this).find('#BirimFiyat').val();
+            var Miktar = $(this).find('#Miktar').val();
+            var Kdvsiz = (BirimFiyat * Miktar * Kdv) + (BirimFiyat * Miktar);
+            var Kdvli = (BirimFiyat * Miktar);
+            var sonuc = null;
+            if ($("#KdvDahil").val() == "KdvDahil") {
+                sonuc = Kdvli;
+            } else {
+                sonuc = Kdvsiz;
             }
 
+            $(this).find('td:eq(6)').text(sonuc);
         });
-        function saveOrder(data) {
-            return $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                type: 'POST',
-                url: "/Fatura/DinamikFaturaEkle",
-                data: data,
-                success: function (result) {
-                    console.log(result);
-                    location.reload();
-                    alert(result);
-                   
-                },
-                error: function () {
-                    console.log("Error!");
-                    alert("Ayarlarınızı Kontrol Edin");
-                }
+        var araToplam = 0;
+        var kdvToplam = 0;
+        var genelToplam = 0;
+
+        $("#detailsTable tbody tr").each(function () {
+            var Kdv = $(this).find('#Kdv').val();
+            var BirimFiyat = $(this).find('#BirimFiyat').val();
+            var Miktar = $(this).find('#Miktar').val();
+            var x = null;
+            if ($("#KdvDahil").val() == "KdvDahil") {
+                var a = (BirimFiyat * Miktar) * 100;
+                var c = (100 * Kdv) + 100;
+                x = (a / c);
+            } else {
+                x = (BirimFiyat * Miktar);
+            }
+            var toplam = $(this).find("td:eq(6)").text();
+
+            araToplam = araToplam + x;
+            genelToplam = genelToplam + parseFloat(toplam);
+            kdvToplam = genelToplam - araToplam;
+        });
+        document.getElementById('AraToplam').value = araToplam.toFixed(2);
+        document.getElementById('KdvToplam').value = kdvToplam.toFixed(2);
+        document.getElementById('GenelToplam').value = genelToplam.toFixed(2);
+    }
+    $(document).on('click', 'a.deleteItem', function (e) {
+        e.preventDefault();
+        var $self = $(this);
+        if ($(this).attr('data-itemId') == "0") {
+            $(this).parents('tr').css("background-color", "#fd3995").fadeOut(800, function () {
+                $(this).remove();
+                toplamTutar2();
             });
         }
-        $("#saveOrder").click(function (e) {
-            e.preventDefault();
-            var orderArr = [];
-            orderArr.length = 0;
 
-            $.each($("#detailsTable tbody tr"), function () {
-                orderArr.push({
-                    UrunId: $(this).find('td:eq(0)').html().trim(),
-                    UrunAd: $(this).find('td:eq(1)').html().trim(),
-                    Aciklama: $(this).find('#Aciklama').val(),
-                    Kdv: $(this).find('#Kdv').val(),
-                    Miktar: $(this).find('#Miktar').val(),
-                    BirimFiyat: $(this).find('#BirimFiyat').val(),
-                    Tutar: $(this).find('td:eq(6)').html()
+    });
+    function saveOrder(data) {
+        alert("adcas");
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/Fatura/DinamikFaturaEdit",
+            data: data,
+            success: function (result) {
+                console.log(result);
+                location.reload();
+                alert(result);
 
-                });
-            });
-            var data = JSON.stringify({
-                Adres: $("#Adres").val(),
-                AciklamaFatura: $("#AciklamaFatura").val(),
-                FaturaSeriNo: $("#FaturaSeriNo").val(),
-                FaturaSiraNo: $("#FaturaSiraNo").val(),
-                IrsaliyeNumarasi: $("#IrsaliyeNumarasi").val(),
-                VadeTarih: $("#VadeTarih").val(),
-                Tarih: $("#Tarih").val(),
-                VergiNumarasi: $("#VergiNumarasi").val(),
-                VergiDairesi: $("#VergiDairesi").val(),
-                IslemTip: $("#IslemTip option").filter(':selected').text(),
-                GenelToplam: $("#GenelToplam").val(),
-                CariID: $("#CariID").val(),
-                DepoId: $("#DepoId").val(),
-                DosylarID: $("#DosylarID").val(),
-                kalemler: orderArr
-            });
+            },
+            error: function () {
+                console.log("Error!");
+                alert("Ayarlarınızı Kontrol Edin");
+            }
+        });
+    }
+    $("#saveOrder").click(function (e) {
+        e.preventDefault();
+        var orderArr = [];
+        orderArr.length = 0;
 
-            $.when(saveOrder(data)).then(function (response) {
-                console.log(response);
-            }).fail(function (err) {
-                console.log(err);
+        $.each($("#detailsTable tbody tr"), function () {
+            orderArr.push({
+                FaturaKalemID: $(this).find('#FaturaKalemID').val(),
+                UrunId: $(this).find('#UrunId').val(),
+                UrunAd: $(this).find('#UrunAd').val(),
+                Aciklama: $(this).find('#Aciklama').val(),
+                Kdv: $(this).find('#Kdv').val(),
+                Miktar: $(this).find('#Miktar').val(),
+                BirimFiyat: $(this).find('#BirimFiyat').val(),
+                Tutar: $(this).find('td:eq(6)').html()
+
             });
         });
-    </script>
+        var data = JSON.stringify({
+            FaturaID: $("#FaturaId").val(),
+            Adres: $("#Adres").val(),
+            AciklamaFatura: $("#AciklamaFatura").val(),
+            FaturaSeriNo: $("#FaturaSeriNo").val(),
+            FaturaSiraNo: $("#FaturaSiraNo").val(),
+            IrsaliyeNumarasi: $("#IrsaliyeNumarasi").val(),
+            VadeTarih: $("#VadeTarih").val(),
+            Tarih: $("#Tarih").val(),
+            VergiNumarasi: $("#VergiNumarasi").val(),
+            VergiDairesi: $("#VergiDairesi").val(),
+            IslemTip: $("#IslemTip option").filter(':selected').text(),
+            GenelToplam: $("#GenelToplam").val(),
+            CariID: $("#CariID").val(),
+            DepoId: $("#DepoId").val(),
+            /*KdvDahil: $("#KdvDahil").val(),*/
+            kalemler: orderArr
+        });
+        console.log(data);
+        alert("burda");
+        $.when(saveOrder(data)).then(function (response) {
+            console.log(response);
+        }).fail(function (err) {
+            console.log(err);
+        });
+    });
+</script>
 }

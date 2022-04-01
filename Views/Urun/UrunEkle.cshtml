@@ -211,6 +211,19 @@
                 }
             });
 
+            $("#KategoriId").change(function () {
+                if ($("#KategoriId").val().trim() == "") {
+
+                    $("#KategoriId").removeClass("is-valid");
+                    $("#KategoriId").addClass("is-invalid");
+
+                } else {
+                    $("#KategoriId").removeClass("is-invalid");
+                    $("#KategoriId").addClass("is-valid");
+
+                }
+            });
+
 
 
         });

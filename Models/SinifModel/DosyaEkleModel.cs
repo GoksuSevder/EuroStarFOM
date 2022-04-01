@@ -30,9 +30,11 @@ namespace EuroStarFOM.Models.SinifModel
         public int Oncelik { get; set; }
         public int AracYili { get; set; }
         public string UrunDegerlendirme { get; set; }
-        public string FaturaNo { get; set; }
-        public int FaturaTutar { get; set; }
-        public DateTime FaturaTarih { get; set; }
+        //public string FaturaSeriNo { get; set; }
+        //public string FaturaSiraNo { get; set; }
+        //public string FaturaNo { get; set; }
+        //public int FaturaTutar { get; set; }
+        //public DateTime FaturaTarih { get; set; }
     }
 }
 

@@ -10,9 +10,9 @@
 <div class="row">
 
 
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <a href="/Dosyalar/IndexYeniDosya">
-            <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
+            <div class="p-lg-5 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
                     <h3 class="display-4 d-block l-h-n m-0 fw-500">
                         Yeni Dosya<small class="m-0 l-h-n">@ViewBag.YeniDosya</small>
@@ -23,9 +23,9 @@
             </div>
         </a>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <a href="/Dosyalar/IndexEksperInceliyor">
-            <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+            <div class="p-lg-5 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
                     <h3 class="display-4 d-block l-h-n m-0 fw-500">
                         İnceliyor<small class="m-0 l-h-n"> @ViewBag.EksperInceliyor</small>
@@ -36,9 +36,9 @@
             </div>
         </a>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <a href="/Dosyalar/IndexOnarimda">
-            <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
+            <div class="p-lg-5 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
                     <h3 class="display-4 d-block l-h-n m-0 fw-500">
                         Onarımda<small class="m-0 l-h-n">@ViewBag.Onarimda</small>
@@ -49,9 +49,35 @@
             </div>
         </a>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-2">
         <a href="/Dosyalar/IndexFaturalandi">
-            <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
+            <div class="p-lg-5 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
+                <div>
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        Faturalandı<small class="m-0 l-h-n">@ViewBag.Faturalandi</small>
+                    </h3>
+                </div>
+                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem">…</i>
+
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-2">
+        <a href="/Dosyalar/IndexFaturalandi">
+            <div class="p-lg-5 bg-info-400 rounded overflow-hidden position-relative text-white mb-g">
+                <div>
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        Faturalandı<small class="m-0 l-h-n">@ViewBag.Faturalandi</small>
+                    </h3>
+                </div>
+                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem">…</i>
+
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-2">
+        <a href="/Dosyalar/IndexFaturalandi">
+            <div class="p-lg-5 bg-primary-600 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
                     <h3 class="display-4 d-block l-h-n m-0 fw-500">
                         Faturalandı<small class="m-0 l-h-n">@ViewBag.Faturalandi</small>
@@ -63,11 +89,10 @@
         </a>
     </div>
 
-
 </div>
 
 <div class="modal-body">
-    <div class="panel">
+    <div class="panel" id="PanelHidden">
         <div class="panel-hdr bg-danger-900 bg-info-gradient">
             <h2 class="IslemTip">Dosya Arama</h2>
             <div class="panel-toolbar">
@@ -108,12 +133,12 @@
                 </div>
                 <div class="row m-auto">
 
-                    <div class="col-lg-6 col-md-12">
+                    @*<div class="col-lg-6 col-md-12">
                         <div class="form-group ">
                             <label class="col-form-label"><strong>Onarım İhbar Tarihi</strong></label>
                             <input type="text" class="form-control" id="OnarimIhbarTarihi">
                         </div>
-                    </div>
+                    </div>*@
                     <div class="col-lg-6 col-md-12">
                         <div class="form-group ">
                             <label class="col-form-label"><strong>Cevap Tarihi</strong></label>
@@ -160,6 +185,21 @@
         </div>
         <div class="panel-container show">
             <div class="panel-content">
+                <div class="row m-auto">
+
+                    <div class="col-lg-3 col-md-12">
+                        <div class="form-group ">
+                            <label class="col-form-label"><strong>Onarım İhbar Tarihi</strong></label>
+                            <input type="text" class="form-control" id="OnarimIhbarTarihi">
+                        </div>
+                        <div class="ml-6 mt-4 mb-2 d-flex justify-content-end">
+                            <div class="center">
+                                <button type="submit" class="btn btn-success" onclick="ListeleButtonClick()"> Listele </button>
+                                <input type="hidden" id=" " name=" " value=" " />
+                            </div>
+                        </div>
+                    </div>
+                </div><br />
                 <div id="TableDiv"></div>
             </div>
         </div>
@@ -174,6 +214,7 @@
     <script src="~/smartadmin-html-full/dist/js/dependency/moment/moment.js"></script>
     <script src="~/smartadmin-html-full/dist/js/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
     <script>
+        $("#PanelHidden").hide();
         var KapatmailkTarih = '';
         var KapatmasonTarih = '';
         var CevapilkTarih = '';

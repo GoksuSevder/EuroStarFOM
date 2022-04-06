@@ -299,6 +299,39 @@
                                 <tbody></tbody>
                             </table>
                         </div>
+                        <br />
+                        <div class="row ml-auto mb-2 d-flex justify-content-end ">
+                            <div class="form-group mt-6">
+                                <div class="custom-control custom-switch mr-5">
+                                    <input type="checkbox" class="custom-control-input" id="KdvDahil" value="KdvDahil" checked>
+                                    <label class="custom-control-label" for="KdvDahil">Kdv Dahil</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ml-auto mb-2 d-flex justify-content-end ">
+                            <div class="col-3 d-flex justify-content-end ">
+                                <label for="AraToplam" class="col-sm-4  col-form-label"><strong>Ara Toplam</strong></label>
+                                <div class="col-sm-8">
+                                    <input input type="number" id="AraToplam" name="Toplam" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ml-auto mb-2 d-flex justify-content-end ">
+                            <div class="col-3 d-flex justify-content-end ">
+                                <label for="Kdv" class="col-sm-4  col-form-label"><strong>Kdv</strong></label>
+                                <div class="col-sm-8">
+                                    <input input type="number" id="KdvToplam" name="Toplam" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ml-auto mb-2 d-flex justify-content-end ">
+                            <div class="col-3 d-flex justify-content-end ">
+                                <label for="GenelToplam" class="col-sm-4  col-form-label"><strong>Genel Toplam</strong></label>
+                                <div class="col-sm-8">
+                                    <input input type="number" id="GenelToplam" name="Toplam" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -318,7 +351,7 @@
                         {
                             foreach (var item in @ViewBag.FaturaGetir)
                             {
-                                
+
                                 <div class="row">
                                     <div class="col-xl-4">
                                         <label class="col-form-label"><strong>Fatura No</strong></label>
@@ -346,7 +379,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="/Dosyalar/SatisFaturaDosya/@Model.DosylarID" class="btn btn-success">Faturalandır</a>  
+        <a href="/Dosyalar/SatisFaturaDosya/@Model.DosylarID" class="btn btn-success">Faturalandır</a>
         <button id="saveDosya" type="submit" class="btn btn-warning">Güncelle</button>
         <br />
         <br />
@@ -354,9 +387,9 @@
         <br />
         <br />
         <br />
-       
+
     </div>
-    
+
 </form>
 
 
@@ -378,6 +411,16 @@
 
         $("#detailsTable1 tbody").on("change", function () {
             Topla();
+        });
+        $("#KdvDahil").click(function () {
+
+            if ($("#KdvDahil").val() == "KdvDahil") {
+                $("#KdvDahil").val("KdvDahilDegil");
+            } else {
+                $("#KdvDahil").val("KdvDahil");
+            }
+            Topla();
+           
         });
         DosyaGetir();
         function DosyaGetir() {
@@ -453,26 +496,60 @@
 
         };
         function Topla() {
-            var geneltutar = 0;
             $.each($("#detailsTable1  tbody tr"), function () {
-                var Kdv = $(this).find('#Kdv').val();
-                if (Kdv == null) {
-                    Kdv = $(this).find('td:eq(3)').html().trim();
-                    if (Kdv == '%8') {
-                        Kdv = 0.08;
-
-                    } else if (Kdv == '%18') {
-                        Kdv = 0.18;
-                    }
+           
+                var Kdv = 0;
+               
+                if ($(this).find('td:eq(3)').text() == '%8') {
+                    Kdv = 0.08;
+                } else if ($(this).find('td:eq(3)').text() == '%18' ) {
+                    Kdv = 0.18;
                 }
-                var Miktar = $(this).find('#Miktar').val();
                 var BirimFiyat = $(this).find('#BirimFiyat').val();
+                var Miktar = $(this).find('#Miktar').val();
+                var Kdvsiz = (BirimFiyat * Miktar * Kdv) + (BirimFiyat * Miktar);
+                var Kdvli = (BirimFiyat * Miktar);
+            
+                var sonuc = null;
+                if ($("#KdvDahil").val() == "KdvDahil") {
+                    sonuc = Kdvli;
+                } else {
+                    sonuc = Kdvsiz;
+                }
+                $(this).find('td:eq(6)').text(sonuc);
 
-                var sonuc = (Kdv * BirimFiyat * Miktar) + (BirimFiyat * Miktar);
-                geneltutar = geneltutar + sonuc;
-                $(this).find('#Tutar').val(sonuc);
-                $("#FaturaTutar").val(geneltutar);
             });
+            var araToplam = 0;
+            var kdvToplam = 0;
+            var genelToplam = 0;
+
+            $("#detailsTable1 tbody tr").each(function () {
+                var Kdv = 0;
+                if ($(this).find('td:eq(3)').text() == '%8') {
+                    Kdv = 0.08;
+                } else if ($(this).find('td:eq(3)').text() == '%18') {
+                    Kdv = 0.18;
+                }
+                var BirimFiyat = $(this).find('#BirimFiyat').val();
+                var Miktar = $(this).find('#Miktar').val();
+                var x = null;
+                if ($("#KdvDahil").val() == "KdvDahil") {
+                    var a = (BirimFiyat * Miktar) * 100;
+                    var c = (100 * Kdv) + 100;
+                    x = (a / c);
+                } else {
+                    x = (BirimFiyat * Miktar);
+                }
+                var toplam = $(this).find("td:eq(6)").text();
+
+                araToplam = araToplam + x;
+                genelToplam = genelToplam + parseFloat(toplam);
+                kdvToplam = genelToplam - araToplam;
+
+            });
+            document.getElementById('AraToplam').value = araToplam.toFixed(2);
+            document.getElementById('KdvToplam').value = kdvToplam.toFixed(2);
+            document.getElementById('GenelToplam').value = genelToplam.toFixed(2);
         };
         $(document).on('click', 'a.deleteItem', function (e) {
             e.preventDefault();
@@ -638,7 +715,7 @@
                 Oncelik: $("#Oncelik option").filter(':selected').val(),
                 AracYili: $("#AracYili").val(),
                 UrunDegerlendirme: $("#UrunDegerlendirme").val().trim(),
-                FaturaTutar: $("#FaturaTutar").val(),
+                FaturaTutar: $("#GenelToplam").val(),
                 FaturaTarih: $("#FaturaTarih").val(),
                 kalemler: orderArr
             });
@@ -676,6 +753,6 @@
                 $("#UrunID option:selected").remove();
             });
         });
-        
+
     </script>
 }

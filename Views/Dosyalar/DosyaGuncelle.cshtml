@@ -58,12 +58,14 @@
                                     <strong>Dosya Durumu</strong>
                                 </label>
                                 <select class="select2 form-control w-100 is-invalid" id="DosyaDurumu" name="DosyaDurumu">
-                                    <option> </option>
+                                    <option value="0"> </option>
                                     <option value="1">Yeni Kayıt </option>
-                                    <option value="2">Eksper İnceliyor </option>
+                                    <option value="2">Hazır</option>
                                     <option value="3">Onarımda </option>
-                                    <option value="4">Faturalandı </option>
-                                    <option value="5">Tamamlandı </option>
+                                    <option value="4">Olumsuz </option>
+                                    <option value="5">Fatura Edilcek </option>
+                                    <option value="6">Fatura Edildi </option>
+                                    <option value="7">Teslim Edildi </option>
                                 </select>
                             </div>
                         </div>
@@ -631,8 +633,7 @@
 
         });
         function saveDosya(data) {
-
-            if ($.trim($("#DosyaNo").val()) == "") return;
+/*            if ($.trim($("#DosyaNo").val()) == "") return;*/
             if ($.trim($("#DosyaNo").val()) == "") return;
             if ($.trim($("#DAcilisTarih").val()) == "") return;
             if ($.trim($("#SgrtSirketi option").filter(':selected').val()) == "") return;
@@ -655,8 +656,8 @@
             if ($.trim($("#Oncelik option").filter(':selected').val()) == "") return;
             if ($.trim($("#AracYili").val()) == "") return;
             if ($.trim($("#UrunDegerlendirme").val().trim()) == "") return;
-            if ($.trim($("#BirimFiyat").val()) == "") return;
-
+         /*   if ($.trim($("#BirimFiyat").val()) == "") return;*/
+           
             return $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',

@@ -59,7 +59,7 @@ namespace EuroStarFOM.Models.Siniflar
 
     public enum DosyaDurum  
     {
-        YeniKayit = 1, EksperInceliyor = 2, Onarimda = 3, Faturalandi = 4, Tamamlandi = 5
+        YeniKayit = 1, Hazir = 2, Onarimda = 3, Olumsuz = 4, FaturaEdilcek = 5, FaturaEdildi=6,TeslimEdildi=7
     }
     public enum DurumKategori  
     {

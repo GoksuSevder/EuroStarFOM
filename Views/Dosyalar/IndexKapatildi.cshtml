@@ -8,175 +8,93 @@
 <link href="~/smartadmin-html-full/dist/css/formplugins/select2/select2.bundle.css" rel="stylesheet" />
 <link href="~/smartadmin-html-full/dist/css/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.css" rel="stylesheet" />
 <div class="row">
-
-
     <div class="col-sm-6 col-xl-2">
-        <a href="/Dosyalar/IndexYeniDosya">
+        <a onclick="YeniDosyaListesi()">
             <div class="p-lg-5 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
+                <i class="fal fa-clipboard position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"><p></p></i>
                 <div>
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        Yeni Dosya<small class="m-0 l-h-n">@ViewBag.YeniDosya</small>
-                    </h3>
+                    <h1 class="display-4 d-block l-h-n m-0 fw-500">
+                        @ViewBag.YeniDosya
+                    </h1>
+                    <h2 class="m-0 l-h-n"> Yeni Kayıt  </h2>
                 </div>
-                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem">…</i>
 
             </div>
         </a>
     </div>
     <div class="col-sm-6 col-xl-2">
-        <a href="/Dosyalar/IndexEksperInceliyor">
-            <div class="p-lg-5 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+        <a onclick="HazirDosyaListesi()">
+            <div class="p-lg-5 bg-success-300 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        İnceliyor<small class="m-0 l-h-n"> @ViewBag.EksperInceliyor</small>
-                    </h3>
+                    <h1 class="display-4 d-block l-h-n m-0 fw-500">
+                        @ViewBag.Hazir
+                    </h1>
+                    <h2 class="m-0 l-h-n">  Hazır</h2>
                 </div>
-                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem">…</i>
+                <i class="fal fa-shield-check position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"><p></p></i>
 
             </div>
         </a>
     </div>
     <div class="col-sm-6 col-xl-2">
-        <a href="/Dosyalar/IndexOnarimda">
-            <div class="p-lg-5 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
+        <a onclick="OnarimdaDosyaListesi()">
+            <div class="p-lg-5 bg-warning-500 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        Onarımda<small class="m-0 l-h-n">@ViewBag.Onarimda</small>
-                    </h3>
+                    <h1 class="display-4 d-block l-h-n m-0 fw-500">
+                        @ViewBag.Onarimda
+                    </h1>
+                    <h2 class="m-0 l-h-n">  Onarımda</h2>
                 </div>
-                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem">…</i>
+                <i class="fal fa-car-mechanic position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"><p></p></i>
 
             </div>
         </a>
     </div>
     <div class="col-sm-6 col-xl-2">
-        <a href="/Dosyalar/IndexFaturalandi">
-            <div class="p-lg-5 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
+        <a onclick="OlumsuzDosyaListesi()">
+            <div class="p-lg-5 bg-danger-200 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        Faturalandı<small class="m-0 l-h-n">@ViewBag.Faturalandi</small>
-                    </h3>
+                    <h1 class="display-4 d-block l-h-n m-0 fw-500">
+                        @ViewBag.Olumsuz
+                    </h1>
+                    <h2 class="m-0 l-h-n">  Olumsuz</h2>
                 </div>
-                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem">…</i>
+                <i class="ni ni-close position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"><p></p></i>
 
             </div>
         </a>
     </div>
     <div class="col-sm-6 col-xl-2">
-        <a href="/Dosyalar/IndexFaturalandi">
+        <a onclick="FaturaEdilcekDosyaListesi()">
             <div class="p-lg-5 bg-info-400 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        Faturalandı<small class="m-0 l-h-n">@ViewBag.Faturalandi</small>
-                    </h3>
+                    <h1 class="display-4 d-block l-h-n m-0 fw-500">
+                        @ViewBag.FaturaEdilcek
+                    </h1>
+                    <h2 class="m-0 l-h-n">  Fatura Edilecek</h2>
                 </div>
-                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem">…</i>
+                <i class="fal fa-clipboard-list position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"><p></p></i>
 
             </div>
         </a>
     </div>
     <div class="col-sm-6 col-xl-2">
-        <a href="/Dosyalar/IndexFaturalandi">
+        <a onclick="FaturaEdildiDosyaListesi()">
             <div class="p-lg-5 bg-primary-600 rounded overflow-hidden position-relative text-white mb-g">
                 <div>
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        Faturalandı<small class="m-0 l-h-n">@ViewBag.Faturalandi</small>
-                    </h3>
+                    <h1 class="display-4 d-block l-h-n m-0 fw-500">
+                        @ViewBag.FaturaEdildi
+                    </h1>
+                    <h2 class="m-0 l-h-n">  Fatura Edildi</h2>
                 </div>
-                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem">…</i>
+                <i class="fal fa-clipboard-check position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"><p></p></i>
 
             </div>
         </a>
     </div>
-
 </div>
 
 <div class="modal-body">
-    <div class="panel" id="PanelHidden">
-        <div class="panel-hdr bg-danger-900 bg-info-gradient">
-            <h2 class="IslemTip">Dosya Arama</h2>
-            <div class="panel-toolbar">
-                <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Aç/Kapat"></button>
-            </div>
-        </div>
-        <div class="panel-container show">
-            <div class="panel-content">
-                <div class="row m-auto">
-
-                    <div class="col-lg-6 col-md-12">
-                        <div class="form-group">
-                            <label class="col-form-label"><strong>Dosya No</strong></label>
-                            <input type="text" id="DosyaNo" name="DosyaNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="form-group">
-                            <label class="col-form-label"><strong>Araç Plaka</strong></label>
-                            <input type="text" id="AracPlaka" name="AracPlaka" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-auto">
-
-                    <div class="col-lg-6 col-md-12">
-                        <div class="form-group">
-                            <label class="col-form-label"><strong>Sigorta Şirketi</strong></label>
-                            <input type="text" id="SigortaSirketi" name="SigortaSirketi" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="form-group">
-                            <label class="col-form-label"><strong>Marka</strong></label>
-                            <input type="text" id="Marka" name="Marka" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-auto">
-
-                    @*<div class="col-lg-6 col-md-12">
-                        <div class="form-group ">
-                            <label class="col-form-label"><strong>Onarım İhbar Tarihi</strong></label>
-                            <input type="text" class="form-control" id="OnarimIhbarTarihi">
-                        </div>
-                    </div>*@
-                    <div class="col-lg-6 col-md-12">
-                        <div class="form-group ">
-                            <label class="col-form-label"><strong>Cevap Tarihi</strong></label>
-                            <input type="text" class="form-control" id="CevapTarihi">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row m-auto">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="form-group">
-                            <label class="col-form-label"><strong>Dosya Durumu</strong></label>
-                            <select class="select2 form-control w-100 is-invalid" id="DosyaDurumu" name="DosyaDurumu">
-                                <option value="0"> </option>
-                                <option value="1">Yeni Kayıt </option>
-                                <option value="2">Eksper İnceliyor </option>
-                                <option value="3">Onarımda </option>
-                                <option value="4">Faturalandı </option>
-                                <option value="5">Tamamlandı </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="form-group ">
-                            <label class="col-form-label"><strong>Dosya Kapatma Tarihi</strong></label>
-                            <input type="text" class="form-control" id="DosyaKapatmaTarihi">
-                        </div>
-                    </div>
-                </div>
-                <div class="ml-6 mt-4 mb-2 d-flex justify-content-end">
-                    <div class="center">
-                        <button type="submit" class="btn btn-success" onclick="ListeleButtonClick()"> Listele </button>
-                        <input type="hidden" id=" " name=" " value=" " />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="panel">
         <div class="panel-hdr bg-danger-900 bg-info-gradient">
             <h2>Dosya Listesi </h2>
@@ -186,17 +104,45 @@
         <div class="panel-container show">
             <div class="panel-content">
                 <div class="row m-auto">
-
                     <div class="col-lg-3 col-md-12">
                         <div class="form-group ">
                             <label class="col-form-label"><strong>Onarım İhbar Tarihi</strong></label>
                             <input type="text" class="form-control" id="OnarimIhbarTarihi">
                         </div>
-                        <div class="ml-6 mt-4 mb-2 d-flex justify-content-end">
-                            <div class="center">
-                                <button type="submit" class="btn btn-success" onclick="ListeleButtonClick()"> Listele </button>
-                                <input type="hidden" id=" " name=" " value=" " />
-                            </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12">
+                        <div class="form-group">
+                            <label class="col-form-label"><strong>Dosya Durumu</strong></label>
+                            <select class="select2 form-control w-100 is-invalid" id="DosyaDurumu" name="DosyaDurumu">
+                                <option value="0"> </option>
+                                <option value="1">Yeni Kayıt </option>
+                                <option value="2">Hazır</option>
+                                <option value="3">Onarımda </option>
+                                <option value="4">Olumsuz </option>
+                                <option value="5">Fatura Edilcek </option>
+                                <option value="6">Fatura Edildi </option>
+                                <option value="7">Teslim Edildi </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="form-group">
+                            <label class="col-form-label"><strong>Dosya No</strong></label>
+                            <input type="text" id="DosyaNo" name="DosyaNo" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="form-group">
+                            <label class="col-form-label"><strong>Araç Plaka</strong></label>
+                            <input type="text" id="AracPlaka" name="AracPlaka" class="form-control border-top-left-radius-3 border-bottom-left-radius-3" />
+                        </div>
+
+                    </div>
+                    <div class="col-lg-1 ">
+                        <br /><br />
+                        <div class="center">
+                            <button type="submit" class="btn btn-success" onclick="ListeleButtonClick()"> Listele </button>
+                            <input type="hidden" id=" " name=" " value=" " />
                         </div>
                     </div>
                 </div><br />
@@ -214,7 +160,6 @@
     <script src="~/smartadmin-html-full/dist/js/dependency/moment/moment.js"></script>
     <script src="~/smartadmin-html-full/dist/js/formplugins/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
     <script>
-        $("#PanelHidden").hide();
         var KapatmailkTarih = '';
         var KapatmasonTarih = '';
         var CevapilkTarih = '';
@@ -415,7 +360,7 @@
                         if (dKapanisTarih == "01/01/0001") {
                             dKapanisTarih = "Dosya kapatılmadı.";
                         }
-                        if (data[i].DosyaDurum == 5) {
+                        if (data[i].DosyaDurum == 7) {
                             dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
                             deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
                             $("#dt-basic-example tbody").append(deger);
@@ -425,6 +370,254 @@
                     LoadTable();
                 });
         };
+
+        function HazirDosyaListesi() {
+
+            var DosyaNo = $("#DosyaNo").val();
+            var AracPlaka = $("#AracPlaka").val();
+            var SigortaSirketi = $("#SigortaSirketi").val();
+            var Marka = $("#Marka").val();
+            var DosyaDurumu = $("#DosyaDurumu").val();
+
+            $("#dt-basic-example tbody tr").remove();
+            $.post("/Dosyalar/DosyaListeGetir",
+                {
+                    DosyaNo: DosyaNo,
+                    AracPlaka: AracPlaka,
+                    SigortaSirketi: SigortaSirketi,
+                    Marka: Marka,
+                    KapatmailkTarih: KapatmailkTarih,
+                    KapatmasonTarih: KapatmasonTarih,
+                    CevapilkTarih: CevapilkTarih,
+                    CevapsonTarih: CevapsonTarih,
+                    OnarimIhbarilkTarih: OnarimIhbarilkTarih,
+                    OnarimIhbarsonTarih: OnarimIhbarsonTarih,
+                    DosyaDurumu: DosyaDurumu,
+                },
+                function (data, status) {
+                    var i = 0;
+                    var deger = null;
+                    var dosyaDurumu = null;
+                    $.each(data, function () {
+                        var dAcilisTarih = moment(data[i].DAcilisTarih).format('DD/MM/YYYY');
+                        var dKabulTarih = moment(data[i].DKabulTarih).format('DD/MM/YYYY');
+
+                        if (data[i].DosyaDurum == 2) {
+                            dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
+                            deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
+                            $("#dt-basic-example tbody").append(deger);
+                        }
+                        i++;
+                    });
+
+                });
+        };
+        function OnarimdaDosyaListesi() {
+
+            var DosyaNo = $("#DosyaNo").val();
+            var AracPlaka = $("#AracPlaka").val();
+            var SigortaSirketi = $("#SigortaSirketi").val();
+            var Marka = $("#Marka").val();
+            var DosyaDurumu = $("#DosyaDurumu").val();
+
+            $("#dt-basic-example tbody tr").remove();
+            $.post("/Dosyalar/DosyaListeGetir",
+                {
+                    DosyaNo: DosyaNo,
+                    AracPlaka: AracPlaka,
+                    SigortaSirketi: SigortaSirketi,
+                    Marka: Marka,
+                    KapatmailkTarih: KapatmailkTarih,
+                    KapatmasonTarih: KapatmasonTarih,
+                    CevapilkTarih: CevapilkTarih,
+                    CevapsonTarih: CevapsonTarih,
+                    OnarimIhbarilkTarih: OnarimIhbarilkTarih,
+                    OnarimIhbarsonTarih: OnarimIhbarsonTarih,
+                    DosyaDurumu: DosyaDurumu,
+                },
+                function (data, status) {
+                    var i = 0;
+                    var deger = null;
+                    var dosyaDurumu = null;
+                    $.each(data, function () {
+                        var dAcilisTarih = moment(data[i].DAcilisTarih).format('DD/MM/YYYY');
+                        var dKabulTarih = moment(data[i].DKabulTarih).format('DD/MM/YYYY');
+
+                        if (data[i].DosyaDurum == 3) {
+                            dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
+                            deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
+                            $("#dt-basic-example tbody").append(deger);
+                        }
+                        i++;
+                    });
+
+                });
+        };
+        function OlumsuzDosyaListesi() {
+
+            var DosyaNo = $("#DosyaNo").val();
+            var AracPlaka = $("#AracPlaka").val();
+            var SigortaSirketi = $("#SigortaSirketi").val();
+            var Marka = $("#Marka").val();
+            var DosyaDurumu = $("#DosyaDurumu").val();
+
+            $("#dt-basic-example tbody tr").remove();
+            $.post("/Dosyalar/DosyaListeGetir",
+                {
+                    DosyaNo: DosyaNo,
+                    AracPlaka: AracPlaka,
+                    SigortaSirketi: SigortaSirketi,
+                    Marka: Marka,
+                    KapatmailkTarih: KapatmailkTarih,
+                    KapatmasonTarih: KapatmasonTarih,
+                    CevapilkTarih: CevapilkTarih,
+                    CevapsonTarih: CevapsonTarih,
+                    OnarimIhbarilkTarih: OnarimIhbarilkTarih,
+                    OnarimIhbarsonTarih: OnarimIhbarsonTarih,
+                    DosyaDurumu: DosyaDurumu,
+                },
+                function (data, status) {
+                    var i = 0;
+                    var deger = null;
+                    var dosyaDurumu = null;
+                    $.each(data, function () {
+                        var dAcilisTarih = moment(data[i].DAcilisTarih).format('DD/MM/YYYY');
+                        var dKabulTarih = moment(data[i].DKabulTarih).format('DD/MM/YYYY');
+
+                        if (data[i].DosyaDurum == 4) {
+                            dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
+                            deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
+                            $("#dt-basic-example tbody").append(deger);
+                        }
+                        i++;
+                    });
+
+                });
+        };
+        function FaturaEdilcekDosyaListesi() {
+
+            var DosyaNo = $("#DosyaNo").val();
+            var AracPlaka = $("#AracPlaka").val();
+            var SigortaSirketi = $("#SigortaSirketi").val();
+            var Marka = $("#Marka").val();
+            var DosyaDurumu = $("#DosyaDurumu").val();
+
+            $("#dt-basic-example tbody tr").remove();
+            $.post("/Dosyalar/DosyaListeGetir",
+                {
+                    DosyaNo: DosyaNo,
+                    AracPlaka: AracPlaka,
+                    SigortaSirketi: SigortaSirketi,
+                    Marka: Marka,
+                    KapatmailkTarih: KapatmailkTarih,
+                    KapatmasonTarih: KapatmasonTarih,
+                    CevapilkTarih: CevapilkTarih,
+                    CevapsonTarih: CevapsonTarih,
+                    OnarimIhbarilkTarih: OnarimIhbarilkTarih,
+                    OnarimIhbarsonTarih: OnarimIhbarsonTarih,
+                    DosyaDurumu: DosyaDurumu,
+                },
+                function (data, status) {
+                    var i = 0;
+                    var deger = null;
+                    var dosyaDurumu = null;
+                    $.each(data, function () {
+                        var dAcilisTarih = moment(data[i].DAcilisTarih).format('DD/MM/YYYY');
+                        var dKabulTarih = moment(data[i].DKabulTarih).format('DD/MM/YYYY');
+
+                        if (data[i].DosyaDurum == 5) {
+                            dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
+                            deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
+                            $("#dt-basic-example tbody").append(deger);
+                        }
+                        i++;
+                    });
+
+                });
+        };
+        function FaturaEdildiDosyaListesi() {
+
+            var DosyaNo = $("#DosyaNo").val();
+            var AracPlaka = $("#AracPlaka").val();
+            var SigortaSirketi = $("#SigortaSirketi").val();
+            var Marka = $("#Marka").val();
+            var DosyaDurumu = $("#DosyaDurumu").val();
+
+            $("#dt-basic-example tbody tr").remove();
+            $.post("/Dosyalar/DosyaListeGetir",
+                {
+                    DosyaNo: DosyaNo,
+                    AracPlaka: AracPlaka,
+                    SigortaSirketi: SigortaSirketi,
+                    Marka: Marka,
+                    KapatmailkTarih: KapatmailkTarih,
+                    KapatmasonTarih: KapatmasonTarih,
+                    CevapilkTarih: CevapilkTarih,
+                    CevapsonTarih: CevapsonTarih,
+                    OnarimIhbarilkTarih: OnarimIhbarilkTarih,
+                    OnarimIhbarsonTarih: OnarimIhbarsonTarih,
+                    DosyaDurumu: DosyaDurumu,
+                },
+                function (data, status) {
+                    var i = 0;
+                    var deger = null;
+                    var dosyaDurumu = null;
+                    $.each(data, function () {
+                        var dAcilisTarih = moment(data[i].DAcilisTarih).format('DD/MM/YYYY');
+                        var dKabulTarih = moment(data[i].DKabulTarih).format('DD/MM/YYYY');
+
+                        if (data[i].DosyaDurum == 6) {
+                            dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
+                            deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
+                            $("#dt-basic-example tbody").append(deger);
+                        }
+                        i++;
+                    });
+
+                });
+        };
+         function YeniDosyaListesi() {
+
+            var DosyaNo = $("#DosyaNo").val();
+            var AracPlaka = $("#AracPlaka").val();
+            var SigortaSirketi = $("#SigortaSirketi").val();
+            var Marka = $("#Marka").val();
+            var DosyaDurumu = $("#DosyaDurumu").val();
+
+            $("#dt-basic-example tbody tr").remove();
+            $.post("/Dosyalar/DosyaListeGetir",
+                {
+                    DosyaNo: DosyaNo,
+                    AracPlaka: AracPlaka,
+                    SigortaSirketi: SigortaSirketi,
+                    Marka: Marka,
+                    KapatmailkTarih: KapatmailkTarih,
+                    KapatmasonTarih: KapatmasonTarih,
+                    CevapilkTarih: CevapilkTarih,
+                    CevapsonTarih: CevapsonTarih,
+                    OnarimIhbarilkTarih: OnarimIhbarilkTarih,
+                    OnarimIhbarsonTarih: OnarimIhbarsonTarih,
+                    DosyaDurumu: DosyaDurumu,
+                },
+                function (data, status) {
+                    var i = 0;
+                    var deger = null;
+                    var dosyaDurumu = null;
+                    $.each(data, function () {
+                        var dAcilisTarih = moment(data[i].DAcilisTarih).format('DD/MM/YYYY');
+                        var dKabulTarih = moment(data[i].DKabulTarih).format('DD/MM/YYYY');
+
+                        if (data[i].DosyaDurum == 1) {
+                            dosyaDurumu = $("#DosyaDurumu").children('option').eq(data[i].DosyaDurum).text()
+                            deger = '<tr><input type="hidden" id="' + data[i].DosyaID + '" name="' + data[i].DosyaID + '" value="' + data[i].DosyaID + '" /><td>' + dAcilisTarih + '</td><td>' + data[i].SigortaSirketi + '</td><td>' + data[i].DosylarNo + '</td><td>' + data[i].AracPlaka + '</td><td>' + dosyaDurumu + '</td><td>' + dKabulTarih + '</td><td> <a href="/Dosyalar/DosyaGuncelle?id=' + data[i].DosyaID + '" title="Güncelle" class="btn btn-success btn-icon rounded-circle mr-1"><i class="fal fa-edit"></i></a></td></tr>';
+                            $("#dt-basic-example tbody").append(deger);
+                        }
+                        i++;
+                    });
+
+                });
+        };
+
         function LoadTable() {
             $('#dt-basic-example thead tr').clone(true).appendTo('#dt-basic-example thead');
             $('#dt-basic-example thead tr:eq(1) th').each(function (i) {
